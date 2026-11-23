@@ -837,6 +837,8 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest
                 s.h_mode==:legacy && forecast_increment===nothing && (forecast_increment=child_increment)
                 t.question=="social_contact" && forecast_increment===nothing && (forecast_increment=0.)
                 completion_reward=mb_simulation ? mb_parent_reward(mb_maps[a],t.family,t.source,now) : nothing
+                mb_simulation && s.h_mode==:forecast_difference && (completion_reward=mb_parent_efficiency_reward(mb_maps[a],t.family,t.source,now))
+                goal_release=mb_simulation && s.h_mode==:forecast_difference ? mb_parent_release(mb_maps[a],t.family,t.source,now) : nothing
                 method_evidence=forecast_method_evidence(forecast_increment,goal,t.phase==phase,value)
                 movement_forecast=get(t,:movement_forecast,nothing)
                 movement_evidence=navigation_forecast_result(movement_forecast,home,moves[a]["visible"];sensitivity=mb_maps[a]["sensitivity"]["delay"])
@@ -844,7 +846,8 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest
                 resolve_method!(s,t.source,method_evidence,forecast_increment!==nothing ? goal : (t.phase==phase || goal ? goal : nothing);
                     creditable=t.phase==phase && t.status=="performed" && (t.moved || value===true),
                     goal_H_increment=forecast_increment===nothing ? 1 : forecast_increment,completion_reward=completion_reward,
-                    goal_forecast=forecast_increment===nothing ? nothing : (forecast_increment,0.),method_forecast=movement_evidence)
+                    goal_forecast=forecast_increment===nothing ? nothing : (forecast_increment,0.),method_forecast=movement_evidence,goal_release=goal_release)
+                s.h_mode==:forecast_difference && (completion_reward=goal ? last(s.events).reward : nothing)
                 mb_simulation && mb_route_goal!(mb_maps[a],t.family,t.source,goal,mb_parent_H,s.H,now;completion_reward=completion_reward)
                 mb_chunks && mb_goal_result!(mb_maps[a],t.family,t.source,goal,mb_parent_H,s.H,now;completion_reward=completion_reward)
                 configured_home_rest_enabled && t.family=="home" && goal && t.moved &&

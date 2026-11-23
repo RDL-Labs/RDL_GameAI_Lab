@@ -37,11 +37,11 @@ end
  mb_observe!(s,obs,4_000_000)
  @test mb_route_H_increment!(s,"home","op:3000000:a",false,4_000_000)==1
  @test s["routes"]["active"]["effort"]["contradictions"]==1
- # True goal resolution resets H and alone releases its reward.
+ # Bound goal evidence releases the attributable H and the small success reward.
  loop=BasicLoop("home";probabilistic=true);loop.H=5
  choose_method!(loop,[D("method"=>"home","priority"=>1.,"question"=>"home_confirmed")],"op:goal")
- resolve_method!(loop,"op:goal",true,true;goal_H_increment=0)
- @test loop.H==0 && loop.methods["home"].reward==5
+ resolve_method!(loop,"op:goal",true,true;goal_H_increment=0,goal_release=5.)
+ @test loop.H==0 && loop.methods["home"].reward≈5.1
  @test_throws ErrorException resolve_method!(loop,"op:bad",false,false;goal_H_increment=-1)
 end
 @testset "zero H goal still ends the route without reward" begin

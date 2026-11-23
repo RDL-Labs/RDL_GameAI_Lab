@@ -141,5 +141,7 @@ end
  probe=BasicLoop("home";probabilistic=true);probe.H=3
  choose_method!(probe,[D("method"=>"walk","priority"=>1.,"question"=>"movement_progress")],"op:test")
  resolve_method!(probe,"op:test",true,false)
- @test probe.H==4 && probe.methods["walk"].reward==0
+ # Without a forecast, Boolean movement evidence neither charges parent H nor
+ # invents a successful local prediction in the modern loop.
+ @test probe.H==3 && probe.methods["walk"].reward==0
 end

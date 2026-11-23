@@ -17,7 +17,14 @@ function acquisition_publish!(state,trial;achieved=false)
   end
   balance=get!(() -> forecast_difference_state(summary["H"]),summary,"forecast_balance")
   sensitivity=get(trial,"sensitivity",1.)
+  previous_H=balance["H"]
   forecast_difference!(balance,sensitivity*elapsed_delta/summary["forecast"],sensitivity*observed_delta)
+  if observed_delta>0
+   released=max(0.,previous_H-balance["H"])
+   reward=forecast_success_reward(observed_delta,released)
+   summary["reward"]=get(summary,"reward",0.)+reward
+   forecast_reward_record!(balance,released,reward)
+  end
   summary["elapsed"]+=elapsed_delta
   summary["H"]=balance["H"];summary["trial_id"]=trial["id"]
   summary["status"]=trial["status"]
@@ -88,7 +95,9 @@ function acquisition_value(map,method,site,seconds,uncertainty,anxiety;yield_uni
  method_repulsion=max(0.,log1p(method_H)-local_repulsion)*anxiety/(1+anxiety)
  cost=log1p(max(0.,seconds)/1800.)
  urgency=log1p(max(0.,anxiety))*(cost+max(0.,uncertainty))
- (score=log1p(yield_units)-cost-local_repulsion-method_repulsion-urgency,
+ # Same catch informs two scopes; use the stronger support, not their sum.
+ learned=log1p(max(get(get(s["sites"],acquisition_key(method,site),D()),"reward",0.),get(get(s["methods"],string(method),D()),"reward",0.)))
+ (score=log1p(yield_units)+learned-cost-local_repulsion-method_repulsion-urgency,
   local_H=local_H,method_H=method_H,local_repulsion=local_repulsion,
   method_repulsion=method_repulsion,urgency=urgency)
 end

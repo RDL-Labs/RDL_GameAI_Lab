@@ -164,13 +164,14 @@ function choose_method!(s::BasicLoop,candidates,source)
     s.last_method=selected["method"];out
 end
 
-function resolve_method!(s::BasicLoop,source,method_value,goal_value;accepted=true,creditable=method_value===true,goal_H_increment=1,completion_reward=nothing,method_forecast=nothing,goal_forecast=nothing)
+function resolve_method!(s::BasicLoop,source,method_value,goal_value;accepted=true,creditable=method_value===true,goal_H_increment=1,completion_reward=nothing,method_forecast=nothing,goal_forecast=nothing,goal_release=nothing)
     check(accepted,"loop_unaccepted_result")
     check(all(v===nothing || v isa Bool for v in (method_value,goal_value)),"loop_evidence")
     check(goal_H_increment isa Real && !(goal_H_increment isa Bool) && isfinite(goal_H_increment) && goal_H_increment>=0,"loop_goal_increment")
     check(completion_reward===nothing || (goal_value===true && completion_reward isa Real && !(completion_reward isa Bool) && isfinite(completion_reward) && completion_reward>=0),"loop_completion_reward")
     check(all(f->f===nothing || (f isa Tuple && length(f)==2 && all(x->x===nothing || (x isa Real && !(x isa Bool) && isfinite(x)),f)),(method_forecast,goal_forecast)),"loop_forecast_evidence")
-    evidence=(source=source,method_value=method_value,goal_value=goal_value,creditable=creditable,goal_H_increment=goal_H_increment,completion_reward=completion_reward,method_forecast=method_forecast,goal_forecast=goal_forecast)
+    check(goal_release===nothing || (goal_value===true && goal_release isa Real && !(goal_release isa Bool) && isfinite(goal_release) && goal_release>=0),"loop_release_evidence")
+    evidence=(source=source,method_value=method_value,goal_value=goal_value,creditable=creditable,goal_H_increment=goal_H_increment,completion_reward=completion_reward,method_forecast=method_forecast,goal_forecast=goal_forecast,goal_release=goal_release)
     if s.receipt!==nothing && s.receipt.source==source
         check(s.receipt==evidence,"loop_result_conflict");return false
     end
@@ -192,7 +193,9 @@ function resolve_method!(s::BasicLoop,source,method_value,goal_value;accepted=tr
         push!(s.credit_path,s.trial.method)
         length(s.credit_path)>32 && popfirst!(s.credit_path)
     end
-    reward=goal_value===true ? Float64(completion_reward===nothing ? max(0,parent_before-s.H) : completion_reward) : 0.
+    released=s.h_mode==:forecast_difference && goal_release!==nothing ? loop_release_H!(s,nothing,goal_release) : 0.
+    reward=s.h_mode==:forecast_difference ? (goal_value===true && completion_reward!==nothing ? Float64(completion_reward) : goal_release===nothing ? 0. : forecast_success_reward(1.,released)) :
+        goal_value===true ? Float64(completion_reward===nothing ? max(0,parent_before-s.H) : completion_reward) : 0.
     credit=Dict{String,Float64}()
     failed=s.h_mode==:forecast_difference ? n.H>before : goal_value===false && method_value===false && goal_H_increment>0
     failure_H=s.h_mode==:forecast_difference ? max(0.,n.H-before) : parent_before
@@ -211,11 +214,16 @@ function resolve_method!(s::BasicLoop,source,method_value,goal_value;accepted=tr
         end
         empty!(s.credit_path)
     end
+    method_released=max(0.,before-n.H)
+    # Successful steps update prediction residuals, not desirability. Credit is
+    # delayed until the owning purpose completes with a measured cost advantage.
+    method_reward=0.
+    s.h_mode==:forecast_difference && goal_release!==nothing && forecast_reward_record!(s.forecast_balances[nothing],released,reward)
     push!(s.events,(source=source,method=s.trial.method,question=s.trial.question,
         E=method_value===nothing ? nothing : Int(!method_value),H_before=before,H_after=n.H,
         goal_E=goal_value===nothing ? nothing : Int(!goal_value),goal_H_before=parent_before,goal_H_after=s.H,goal_H_increment=s.h_mode==:forecast_difference ? max(0.,s.H-parent_before) : goal_H_increment,
         reward=reward,credit=credit,failed=failed,failure_H=failed ? failure_H : nothing,
-        method_forecast=method_forecast,goal_forecast=goal_forecast))
+        method_forecast=method_forecast,goal_forecast=goal_forecast,H_released=released,method_H_released=method_released,method_reward=method_reward))
     length(s.events)>32 && popfirst!(s.events)
     s.receipt=evidence;s.trial=nothing;true
 end

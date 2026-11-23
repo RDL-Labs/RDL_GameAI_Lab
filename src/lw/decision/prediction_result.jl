@@ -33,6 +33,13 @@ function resolve_prediction!(s::BasicLoop,source,expected,actual;
             n.H=min(32.,max(0.,before-benefit)+pressure)
             s.H=min(32.,max(0.,parent_before-benefit)+pressure)
         end
+        if s.h_mode==:forecast_difference
+            # Partial subjective outcome only releases the measured residual;
+            # an exchanged receipt is not proof of meeting all food needs.
+            released=max(max(0.,before-n.H),max(0.,parent_before-s.H))
+            benefit=fulfilled && actual>tolerance ? forecast_success_reward(expected>0 ? clamp(actual/expected,0.,1.) : 1.,released) : 0.
+            benefit>0 && forecast_reward_record!(s.forecast_balances[s.trial.method],released,benefit)
+        end
         n.reward+=benefit
         if pressure>0
             n.failure_count+=1;n.failure_H_total+=pressure

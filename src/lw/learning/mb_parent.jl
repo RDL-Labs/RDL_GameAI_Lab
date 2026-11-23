@@ -38,7 +38,9 @@ function mb_parent_arrival_sync!(s,loop,goal,now)
             finished ? mb_parent_complete!(s,goal,active,"arrival_confirmed") : mb_parent_learn!(s,goal,active,false,"arrival_mode_end")
         end
         before=loop.H
-        loop.H=goal_result_H(m["saved_H"],finished)
+        # Modern H is an explicit ledger. Arrival recognition alone must not
+        # overwrite it; bound goal evidence releases the attributable amount.
+        loop.h_mode==:legacy && (loop.H=goal_result_H(m["saved_H"],finished))
         if m["suspended"]!==nothing
             m["suspended"]["actions"]+=get(m,"local_actions",0)
             m["suspended"]["energy"]+=get(m,"local_energy",0.)
@@ -57,7 +59,8 @@ function mb_parent_arrival_sync!(s,loop,goal,now)
     if m["mode"]=="search" && arrival["mode"]=="approach"
         active=pop!(parent["active"],goal,nothing)
         before=loop.H
-        m["saved_H"]=before;loop.H=0.
+        m["saved_H"]=before
+        loop.h_mode==:legacy && (loop.H=0.)
         m["mode"]="approach";m["entry"]=arrival["entries"];m["suspended"]=active
         m["local_actions"]=0;m["local_energy"]=0.
         push!(m["events"],D("us"=>now,"kind"=>"arrival_question","saved_parent_H"=>before,"H_after"=>loop.H))
@@ -138,6 +141,16 @@ function mb_parent_reward(s,goal,source,now)
     r=last(records)
     get(r,"evaluated_us",nothing)==now && r["source"]==source && r["goal"]==goal && r["resolved"]===true || return nothing
     r["completion_reward"]["value"]
+end
+
+# Movement is instrumental: reward only the net cost advantage at a completed
+# purpose, using its frozen forecast. H relief is not an efficiency bonus.
+function mb_parent_efficiency_reward(s,goal,source,now)
+    records=s["parent_mb"]["records"]
+    isempty(records) && return nothing
+    r=last(records)
+    get(r,"evaluated_us",nothing)==now && r["source"]==source && r["goal"]==goal && r["resolved"]===true || return nothing
+    max(0.,r["completion_reward"]["advantage"])
 end
 function mb_parent_daily_epoch!(s,goal)
     daily=get(s,"daily_plan",nothing)
@@ -248,6 +261,13 @@ function mb_parent_record!(s,p,energy,now)
     a["actions"]+=1;a["energy"]+=max(0.,energy);a["last_us"]=now
     mb_parent_local_cost!(s,goal,energy)
 end
+function mb_parent_release(s,goal,source,now)
+    records=s["parent_mb"]["records"]
+    isempty(records) && return nothing
+    record=last(records)
+    get(record,"evaluated_us",nothing)==now && record["source"]==source && record["goal"]==goal && record["resolved"]===true || return nothing
+    get(record,"H_release",0.)
+end
 function mb_parent_H_increment!(s,goal,source,resolved,now;child_increment=0)
     state=s["parent_mb"];a=get(state["active"],goal,nothing)
     (a===nothing || source!="op:$(a["last_us"]):$(s["actor"])" || now!=a["last_us"]+1_000_000) && return nothing
@@ -264,12 +284,22 @@ function mb_parent_H_increment!(s,goal,source,resolved,now;child_increment=0)
     planning_pressure=mb_plan_pressure(s,a,now)
     debt=max(delay,stagnation,excess,a["child_debt"],planning_pressure)
     increment=resolved===true ? 0 : max(0,debt-a["charged"])
+    a["applied_H"]=get(a,"applied_H",0.)+increment
     a["charged"]=max(a["charged"],debt);a["last_increment"]=increment
     state["evaluated"]+=1;state["within_estimate"]+=Int(debt==0 && resolved!==true);state["H_requested"]+=increment
     record=D("source"=>source,"goal"=>goal,"evaluated_us"=>now,"estimate"=>copy(e),"actions"=>a["actions"],"energy"=>a["energy"],
         "sensitivity"=>copy(s["sensitivity"]),"scenes"=>length(a["scenes"]),"delay"=>delay,"stagnation"=>stagnation,"energy_excess"=>excess,
         "child_debt"=>a["child_debt"],"planning_pressure"=>planning_pressure,"increment"=>increment,"resolved"=>resolved)
     record["completion_reward"]=resolved===true ? mb_completion_reward(e,a["actions"],a["energy"]) : nothing
+    record["H_release"]=resolved===true ? get(a,"applied_H",0.) : 0.
+    if resolved===true
+        mode=get(get(state,"modes",D()),goal,nothing)
+        suspended=mode===nothing ? nothing : get(mode,"suspended",nothing)
+        if suspended!==nothing && suspended!==a && !get(suspended,"H_release_claimed",false)
+            record["H_release"]+=get(suspended,"applied_H",0.)
+            suspended["H_release_claimed"]=true
+        end
+    end
     push!(state["records"],record);length(state["records"])>64 && popfirst!(state["records"])
     if resolved!==true && a["actions"]>=max(32,2a["learned_actions"])
         mb_parent_learn!(s,goal,a,false,"unfinished")
