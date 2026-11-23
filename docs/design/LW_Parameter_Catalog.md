@@ -1154,3 +1154,23 @@ weakness=1−活動能力を0..1に収める。正常基準の丸みは0.5、肉
 身体・衝突形状・人物識別5特徴は変更しない。Godot等の描画メッシュへの反映は未実施。
 `experiments/body_macronutrients/appearance_checks.jl`: 18項目PASS。
 単調な外見変化、満腹直後にも残る衰弱、距離/ρ/注視、遮蔽、観測の副作用なし、保存を検査。
+
+## H解放報酬の局所試験（2026-11-23）
+
+experiments/local_relational_observer/h_release_reward.jl の REWARD_RULES：
+success_base=0.1（完了1件の基礎強化量）、release_gain=1.0（解放Hあたり強化量）。
+主観尺度の暫定実験値。通常LW未接続、既定行動への影響なし。
+詳細は [H解放報酬の局所試験](LW_H_Release_Reward_Local_20261123.md)。
+
+## H解放報酬の通常接続（2026-11-23）
+
+通常人側は src/lw/decision/forecast_difference.jl の H_RELEASE_REWARD を使用。
+success_base=0.1、release_gain=1.0。主観評価単位の暫定値であり、身体エネルギーではない。
+親の解放額は該当試行が実際に加算したHを上限とし、他の未解消分は残す。
+子・獲得・取引は観測による残差減少へ接続する。旧動物のlegacy更新は維持。
+詳細は [通常接続10日](LW_H_Release_Reward_Integration10_20261123.md)。
+# 2026-11-23 移動効率評価の接続
+
+LWの親目的達成では既存`mb_completion_reward`の時間・消耗の等重みadvantageを使用し、
+負値を0に切り詰めて方法・経路へ配分する。既存の尺度・許容帯0.1を維持し、
+達成定数やH解放量は加算しない。詳細は `LW_Movement_Efficiency_20261123.md`。
