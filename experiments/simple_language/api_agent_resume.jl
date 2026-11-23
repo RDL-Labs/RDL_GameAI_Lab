@@ -75,4 +75,3 @@ serialize(joinpath(OUTPUT,"communication_state.bin"),CHANNEL_MEMORIES)
 write(joinpath(OUTPUT,"api-summary.json"),JSON3.write((calls=CONFIGURED_API_CALLS,memory=CONFIGURED_API_MEMORY[])))
 write(joinpath(OUTPUT,"completed.json"),JSON3.write((days=length(result.daily),start_day=STARTDAY,elapsed_seconds=elapsed,trade_counts=result.portable_items.counts)))
 println("COMPLETED ",elapsed)
-

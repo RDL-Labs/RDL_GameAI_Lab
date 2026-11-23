@@ -28,4 +28,3 @@ const result=JSON3.read(read(joinpath(out,"run/result.json"),String))
  end
 end
 write(joinpath(out,"completed.json"),JSON3.write((days=20,start_day=19,seconds=timing.time,bytes=timing.bytes,gctime=timing.gctime)))
-
