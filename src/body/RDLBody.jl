@@ -1,6 +1,7 @@
 module RDLBody
 
 export Body, Digestion, can_ingest, taste, ingest!, digest!, digestion_snapshot
+export AbstractBody, HumanBody, body_energy, body_alive, body_mobility, body_demand, body_food_gap, body_spendable, body_energy_delta, body_observed_energy, body_observed_demand
 export GUT_CAPACITY, DIGEST_SECONDS, MEAL_ENERGY, FOOD_LIKING
 export BodyDelta, step, metabolize, RS, SS
 export FRUIT_FOOD, ORDINARY_FOOD, MEAT_FOOD, FOOD_KIND_IDS, FOOD_KIND_LABELS
@@ -12,6 +13,9 @@ include("parameters.jl")
 include("physiology.jl")
 include("composition.jl")
 include("actions.jl")
+include("macronutrients.jl")
+include("macro_bridge.jl")
+include("human.jl")
 include("digestion.jl")
 
 end

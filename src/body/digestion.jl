@@ -10,10 +10,16 @@ mutable struct Digestion
     taste_preference::NTuple{3,Float64}
     gut_components::NTuple{3,Float64}
     nutrient_stores::NTuple{3,Float64}
+    macro_body::Union{Nothing,MacroBridge}
 end
 const NUTRIENT_TARGET=(0.50,0.25,0.25) # scenario target in food units
 # Fixed deviations from the ordinary palate; order is carbohydrate, protein, fat.
-Digestion(;taste_preference=(0.,0.,0.))=Digestion(0.,zeros(2),0,0.,0.,0.,Any[],taste_preference)
+function Digestion(;taste_preference=(0.,0.,0.),macronutrients=false,reserve=100.,day_seconds=17280.)
+    g=Digestion(0.,zeros(2),0,0.,0.,0.,Any[],taste_preference)
+    macronutrients && (g.macro_body=MacroBridge(reserve,day_seconds))
+    g
+end
+Digestion(g,r,n,a,o,p,records,preference,components,stores)=Digestion(g,r,n,a,o,p,records,preference,components,stores,nothing)
 Digestion(g,r,n,a,o,p,records)=Digestion(g,r,n,a,o,p,records,(0.,0.,0.))
 function Digestion(g,r,n,a,o,p,records,preference)
     components=ntuple(i->g*NUTRIENT_TARGET[i],3)
@@ -35,21 +41,39 @@ function food_base_taste(g,kind)
     composition=FOOD_COMPOSITION[kind]
     return ordinary+sum(composition[i]*g.taste_preference[i] for i in 1:3)
 end
-nutrient_need(g)=ntuple(i->clamp(1-g.nutrient_stores[i]/NUTRIENT_TARGET[i],0.,1.),3)
+function nutrient_need(g)
+    if g.macro_body!==nothing
+        signals=Macronutrients.body_signals(g.macro_body.body,MACRO_PARAMETERS)
+        return (signals.sugar_demand,signals.protein_demand,signals.fat_demand)
+    end
+    ntuple(i->clamp(1-g.nutrient_stores[i]/NUTRIENT_TARGET[i],0.,1.),3)
+end
 function nutrient_value(g,kind)
     g===nothing && return 0.
     need=nutrient_need(g)
     return sum(need[i]*FOOD_COMPOSITION[kind][i] for i in 1:3)
 end
-taste_state_factor(g,reserve)=(1-g.gut/GUT_CAPACITY)*(.5+.5*(1-reserve/100))
+function taste_state_factor(g,reserve)
+    if g.macro_body!==nothing
+        signals=Macronutrients.body_signals(g.macro_body.body,MACRO_PARAMETERS)
+        return (1-signals.fullness)*(.5+.5signals.body_demand)
+    end
+    (1-g.gut/GUT_CAPACITY)*(.5+.5*(1-reserve/100))
+end
 const GUT_CAPACITY=2.
 const DIGEST_SECONDS=1800.
 const MEAL_ENERGY=20.
+# Energy-equivalent quantities C/P/F per item. Existing proportions and total
+# energy retained; cooking changes taste, not energy creation. Salt adds no E.
+const FOOD_NUTRIENT_ENERGY=map(c->ntuple(i->MEAL_ENERGY*c[i],3),FOOD_COMPOSITION)
+# Common physical E per food item, not a normalized fuel credit.
+meal_energy(g)=MEAL_ENERGY
 const FOOD_LIKING=(1.,1.5,-1.,.45,0.,0.,1.5,2.1) # scenario preferences, not biological laws
-can_ingest(g)=g.gut<=GUT_CAPACITY-1+1e-12
+can_ingest(g)=g.macro_body===nothing ? g.gut<=GUT_CAPACITY-1+1e-12 :
+    g.macro_body.body.alive && sum(g.macro_body.body.gut)+MEAL_ENERGY<=MACRO_PARAMETERS.gut_capacity+1e-12
 function taste(g,kind,reserve)
     food_edible(kind) || error("food requires processing or has unknown kind")
-    0<=reserve<=100 || error("reserve")
+    isfinite(reserve) && reserve>=0 || error("body energy")
     # Food boredom is deferred; recent remains diagnostic/checkpoint state.
     (food_base_taste(g,kind)+nutrient_value(g,kind))*taste_state_factor(g,reserve)
 end
@@ -62,13 +86,15 @@ function ingest!(g,kind,reserve,now;quality_bonus=0.0)
     end
     g.gut_components=ntuple(i->g.gut_components[i]+FOOD_COMPOSITION[kind][i],3)
     g.gut+=1; g.recent[kind]=min(1.,g.recent[kind]+.6)
+    g.macro_body!==nothing && Macronutrients.feed!(g.macro_body.body,FOOD_NUTRIENT_ENERGY[kind],MACRO_PARAMETERS)
     g.eaten+=1; g.pleasure+=liking
-    push!(g.records,(time=now,kind=kind,liking=liking,composition=FOOD_COMPOSITION[kind],nutrient_need=nutrient_need(g),gut_after=g.gut,reserve_at_meal=reserve))
+    push!(g.records,(time=now,kind=kind,liking=liking,composition=FOOD_COMPOSITION[kind],nutrient_need=nutrient_need(g),gut_after=g.gut,energy_at_meal=reserve))
     length(g.records)>32 && popfirst!(g.records)
     liking
 end
-function digest!(g,b,seconds)
+function digest!(g,b,seconds;action="rest",sleeping=false)
     isfinite(seconds) && seconds>=0 || error("digestion time")
+    g.macro_body!==nothing && return macro_digest!(g,b,seconds;action,sleeping)
     amount=min(g.gut,seconds/DIGEST_SECONDS)
     fraction=g.gut>0 ? amount/g.gut : 0.
     absorbed=ntuple(i->fraction*g.gut_components[i],3)
@@ -88,6 +114,15 @@ function digest!(g,b,seconds)
 end
 function digestion_snapshot(g)
     @assert isapprox(g.eaten*MEAL_ENERGY,g.gut*MEAL_ENERGY+g.absorbed+g.overflow;atol=1e-7)
-    Dict("nutrient_stores"=>g.nutrient_stores,"nutrient_need"=>nutrient_need(g),"gut_components"=>g.gut_components,"taste_preference"=>g.taste_preference,"gut"=>g.gut,"recent"=>copy(g.recent),"eaten"=>g.eaten,"absorbed"=>g.absorbed,
+    snapshot=Dict{String,Any}("nutrient_stores"=>g.nutrient_stores,"nutrient_need"=>nutrient_need(g),"gut_components"=>g.gut_components,"taste_preference"=>g.taste_preference,"gut"=>g.gut,"recent"=>copy(g.recent),"eaten"=>g.eaten,"absorbed"=>g.absorbed,
         "overflow"=>g.overflow,"pleasure"=>g.pleasure,"records"=>copy(g.records))
+    if g.macro_body!==nothing
+        bridge=g.macro_body;physical=bridge.body
+        residual=bridge.initial_energy+physical.ingested-Macronutrients.nutrient_energy(physical)-physical.spent-physical.conversion_loss-physical.excreted
+        @assert isapprox(residual,0.;atol=1e-6)
+        snapshot["macronutrients"]=Macronutrients.body_snapshot(physical,MACRO_PARAMETERS)
+        snapshot["energy_residual"]=residual
+        snapshot["food_nutrient_energy"]=FOOD_NUTRIENT_ENERGY
+    end
+    snapshot
 end
