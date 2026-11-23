@@ -95,6 +95,7 @@ function mb_food_site_observe!(s,ref,remaining,now,source;operation=nothing)
     sites[Int(ref)]=D("ref"=>Int(ref),"state"=>remaining>0 ? "remaining" : "empty",
         "observed_us"=>now,"source"=>source,"knowledge"=>"last_observed")
     changed && haskey(s,"goal_cues") && delete!(s["goal_cues"]["cache"],"food")
+    mb_search_site_observe!(s,ref,remaining,now)
     operation!==nothing && (s["last_food_contact"]=D("operation"=>operation,"ref"=>Int(ref),
         "state"=>sites[Int(ref)]["state"],"observed_us"=>now))
     state=get(s,"daily_plan",nothing)

@@ -7,11 +7,11 @@ include("../julia_migration/lw_integrated/native.jl")
  move=D("visible"=>Any[],"food_coverage"=>"complete")
  receipt=D("now"=>0,"goal"=>"food","status"=>"performed","action"=>"scan","from"=>key,"offset"=>0.,"distance"=>0.)
  mb_search_resistance_observe!(s,move,obs,receipt,1_000_000;rho="fine")
- r=s["food_search_resistance"];@test r["effort"][key]==1.
+ r=s["food_search_resistance"];@test r["effort"][key]==.5
  coarse=deepcopy(s);mb_search_resistance_observe!(coarse,move,obs,receipt,1_000_000;rho="coarse")
- @test coarse["food_search_resistance"]["effort"][key]==1.25
+ @test coarse["food_search_resistance"]["effort"][key]==.5 # duplicate observation
  mb_search_resistance_observe!(s,move,obs,merge(receipt,D("action"=>"walk","distance"=>.5)),1_000_000;rho="fine")
- @test r["effort"][key]≈1.02
+ @test r["effort"][key]≈.5
  before=deepcopy(r)
  mb_search_resistance_observe!(s,move,obs,merge(receipt,D("goal"=>"home")),1_000_000;rho="fine")
  mb_search_resistance_observe!(s,move,obs,merge(receipt,D("now"=>-1)),1_000_000;rho="fine")
@@ -21,11 +21,11 @@ include("../julia_migration/lw_integrated/native.jl")
  home=deepcopy(opts);mb_search_resistance_project!(s,home,"home",move,1_000_000);@test home==opts
  mb_search_resistance_project!(s,opts,"food",move,1_000_000)
  @test opts[1]["priority"]<opts[2]["priority"]==3.
- @test opts[1]["mb_search_resistance"]["penalty"]≈log1p(1.02)
+ @test opts[1]["mb_search_resistance"]["penalty"]≈log1p(.5)
  mb_search_resistance_selected!(s,opts[1],1_000_000);@test r["selected"]==1
  mb_search_resistance_observe!(s,D("visible"=>[D("ref"=>0)]),obs,receipt,1_000_000;rho="fine")
  @test !haskey(r["effort"],key) && r["released"]==1
- off=mb_map_state("a");mb_search_resistance_observe!(off,move,obs,receipt,1_000_000)
+ off=mb_map_state("a");off["food_search_resistance_enabled"]=false;mb_search_resistance_observe!(off,move,obs,receipt,1_000_000)
  @test !haskey(off,"food_search_resistance")
  original=deepcopy(opts);@test mb_search_resistance_project!(off,opts,"food",move,1_000_000)==original
  @test isempty(s["edges"]) # Negative evidence never edits transition geometry.

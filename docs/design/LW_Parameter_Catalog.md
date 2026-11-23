@@ -1171,6 +1171,11 @@ success_base=0.1、release_gain=1.0。主観評価単位の暫定値であり、
 詳細は [通常接続10日](LW_H_Release_Reward_Integration10_20261123.md)。
 # 2026-11-23 移動効率評価の接続
 
+探索場所のH：`SEARCH_PLACE_RULES`（src/lw/parameters.jl）は初期発見見込み0.5、
+不完全観測0.25、coarse 0.25、通常rho 0.5、通過0.02、採取所の存在期待尺度1。
+各係数は暫定的な証拠強度であり、固定行動命令ではない。
+`mb_food_search_resistance`の既定はtrue。詳細は `LW_Search_Place_H_20261123.md`。
+
 LWの親目的達成では既存`mb_completion_reward`の時間・消耗の等重みadvantageを使用し、
 負値を0に切り詰めて方法・経路へ配分する。既存の尺度・許容帯0.1を維持し、
 達成定数やH解放量は加算しない。詳細は `LW_Movement_Efficiency_20261123.md`。

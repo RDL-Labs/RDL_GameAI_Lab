@@ -38,3 +38,8 @@ if !isdefined(@__MODULE__, :TASK_ATTENTION)
         reserve_floor=70.,request_reserve_floor=70,raw_residual_band=.1,request_interval_us=64_000_000,
         forecast_interval_us=64_000_000,self_reliance_weight=4)
 end
+if !isdefined(@__MODULE__, :SEARCH_PLACE_RULES)
+    # Provisional observation-strength priors, not world stock or a blacklist.
+    # Fine scan is one evidence unit; passing/coarse/incomplete views count less.
+    const SEARCH_PLACE_RULES=(prior=.5,partial=.25,coarse=.25,normal=.5,pass=.02,confirmed_empty=1.)
+end

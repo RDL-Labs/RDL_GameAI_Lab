@@ -162,7 +162,7 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest
     exploration_relations=get(spec,:mb_exploration_relations,false)
     check(!exploration_relations || (mb_simulation && general_landmarks),"exploration_relations_requires_mb")
     for a in IDS;mb_maps[a]["exploration_relations_enabled"]=exploration_relations;end
-    for a in IDS;mb_maps[a]["food_search_resistance_enabled"]=get(spec,:mb_food_search_resistance,false);end
+    for a in IDS;mb_maps[a]["food_search_resistance_enabled"]=get(spec,:mb_food_search_resistance,true);end
     inherited_mb=get(spec,:learned_mb_transfer,nothing)
     if inherited_mb!==nothing
         check(mb_simulation && basic_loop,"transfer_requires_mb_loop")
@@ -482,6 +482,7 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest
         start_sec=saved.day*div(clock.day_us,1_000_000)
     end
     home_activity_attach!(storage_stats,w.positions,spec.home,start_sec*1_000_000)
+    for a in IDS;mb_maps[a]["food_search_resistance_enabled"]=get(spec,:mb_food_search_resistance,true);end
     function process_sleep!(a,now,day,action,status)
                 cycle=learning[a]["sleep"]["cycle"]
                 harvest_sleep && action=="rest" && freeze_harvest!(harvest[a],cycle,now)
