@@ -1,0 +1,8 @@
+// Local live fixture polling test with a simulated DOM and recorded packet.
+const assert=require('node:assert/strict'),fs=require('node:fs'),vm=require('node:vm');
+class E{constructor(){this.children=[];this.style={setProperty(){}};this.dataset={};this.classList={toggle(){}};this.value='1';this.checked=false;this.parentElement=this;}append(...x){this.children.push(...x)}prepend(...x){this.children.unshift(...x)}replaceChildren(...x){this.children=x}getBoundingClientRect(){return {width:800,height:600,left:0,top:0}}getContext(){return new Proxy({},{get:()=>()=>{}})}}
+const map=new Map(),el=id=>{if(!map.has(id))map.set(id,new E());return map.get(id)};
+const packet={status:'completed',replay:JSON.parse(fs.readFileSync(process.argv[2],'utf8'))};
+const context={window:{LWObserver:require('../gui-p5/lw-observer/model.js'),devicePixelRatio:1},document:{getElementById:el,createElement:()=>new E(),body:new E(),addEventListener(){}},ResizeObserver:class{observe(){}},devicePixelRatio:1,requestAnimationFrame(){},setInterval(){},fetch:async()=>({ok:true,json:async()=>packet}),console};
+vm.createContext(context);vm.runInContext(fs.readFileSync('gui-p5/lw-observer/viewer.js','utf8'),context);vm.runInContext(fs.readFileSync('gui-p5/lw-observer/live.js','utf8'),context);
+setImmediate(()=>{assert.equal(el('timeline').value,packet.replay.frames.at(-1).us);assert.ok(el('socialDetail').children.length);assert.equal(vm.runInContext('liveStart.disabled',context),false);assert.ok(vm.runInContext('liveState.textContent',context).includes('完了'));console.log('Live polling and final timeline PASS');});
