@@ -1,0 +1,8 @@
+(function(root){
+'use strict';
+function validate(d){if(!d||d.schema!=='lw-observer-v1'||!Array.isArray(d.frames)||!d.frames.length||!Number.isFinite(d.day_us)||d.day_us<=0||!d.scene||!Array.isArray(d.actors)||!d.actors.length)throw Error('LW観察記録（lw-observer-v1）ではありません。');let prior=-Infinity;for(const f of d.frames){if(!Number.isFinite(f.us)||f.us<=prior||!Array.isArray(f.actors))throw Error('記録の時刻・個体配列が不正です。');prior=f.us;for(const a of f.actors)if(!d.actors.includes(a.id)||!Array.isArray(a.position)||a.position.length!==2||!a.position.every(Number.isFinite))throw Error('個体の座標が不正です。');if(f.stocks&&!f.stocks.every(x=>Number.isFinite(x)&&x>=0))throw Error('食料残量が不正です。');}d.events=Array.isArray(d.events)?d.events:[];d.decisions=Array.isArray(d.decisions)?d.decisions:[];return d;}
+function indexAt(frames,us){let lo=0,hi=frames.length;while(lo<hi){let m=(lo+hi)>>1;if(frames[m].us<=us)lo=m+1;else hi=m;}return Math.max(0,lo-1);}
+function at(d,us,smooth=false){const index=indexAt(d.frames,us),frame=d.frames[index],next=d.frames[index+1],alpha=next?Math.max(0,Math.min(1,(us-frame.us)/(next.us-frame.us))):0;return {index,frame,actors:frame.actors.map(a=>{const b=next?.actors.find(b=>b.id===a.id);return {...a,position:smooth&&b?a.position.map((v,i)=>v+(b.position[i]-v)*alpha):a.position.slice()};})};}
+function time(us,day){let n=Math.max(0,us),d=Math.floor(n/day)+1,m=Math.floor(n%day/day*1440);return `${d}日目 ${String(Math.floor(m/60)).padStart(2,'0')}:${String(m%60).padStart(2,'0')}`;}
+const api={validate,indexAt,at,time};if(typeof module!=='undefined')module.exports=api;root.LWObserver=api;
+})(typeof window!=='undefined'?window:globalThis);
