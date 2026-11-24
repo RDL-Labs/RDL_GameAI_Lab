@@ -71,7 +71,8 @@
 2026-11-04：routine_actions.jl と return_purpose.jl に定時帰還、夜間・応答待機、拠点作業、近距離採取、旧非MB移動を隔離。適用条件・OFF方法・残る設計定数は [棚卸し](../../../docs/design/LW_Configured_Policy_Audit.md) を参照。
 
 - sleep_gate.jl：拠点と観測した場所での夜の実行済み休息から朝まで外界入力を停止する暫定固定ルール。scene.sleep_external_gate既定true。身体・内部記憶整理は継続。[仕様](../../../docs/design/LW_Sleep_External_Gate.md)。
-- collapse_gate.jl：reserve<=0の間、観測・判断・学習と睡眠整理を停止。scene.collapse_cognition_gate既定true、falseで比較可能。死亡とは判定せず、代謝・消化・他者からの物理的譲渡・世界時間は継続。reserve>0なら次tickから通常の認知対象に戻る（通常の睡眠条件は別）。受け取った食品を自動で食べる処理は加えない。counts.collapsed、mb_map.collapse_gate、events.configured_ruleに記録。将来、身体モデルが独立した意識状態を持てばこのreserve判定を置換する。
+- collapse_gate.jl：旧Bodyはreserve<=0で設定ゲート。HumanBodyは身体のmobility=0で行動不能になり、設定OFFでも物理限界は維持。代謝・消化は継続、組織修復後に認知再開。counts.collapsedとbody.incapacitatedに記録。
+- assisted_feeding.jl：暫定固定。scene.assisted_feeding既定true。選択済みgiveが行動不能の生存者へ届くと、その食品1個を介助摂食する。援助の強制・遠隔救助はない。通常の栄養入力、食品消費を一度だけ行う。assist_feedイベントとconfigured_rule、counts.assisted_feedへ記録。将来は介助動作の候補へ置換。[仕様と検証](../../../docs/design/LW_Human_Incapacitation_Aid_20261124.md)。
 
 - acorn_quest.jl：拠点見学後、ドングリ取得→帰還→由来を確認した納品を進める研修用の目的切替。scene.configured_acorn_quest既定false。日次納品目標との併用不可。移動は通常MB、加工は含まない。[仕様・試験](../../../docs/design/LW_Acorn_Training_Quest.md)。
   追加研修はscene.configured_acorn_tasting（既定false）：2個納品→生食→もう1個を加工→加工物を食べる→果実を食べる。指定種類の取り出し・食事は固定研修として介入する。満腹・作業制限・材料・場所の実行条件は通常処理が検査する。

@@ -9,6 +9,7 @@ include("../observation/home_activity.jl")
 include("physiology.jl")
 include("../configured_paths/sleep_gate.jl")
 include("../configured_paths/collapse_gate.jl")
+include("../configured_paths/assisted_feeding.jl")
 include("../configured_paths/acorn_quest.jl")
 include("../configured_paths/fishing_training.jl")
 include("../../ecology/lw_grazing/LWGrazing.jl")
@@ -140,6 +141,7 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest
     check(goal_switch_threshold isa Integer && !(goal_switch_threshold isa Bool) && 1<=goal_switch_threshold<=30,"goal_switch_threshold")
     check(days isa Int && 1<=days<=180,"lw_days")
     check(get(spec,:collapse_cognition_gate,true) isa Bool,"collapse_cognition_gate_bool")
+    check(get(spec,:assisted_feeding,CONFIGURED_ASSISTED_FEEDING.enabled) isa Bool,"assisted_feeding_bool")
     check(!landmark_routes || basic_loop,"landmark_loop_required")
     check(!general_landmarks || landmark_routes,"general_landmarks_requires_routes")
     check(!mb_simulation || (basic_loop && landmark_routes),"mb_simulation_requires_observed_loop")
@@ -1500,6 +1502,14 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest
                 elseif status=="transferred"
                     push!(cargo[plan["target"]],popfirst!(cargo[a]))
                     foods!==nothing && food_give!(foods,a,plan["target"])
+                    assisted_record=configured_assisted_feeding!(w,foods,guts,cargo,a,plan["target"],op,delivered_kind,now;
+                        enabled=get(spec,:assisted_feeding,CONFIGURED_ASSISTED_FEEDING.enabled))
+                    if assisted_record!==nothing
+                        counts[a]["assisted_feed"]=get(counts[a],"assisted_feed",0)+1
+                        push!(events,merge(assisted_record,D("actor"=>a,"target"=>plan["target"],"action"=>"assist_feed",
+                            "phase"=>phase,"purpose_family"=>get(plan,"purpose_family",nothing),"method"=>"assisted_feeding",
+                            "selection_mode"=>"configured","direction"=>nothing,"route"=>nothing,"landmark_color"=>nothing)))
+                    end
                 end
                 results[a]=social_result_window(results[a],states[a]["pending"],op,r)
                 if action!="eat"

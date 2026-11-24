@@ -1,5 +1,13 @@
 # 数値設定の配置と意味
 
+## 人間の行動不能と介助（2026-11-24）
+
+MacroParameters.starvation_fatal既定true、人間MacroBridgeはfalse。
+既存組織下限50で死亡ではなく行動不能、下限を上回る修復で活動可能。
+scene.assisted_feeding既定trueは選択済み提供の介助摂食を簡略化する暫定固定。
+援助の不足費用は取引共通security勾配を再利用する。
+詳細・残存固定・検証は[行動不能と援助](LW_Human_Incapacitation_Aid_20261124.md)。
+
 ## 人側の見込み差H（2026-11-23）
 
 BasicLoopの既定h_mode=:forecast_differenceでは温度1、H減点は既存MethodNode.thresholdで尺度化する。

@@ -7,6 +7,9 @@ export MacroParameters, MacroBody, nutrient_energy, feed!, advance!, body_signal
 # blood glucose concentration, hormones or individual amino acids are represented.
 # Defaults are provisional; species-specific callers may supply another parameter set.
 Base.@kwdef struct MacroParameters
+    # World/body rule: humans may remain incapacitated at the tissue floor.
+    # Default keeps standalone physiology and other callers' fatal starvation.
+    starvation_fatal::Bool = true
     sugar_capacity::Float64 = 45.0
     sugar_reference::Float64 = 30.0
     fat_capacity::Float64 = 400.0
@@ -125,7 +128,7 @@ function advance!(b::MacroBody,p::MacroParameters,dt::Real;intensity::Real=0.0,s
     tissue_take=min(max(0.0,b.tissue-p.tissue_minimum),remaining)
     b.tissue-=tissue_take; b.tissue_used+=tissue_take; remaining-=tissue_take
     b.spent+=demand-remaining; b.unmet+=remaining
-    if b.tissue<=p.tissue_minimum
+    if b.tissue<=p.tissue_minimum && p.starvation_fatal
         b.alive=false
         return b
     end

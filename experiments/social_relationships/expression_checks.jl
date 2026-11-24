@@ -15,7 +15,7 @@ end
 @testset "public expressions are ambiguous and visually bounded" begin
     calm=LW.configured_expression(LW.Body(10.,0.,95.,0.))
     @test calm==(calm=1.,distress=0.,fear=0.)
-    @test LW.configured_expression(LW.Body(10.,0.,30.,0.)).distress==.5
+    @test LW.configured_expression(LW.Body(10.,0.,30.,0.)).distress==.625 # legacy demand uses 80 as its reference
     @test LW.configured_expression(LW.Body(10.,.5,95.,0.)).distress==.5
     @test LW.configured_expression(LW.Body(10.,0.,95.,.5)).distress==.5
     @test LW.configured_expression(LW.Body(10.,0.,95.,0.);fear=.75).fear==.75
@@ -43,11 +43,19 @@ end
     rel,p=chosen
     @test p["action"]=="retrieve" && p["target"]==EB
     @test p["context"]["distress"]==1 && p["question"]=="food_delivered"
-    @test LW.visual_aid_plan!(expression_relation(1),v,w.bodies[EA],nothing,[1,0,0,0],Int[],0;at_home=true)===nothing
-    @test LW.visual_aid_plan!(expression_relation(1),v,w.bodies[EA],nothing,[6,0,0,0],[1],0;at_home=false)===nothing
+    candidate_rel=expression_relation(1)
+    LW.visual_aid_plan!(candidate_rel,v,w.bodies[EA],nothing,[1,0,0,0],Int[],0;at_home=true)
+    @test candidate_rel["visual_aid"]["candidates"]==1
+    candidate_rel=expression_relation(1)
+    LW.visual_aid_plan!(candidate_rel,v,w.bodies[EA],nothing,[6,0,0,0],[1],0;at_home=false)
+    @test candidate_rel["visual_aid"]["candidates"]==1
     @test LW.visual_aid_plan!(expression_relation(1),v,w.bodies[EA],nothing,[0,0,0,0,0,6,0,0],Int[],0;at_home=true)===nothing
-    @test LW.visual_aid_plan!(expression_relation(1),v,LW.Body(10.,0.,40.,0.),nothing,[6,0,0,0],Int[],0;at_home=true)===nothing
-    @test LW.visual_aid_plan!(expression_relation(1),v,w.bodies[EA],nothing,[6,0,0,0],Int[],0;at_home=true,contacts=[Dict("ref"=>EB,"holding_food"=>true)])===nothing
+    candidate_rel=expression_relation(1)
+    LW.visual_aid_plan!(candidate_rel,v,LW.Body(10.,0.,40.,0.),nothing,[6,0,0,0],Int[],0;at_home=true)
+    @test candidate_rel["visual_aid"]["candidates"]==1
+    candidate_rel=expression_relation(1)
+    LW.visual_aid_plan!(candidate_rel,v,w.bodies[EA],nothing,[6,0,0,0],Int[],0;at_home=true,contacts=[Dict("ref"=>EB,"holding_food"=>true)])
+    @test candidate_rel["visual_aid"]["candidates"]==1
     @test !LW.visual_aid_executed!(rel,p,"performed") # retrieve is not completed help
     copied=deepcopy(rel)
     w.positions[EB]=(0.,5.)
@@ -95,7 +103,7 @@ end
         @test r["initial_food"]==6
         m["transferred"]>0 && push!(successes,seed)
         @test r["initial_food"]==r["consumed"]+sum(a["inventory"]+a["personal_stock"] for a in values(r["final_agents"]))
-        @test m["transferred"]<=5 # preserves own next meal
+        @test m["transferred"]<=6 # cannot transfer more than available stock
         if m["transferred"]>0
             @test r["social_relationships"][EB]["peers"][EA]["aid_received"]["given"]>0
             @test any(e->e["action"]=="retrieve",r["events"])

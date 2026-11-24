@@ -44,29 +44,38 @@ const M=B.Macronutrients
     @test LW.body_alive(human)
     @test gut.eaten==1 && human.nutrients.spent>0
     @test abs(LW.digestion_snapshot(gut)["energy_residual"])<1e-6
-    # Food deprivation weakens tissue and eventually kills. Death is absorbing.
+    # Humans reach a recoverable floor; the cognition gate stops active actions.
     for tick in 1:10000
         human=LW.digest!(gut,human,60.)
-        !LW.body_alive(human) && break
+        LW.configured_collapse_active(human) && break
     end
-    @test !LW.body_alive(human)
+    @test LW.body_alive(human)
     @test human.nutrients.tissue==B.MACRO_PARAMETERS.tissue_minimum
     @test LW.configured_collapse_active(human;enabled=false)
-    @test !LW.can_ingest(gut)
-    @test isempty(LW.incidental_item_candidates(incidental,item_view,human,parent;family="food"))
-    @test LW.step(human,"eat",0)[2]=="dead"
-    dead=deepcopy(human.nutrients)
+    @test LW.can_ingest(gut)
+    @test LW.step(human,"eat",0)[2]=="incapacitated"
+    @test LW.step(human,"walk",0)[3]==0
+    unmet_before=human.nutrients.unmet
     LW.digest!(gut,human,3600.)
-    @test all(getfield(dead,k)==getfield(human.nutrients,k) for k in fieldnames(M.MacroBody))
-    @test_throws ArgumentError M.feed!(human.nutrients,(20.,0.,0.),B.MACRO_PARAMETERS)
+    @test human.nutrients.unmet>unmet_before
+    @test human.nutrients.tissue==B.MACRO_PARAMETERS.tissue_minimum
     @test abs(LW.digestion_snapshot(gut)["energy_residual"])<1e-6
     io=IOBuffer();serialize(io,(human,gut));seekstart(io)
     restored,restored_gut=deserialize(io)
     @test restored.nutrients===restored_gut.macro_body.body
-    @test !LW.body_alive(restored)
+    @test LW.body_alive(restored) && LW.configured_collapse_active(restored)
     world=LW.world(true);world.bodies["npc_a"]=human
     counters=LW.D("npc_a"=>LW.D());events=Any[]
     LW.configured_collapse_tick!(LW.D(),world,"npc_a",counters,events,LW.D(),1)
-    @test counters["npc_a"]["dead"]==1
+    @test counters["npc_a"]["collapsed"]==1
     @test only(events)["selection_mode"]=="physical"
+    # Nutrients repair tissue; no energy/body reset on assistance.
+    for kind in (B.FRUIT_FOOD,B.FRUIT_FOOD,B.COOKED_FISH)
+        LW.ingest!(gut,kind,LW.body_energy(human),0)
+    end
+    @test LW.configured_collapse_active(human)
+    human=LW.digest!(gut,human,360.;sleeping=true)
+    @test LW.body_alive(human) && !LW.configured_collapse_active(human)
+    @test human.nutrients.tissue>B.MACRO_PARAMETERS.tissue_minimum
+    @test abs(LW.digestion_snapshot(gut)["energy_residual"])<1e-6
 end

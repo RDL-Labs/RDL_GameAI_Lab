@@ -26,12 +26,13 @@ function visual_aid_plan!(relation,view,body,gut,stock,kinds,now;at_home=false,c
     s["pending"]===nothing && now<s["next_us"] && return nothing
     own=stock===nothing || !at_home ? zeros(Int,length(RDLBody.FOOD_KIND_IDS)) : copy(stock)
     for k in kinds;own[k]+=1;end
-    security=food_security(relation);required=max(1.,body_food_gap(body)/RDLBody.meal_energy(gut),security===nothing ? 0. : security["required"])
-    spare=sum(own)+(gut===nothing ? 0. : gut.gut)-required
-    able=body_alive(body) && body_demand(body)==0 && body.strain<.8 && body.damage<1 && spare>=1
-    held_food(other)=any(p->p["ref"]==other && p["holding_food"],contacts)
+    security=food_security(relation)
+    # Only physical feasibility gates candidates. Own shortage is a continuous
+    # forecast cost below, not a requirement to have zero bodily demand.
+    able=body_alive(body) && body_mobility(body)>0 && body.damage<1
+    own_need=body_demand(body)
     peers=[p for p in view["peers"] if p["contact"] && p["expression"]!==nothing &&
-        p["expression"].distress>0 && !held_food(p["ref"])]
+        p["expression"].distress>0]
     if s["pending"]!==nothing
         p=s["pending"]
         if !able || now>p["deadline_us"] || !any(x->x["ref"]==p["target"],peers)
@@ -53,12 +54,17 @@ function visual_aid_plan!(relation,view,body,gut,stock,kinds,now;at_home=false,c
     else
         return nothing
     end
+    aid_kind=action=="give" ? first(kinds) : findfirst(k->stock[k]>0 && RDLBody.food_edible(k),eachindex(stock))
+    aid_after=copy(own);aid_after[aid_kind]-=1
     candidates=Any[];source="visual-aid:$now:$(relation["actor"])"
     for peer in peers
         face=peer["expression"];other=peer["ref"]
         context=D("need"=>body_demand(body),"distress"=>face.distress,"fear"=>face.fear)
         trace=social_relation_bias(relation,other,"give";situation=context,H=s["loop"].H)
         prediction=social_mb_predict(relation,other,"aid_given";situation=context,H=s["loop"].H)
+        aid_valuation=trade_valuation_context(body,gut,security,context,trace)
+        aid_gradient=trade_compound_gradient(own,aid_after,0.,aid_valuation)
+        retention_cost=-aid_gradient["security"]
         # Food may help this appearance; fear/fatigue can make that guess wrong.
         motivation=face.distress*(1-.5face.fear)
         expiry=security===nothing ? nothing : get(security,"expiry",nothing)
@@ -67,9 +73,9 @@ function visual_aid_plan!(relation,view,body,gut,stock,kinds,now;at_home=false,c
             after=copy(own);after[first(kinds)]-=1
             waste_relief=2max(0.,food_expected_waste(own,expiry)-food_expected_waste(after,expiry))
         end
-        push!(candidates,D("method"=>"visual_give:$other","action"=>action,"target"=>other,
-            "components"=>D("appearance"=>2motivation,"relation"=>trace["weight"],"prediction"=>.5log(2prediction["probability"]),"retention"=>-1/(1+spare),"baseline"=>-1.),
-            "priority"=>2motivation+trace["weight"]+.5log(2prediction["probability"])-1/(1+spare)-1+waste_relief,"waste_relief"=>waste_relief,
+        push!(candidates,D("method"=>"visual_give:$other","action"=>action,"target"=>other,"food_kind"=>Int(aid_kind),
+            "components"=>D("appearance"=>2motivation,"relation"=>trace["weight"],"prediction"=>.5log(2prediction["probability"]),"retention"=>-retention_cost,"own_need"=>-own_need,"baseline"=>-1.),
+            "priority"=>2motivation+trace["weight"]+.5log(2prediction["probability"])-retention_cost-own_need-1+waste_relief,"waste_relief"=>waste_relief,
             "question"=>"food_delivered","expected"=>prediction["probability"],
             "expression"=>face,"context"=>context,"trace"=>trace,"visual_aid"=>true,
             "visual_aid_source"=>source,"deadline_us"=>now+64_000_000))

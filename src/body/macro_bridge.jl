@@ -1,6 +1,6 @@
 # Physical integration adapter. E and hours, not clinical concentrations.
 # Legacy scene reserve is accepted only as an initial-pool input conversion.
-const MACRO_PARAMETERS = Macronutrients.MacroParameters()
+const MACRO_PARAMETERS = Macronutrients.MacroParameters(starvation_fatal=false)
 const MACRO_WALK_INTENSITY = 0.65 # same exploratory load as the local calibration
 const MACRO_INITIAL_POOLS = (sugar=32.,fat=200.,amino=8.)
 mutable struct MacroBridge

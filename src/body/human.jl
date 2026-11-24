@@ -37,6 +37,8 @@ function step(b::HumanBody,action,load,resistance=1.,clear=true)
     ability=body_mobility(b)*(1-b.damage)
     if !body_alive(b)
         status="dead"
+    elseif ability<=0 && action!="rest"
+        status="incapacitated"
     elseif action in ("walk","run","climb")
         burst_cost=action=="run" ? BODY_ACTION.run_burst*effort : action=="climb" ? BODY_ACTION.climb_burst*effort : 0.
         strain_limit=action=="walk" ? 1. : action=="run" ? BODY_ACTION.run_max_strain : BODY_ACTION.climb_max_strain
