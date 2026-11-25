@@ -40,6 +40,7 @@ function recall(memories,cues;current_value=.6,appetite=1.)
  scores=[c.score for c in candidates];weights=exp.((scores.-maximum(scores))./CUE_RULE.temperature);weights./=sum(weights)
  (recalled=recalled,candidates=candidates,probabilities=weights,preferred=candidates[argmax(weights)].action)
 end
+if abspath(PROGRAM_FILE)==abspath(@__FILE__)
 memories=FoodMemory[]
 eat!(memories,"meal_A",[1.,0.],[1.,0.],1.5)
 eat!(memories,"meal_B",[0.,1.],[0.,1.],-.5)
@@ -77,3 +78,6 @@ write(joinpath(@__DIR__,"sensory_trigger_result.json"),JSON3.write(results))
 for name in sort(collect(keys(results)))
  r=results[name];println(name," ",r.preferred," ",JSON3.write(r.probabilities))
 end
+
+end
+
