@@ -1187,3 +1187,10 @@ success_base=0.1、release_gain=1.0。主観評価単位の暫定値であり、
 LWの親目的達成では既存`mb_completion_reward`の時間・消耗の等重みadvantageを使用し、
 負値を0に切り詰めて方法・経路へ配分する。既存の尺度・許容帯0.1を維持し、
 達成定数やH解放量は加算しない。詳細は `LW_Movement_Efficiency_20261123.md`。
+
+## 釣りの符号付きH局所案（2026-11-25）
+
+通常系未接続。`experiments/fishing/expectation_anxiety_probe.jl` のRULE/METHODSに
+期待・不足二乗・不確実性中立帯・睡眠定着の局所係数を隔離。
+個体差なし、抽象単位。現行Hの定義変更ではない。
+条件と結果は [局所試験](../../experiments/fishing/EXPECTATION_ANXIETY.md) を参照。
