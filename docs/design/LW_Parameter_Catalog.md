@@ -1194,3 +1194,9 @@ LWの親目的達成では既存`mb_completion_reward`の時間・消耗の等�
 期待・不足二乗・不確実性中立帯・睡眠定着の局所係数を隔離。
 個体差なし、抽象単位。現行Hの定義変更ではない。
 条件と結果は [局所試験](../../experiments/fishing/EXPECTATION_ANXIETY.md) を参照。
+
+## 取引の関係投資局所案（2026-11-25）
+
+通常系未接続。`experiments/social_relationships/relation_investment_probe.jl` の
+TRADE_PROBEへ主観価値・応答期待・不足二乗・符号付きHの仮設定を隔離。
+[条件・限界](../../experiments/social_relationships/RELATION_INVESTMENT.md)を参照。
