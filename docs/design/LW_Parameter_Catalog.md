@@ -1208,3 +1208,11 @@ src/lw/learning/trade_investment.jl。未知応答見込み0.5、事前4件、�
 H尺度4、中立帯1標準偏差、睡眠反映0.2、記録64件。
 [接続・限界・検査](../../experiments/social_relationships/INVESTMENT_INTEGRATION.md)。
 既存BasicLoopのHとは別の関係予測用符号付きHで、現行仕様の一律置換ではない。
+
+## 食品の香り（2026-11-26）
+
+scene.food_aroma既定false。src/lw/decision/food_aroma.jlのFOOD_AROMA_RULEと
+FOOD_AROMA_FEATURES。抽象3特徴、距離尺度4世界単位、一致尺度0.25、
+加工/出来上がり/摂食強度1/0.7/0.6、残香60秒、想起加点係数0.35、履歴64件。
+暫定の知覚近似で、行動の強制規則ではない。
+[接続範囲と検査](../../experiments/social_relationships/FOOD_AROMA_INTEGRATION.md)。

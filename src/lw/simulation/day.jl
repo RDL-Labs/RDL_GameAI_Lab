@@ -562,6 +562,18 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest
         focus_positions=copy(w.positions)
         wildlife!==nothing && (wildlife_previous_positions=collect(zip(wildlife.animals.x,wildlife.animals.z)))
         thinking_ids=Tuple(a for a in IDS if !(a in paused_ids) && !(a in sleeping_ids) && !(a in collapsed_ids) && !(a in focused_ids))
+        if get(spec,:food_aroma,false) && mb_simulation && foods!==nothing
+            # One pre-action snapshot: later actors cannot smell earlier actors'
+            # current-tick meals. Existing sleep/focus gates remain intact.
+            aroma_sources=food_aroma_snapshot(observation_states,w.positions,foods.inventory,now)
+            for a in thinking_ids
+                food_aroma_observe!(mb_maps[a],a,w.positions[a],aroma_sources,now)
+            end
+        elseif mb_simulation
+            for a in thinking_ids
+                haskey(mb_maps[a],"food_aroma") && empty!(mb_maps[a]["food_aroma"]["active"])
+            end
+        end
 
         # Both populations sense the pre-action world. Rabbit actions use this
         # frozen perception after human actions, before the common day boundary.
@@ -1353,7 +1365,7 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest
             frozen_prediction=harvest_sleep && action=="pickup" ? harvest_predict(harvest[a],sections[a]) : nothing
             leg=plan["purpose_family"] # Frozen selection-time parent, not post-drop load.
             delivered=String[]
-            eaten_kind=0;meal_liking=nothing
+            eaten_kind=0;meal_liking=nothing;aroma_kind=0
             # Exactly one body update per simulated second, including non-movement actions.
             if action=="climb"
                 actual=climb_sample(w,a,yaw[a],plan["direction"],low,high,base_resistance_at)
@@ -1457,6 +1469,7 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest
                 legal=food_processing_enabled && facility!==nothing
                 if legal
                     plan["food_facility_id"]=facility.id
+                    aroma_kind=get(plan,"salt_id",nothing)!==nothing ? RDLBody.SALTED_FISH : RDLBody.FOOD_PROCESS_OUTPUT[foods.inventory[a][raw_index]]
                     w.bodies[a],work_status,_,_=step(w.bodies[a],"process_food",w.inventory[a])
                     status=work_status=="worked" ? food_process!(foods,a;kind=Int(foods.inventory[a][raw_index]),salt_id=get(plan,"salt_id",nothing),items,now) : work_status
                     if mb_simulation && foods.game.enabled
@@ -1502,6 +1515,7 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest
                     eaten_kind=actual_kind;meal_liking=liking
                     if mb_simulation
                         food_remember_taste!(mb_maps[a],actual_kind,quality,liking,now)
+                        get(spec,:food_aroma,false) && food_aroma_learn!(mb_maps[a],actual_kind,quality)
                     end
                 elseif status=="transferred"
                     push!(cargo[plan["target"]],popfirst!(cargo[a]))
@@ -1663,6 +1677,9 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest
                         food_remaining_observed=stock[j]
                     end
                 end
+            end
+            if get(spec,:food_aroma,false) && mb_simulation && foods!==nothing
+                food_aroma_update!(observation_states[a],mb_maps[a],action,status,eaten_kind>0 ? eaten_kind : aroma_kind,foods.inventory[a],now)
             end
             fishing_training && configured_fishing_training_result!(mb_maps[a]["fishing_training"],action,status,eaten_kind,
                 hypot(w.positions[a][1]-spec.home[1],w.positions[a][2]-spec.home[2])<=1.25,now+1_000_000;liking=meal_liking)

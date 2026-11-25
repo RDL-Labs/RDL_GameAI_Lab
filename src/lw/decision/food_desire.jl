@@ -1,5 +1,6 @@
 # Food alternatives use the common transition field and H-dependent distribution.
 # Recipe availability is initial knowledge; taste is updated from experienced meals.
+include("food_aroma.jl")
 food_desire_state()=D("intent"=>nothing,"next_us"=>0,"records"=>Any[])
 function food_desire_record!(state,row)
  push!(state["records"],row);length(state["records"])>64 && popfirst!(state["records"])
@@ -121,7 +122,8 @@ function food_desire_candidates(map,foods,a,gut,reserve,at_home,stores,facilitie
    forecast=food_use_forecast(map,foods,a,kind,prepared,gut,reserve,facilities,position;processing,held,source_quality,salted)
    forecast===nothing && continue
    (;output,cost,skill,quality,liking)=forecast
-   field=relational_transition(0.,pressure+food_taste_value(liking,reserve,gut);cost)
+   aroma_bonus=food_aroma_bonus(map,output,quality,liking)
+   field=relational_transition(0.,pressure+food_taste_value(liking,reserve,gut)+aroma_bonus;cost)
    clock=get(map,"food_clock",(now=0,day_us=17_280_000_000))
    urgency=mod(clock.now,clock.day_us)/clock.day_us
    # Choosing this meal uses a limited eating opportunity before its expected loss.
@@ -131,7 +133,7 @@ function food_desire_candidates(map,foods,a,gut,reserve,at_home,stores,facilitie
    method="meal:$(kind):$(prepared)"*(source_quality==2 ? "" : ":q$source_quality")
    salted && (method*=":salt")
    push!(candidates,D("salt_id"=>salted ? salt_id : nothing,"method"=>method,"priority"=>field.expected+loss_relief,"expiry_relief"=>loss_relief,"loss_risk"=>loss_risk,
-    "raw_kind"=>kind,"food_kind"=>output,"prepare"=>prepared,"expected_liking"=>liking,"cost"=>cost,
+    "raw_kind"=>kind,"food_kind"=>output,"prepare"=>prepared,"expected_liking"=>liking,"aroma_bonus"=>aroma_bonus,"cost"=>cost,
     "source_quality"=>source_quality,"quality"=>quality,"skill_forecast"=>skill))
   end
  end
