@@ -60,11 +60,42 @@ function acquisition_begin!(map,method,site,seconds;observed_keys=String[])
  state["active"]=trial
  trial
 end
+function acquisition_known_sources!(map,state)
+ get!(state,"known_sources") do
+  # Compatibility: reconstruct only from this actor's retained observations and
+  # experience. Never inspect world sites or another actor's memory.
+  known=Dict{Int,Bool}()
+  remember_key(key)=begin
+   parts=split(string(key),':');ref=tryparse(Int,last(parts))
+   ref===nothing || (known[ref]=true)
+  end
+  for key in keys(state["sites"]);remember_key(key);end
+  for row in Iterators.flatten((get(state,"trials",Any[]),get(state,"records",Any[]),
+      Any[get(state,"active",nothing),get(state,"choice",nothing)]))
+   row===nothing && continue
+   for key in get(row,"observed_keys",String[]);remember_key(key);end
+   for candidate in get(row,"candidates",Any[])
+    ref=get(candidate,"ref",nothing);ref===nothing || (known[Int(ref)]=true)
+   end
+   evidence=get(row,"evidence",nothing)
+   evidence isa AbstractDict && haskey(evidence,"ref") && (known[Int(evidence["ref"])]=true)
+  end
+  for chunk in values(get(map,"chunks",D()))
+   haskey(chunk,"food_ref") && (known[Int(chunk["food_ref"])]=true)
+  end
+  for ref in keys(get(map,"food_sites",Dict{Int,Any}()));known[Int(ref)]=true;end
+  known
+ end
+end
 function acquisition_observe!(map,visible)
- state=get(map,"acquisition",nothing);state===nothing && return false
+ state=get!(acquisition_state,map,"acquisition")
+ known=acquisition_known_sources!(map,state)
+ discovered=findfirst(v->!haskey(known,Int(v["ref"])),visible)
+ # Reappearance and changed condition update other observation models, but do
+ # not become another discovery. Identity uses the existing perceived source ref.
+ for v in visible;known[Int(v["ref"])]=true;end
  trial=get(state,"active",nothing)
  if trial===nothing || trial["method"]!="explore" || trial["elapsed"]==0;return false;end
- discovered=findfirst(v->!(acquisition_key(get(v,"acquisition","pickup"),v["ref"]) in trial["observed_keys"]),visible)
  discovered===nothing && return false
  acquisition_finish!(map,"achieved",D("kind"=>"observed_candidate","ref"=>visible[discovered]["ref"]))
 end
