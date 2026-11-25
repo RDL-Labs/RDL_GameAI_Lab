@@ -60,7 +60,7 @@ function item_social_actual(plan,result)
         pairs(x)=min(x["food"][5],count(r->r["ref"] in plan["salt_refs"],Iterators.flatten((x["items"]["held"],x["items"]["stored"]))))
         material+=plan["salt_unit"]*(pairs(after)-pairs(before))
     end
-    haskey(plan,"valuation") ? trade_compound_gradient(before["food"],after["food"],material,plan["valuation"])["total"] :
+    haskey(plan,"valuation") ? trade_compound_gradient(before["food"],after["food"],material,plan["valuation"];realized=true)["total"] :
         material+get(plan,"relation_value",0.)-.002 # previously saved trials
 end
 
@@ -77,6 +77,12 @@ function item_social_resolve!(mind,plan,result;relation=nothing,state=nothing)
     if relation!==nothing
         social_relation_event!(relation,plan["partner"],role=="offer" ? "trade_offer" : "trade_response",
             plan["source"],result["us"];outcome=result["status"],value=actual,context=plan["context"])
+    end
+    if success && relation!==nothing && haskey(get(plan,"valuation",D()),"investment")
+        terms=get(plan,"terms",D())
+        if sum(get(terms,"give_food",Int[]))>0 || !isempty(get(terms,"give_items",Int[]))
+            trade_investment_register!(relation,plan["partner"],plan["source"],result["us"],plan["valuation"]["investment"])
+        end
     end
     item_push!(mind["records"],D("source"=>plan["source"],"partner"=>plan["partner"],
         "action"=>plan["action"],"status"=>result["status"],"expected"=>plan["expected"],
@@ -159,7 +165,13 @@ function item_social_plan!(state,view,body,gut,stock,now;map=nothing,kitchen=not
             observed=social_observed_context(relation,other,context)
             trace=relation===nothing ? nothing : social_relation_bias(relation,other,
                 response ? "trade_response" : "trade_offer";situation=observed,H=loop.H)
-            (observed,trace,trade_valuation_context(body,gut,security,observed,trace;food_enabled=stock!==nothing))
+            valuation=trade_valuation_context(body,gut,security,observed,trace;food_enabled=stock!==nothing)
+            forecast=trade_investment_forecast(relation,other)
+            if forecast!==nothing;valuation["investment"]=forecast;valuation["relationship"]=0.;end
+            (observed,trace,valuation)
+        end
+        if haskey(valuation,"investment") && isempty(give) && !any(!iszero,gf)
+            valuation=copy(valuation);valuation["investment"]=merge(valuation["investment"],D("value"=>0.))
         end
         gradient=trade_compound_gradient(available,available.-gf.+wf,gain,valuation)
         relation_value=gradient["relationship"]
@@ -182,14 +194,16 @@ function item_social_plan!(state,view,body,gut,stock,now;map=nothing,kitchen=not
         communication_prediction=trade_communication_prediction(probability,communication,other,offer_id,now)
         communication_prediction===nothing || (probability=communication_prediction["probability"])
         field=relational_transition(0.,subjective;probability)
-        expected=field.expected
+        future=get(gradient,"investment",0.)
+        # field ranks total prospective value; expected is the immediate trial only.
+        expected=field.expected-probability*future
         # Shape-based methods generalize over object IDs. Actual refs bind only
         # the current transfer. The bounded method table is shared-loop machinery.
         supply_audit===nothing || (supply_audit["feasible"]+=1)
         action=counter ? "item_counter" : response ? "item_accept" : "item_offer"
         push!(candidates,D("method"=>"$action:$key",
             "action"=>action,"question"=>"subjective_possession_value",
-            "components"=>D("expected"=>4expected,"relation"=>trace===nothing ? 0. : trace["weight"]),"priority"=>4expected+(trace===nothing ? 0. : trace["weight"]),
+            "components"=>D("expected"=>4expected,"investment"=>4probability*future,"relation"=>haskey(valuation,"investment") || trace===nothing ? 0. : trace["weight"]),"priority"=>4expected+4probability*future+(haskey(valuation,"investment") || trace===nothing ? 0. : trace["weight"]),
             "expected"=>expected,"gain"=>gain,"subjective_gain"=>subjective,"relation_value"=>relation_value,"partner"=>other,"trace"=>trace,
             "compound_gradient"=>gradient,"valuation"=>valuation,
             "exchange_give"=>exchange_give,"exchange_want"=>exchange_want,
@@ -233,7 +247,7 @@ function item_social_plan!(state,view,body,gut,stock,now;map=nothing,kitchen=not
             end
             if !isempty(candidates)
                 candidates=item_exchange_refine(candidates)
-                sort!(candidates;by=c->(-c["expected"],c["method"]))
+                sort!(candidates;by=c->(-(trade_investment_enabled(relation) ? c["relational_field"].expected : c["expected"]),c["method"]))
                 length(candidates)>32 && resize!(candidates,32)
                 for c in candidates;c["observation_log_prior"]=-log(length(candidates));end
             end

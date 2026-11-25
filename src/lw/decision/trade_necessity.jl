@@ -23,7 +23,7 @@ function trade_valuation_context(body,gut,security,situation,trace;food_enabled=
         "relationship"=>.05benefit+.1credit+.02familiar)
 end
 
-function trade_compound_gradient(before,after,material,valuation;cost=.002)
+function trade_compound_gradient(before,after,material,valuation;cost=.002,realized=false)
     units=valuation["food_units"]
     expiry=get(valuation,"expiry",nothing)
     supplied(x)=x===nothing ? 0. : sum(units[k]*x[k] for k in eachindex(x))-(expiry===nothing ? 0. : food_expected_waste(x,expiry;units))
@@ -35,12 +35,14 @@ function trade_compound_gradient(before,after,material,valuation;cost=.002)
     # make food a weaker response to the visible distress. No return promise.
     aid=valuation["distress"]*(1-.5valuation["fear"])*valuation["affiliation"]*log1p(delivered)
     relationship=valuation["relationship"]
+    investment=get(valuation,"investment",nothing)
+    future=investment===nothing || realized ? 0. : (investment["probability"]-investment["baseline"])*investment["value"]
     waste_before=expiry===nothing ? 0. : food_expected_waste(before,expiry)
     waste_after=expiry===nothing ? 0. : food_expected_waste(after,expiry)
     waste_relief=2*(waste_before-waste_after)
     D("material"=>material,"nutrient_demand"=>get(valuation,"nutrient_demand",(0.,0.,0.)),"security"=>security,"aid"=>aid,"relationship"=>relationship,
         "waste_before"=>waste_before,"waste_after"=>waste_after,"waste_relief"=>waste_relief,
-        "cost"=>-cost,"total"=>material+security+aid+relationship+waste_relief-cost,
+        "investment"=>future,"cost"=>-cost,"total"=>material+security+aid+relationship+waste_relief-cost+future,
         "need_before"=>initial,"need_after"=>final)
 end
 

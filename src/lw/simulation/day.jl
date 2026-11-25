@@ -483,6 +483,9 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest
         @lw_restore saved.state
         start_sec=saved.day*div(clock.day_us,1_000_000)
     end
+    if relations!==nothing
+        for a in IDS;relations[a]["trade_relationship_investment"]=get(spec,:trade_relationship_investment,false);end
+    end
     home_activity_attach!(storage_stats,w.positions,spec.home,start_sec*1_000_000)
     for a in IDS;mb_maps[a]["food_search_resistance_enabled"]=get(spec,:mb_food_search_resistance,true);end
     function process_sleep!(a,now,day,action,status)
@@ -506,6 +509,7 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest
                     sleep_actions && adopt_sleep_actions!(action_models[a],last(general[a]["reviews"]),a,t)
                     sleep_maintenance && enroll_sleep_usage!(action_models[a],t)
                     relations!==nothing && social_mb_sleep_review!(relations[a],day,t;completed=true)
+                    relations!==nothing && trade_investment_sleep!(relations[a],day)
                 end) : nothing
                 receipt!(learning[a],now;phase="night",kind=action=="rest" ? "wait" : action,status=action=="rest" ? "waited" : status,on_complete=callback)
     end

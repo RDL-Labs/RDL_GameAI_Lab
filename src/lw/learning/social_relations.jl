@@ -9,6 +9,7 @@ const SOCIAL_RELATION_OUTCOMES=Dict(
     "trade_response"=>("exchanged","declined","expired","unavailable"))
 
 include("social_mb.jl")
+include("trade_investment.jl")
 include("social_peer_resolution.jl")
 
 function social_relations_state(actor;relational=false)
@@ -93,6 +94,7 @@ function social_relation_event!(s,other,channel,source,now;outcome,value=0.,cont
     ref=String(channel)*":"*String(source)
     push!(p["source_refs"],ref);length(p["source_refs"])>16 && popfirst!(p["source_refs"])
     push!(s["records"],event);length(s["records"])>32 && popfirst!(s["records"])
+    trade_investment_observe!(s,event)
     social_mb_record!(s,event)
     true
 end

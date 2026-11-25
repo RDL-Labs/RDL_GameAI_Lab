@@ -1200,3 +1200,11 @@ LWの親目的達成では既存`mb_completion_reward`の時間・消耗の等�
 通常系未接続。`experiments/social_relationships/relation_investment_probe.jl` の
 TRADE_PROBEへ主観価値・応答期待・不足二乗・符号付きHの仮設定を隔離。
 [条件・限界](../../experiments/social_relationships/RELATION_INVESTMENT.md)を参照。
+
+## LW関係期待の実験接続（2026-11-25）
+
+scene.trade_relationship_investment既定false。TRADE_RELATION_FORECASTは
+src/lw/learning/trade_investment.jl。未知応答見込み0.5、事前4件、将来価値1.5、
+H尺度4、中立帯1標準偏差、睡眠反映0.2、記録64件。
+[接続・限界・検査](../../experiments/social_relationships/INVESTMENT_INTEGRATION.md)。
+既存BasicLoopのHとは別の関係予測用符号付きHで、現行仕様の一律置換ではない。
