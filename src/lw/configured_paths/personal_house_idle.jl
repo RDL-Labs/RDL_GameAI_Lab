@@ -47,7 +47,12 @@ function configured_house_plan!(state,house,position,yaw,now,day_us,rows;
         configured_house_transition!(state,"travelling","chores_finished",now)
     end
     dx,dz=house.x-position[1],house.z-position[2];distance=hypot(dx,dz)
-    if distance<=house.radius*HOUSE_IDLE_RULES.arrival_fraction
+    # Subtraction/addition at world coordinates can leave the final position a
+    # few ULP outside the requested stopping radius. This is numerical precision,
+    # not cognitive tolerance: do not charge another walk for an unrepresentable step.
+    arrival_radius=house.radius*HOUSE_IDLE_RULES.arrival_fraction
+    arrival_roundoff=8eps(max(1.,abs(house.x),abs(house.z),abs(position[1]),abs(position[2])))
+    if distance<=arrival_radius+arrival_roundoff
         if state["mode"]!="idle"
             state["entries"]+=1
             configured_house_transition!(state,"idle","arrived",now)

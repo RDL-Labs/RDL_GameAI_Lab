@@ -26,6 +26,13 @@ include("../../integrations/lightweight_julia/native.jl")
     @test !configured_house_wake!(s,101_000_000,100_000_000,0.;inside=true)
     @test configured_house_obligation(D("pending"=>1),nothing,nothing,nothing,"a",0)
     @test !configured_house_obligation(D("pending"=>nothing),nothing,nothing,nothing,"a",0)
+    # Captured D positions from the two day-one boundary stalls.
+    for position in ((1.8344780734121595,2.4505579783098392),(1.839243550091911,2.4522801828656084))
+        edge=configured_house_state()
+        @test configured_house_plan!(edge,(x=2.,z=2.,radius=.6),position,0.,0,100_000_000,rows;eligible=true)["action"]=="rest"
+        @test edge["travel_ticks"]==0
+    end
+    @test configured_house_plan!(configured_house_state(),(x=2.,z=2.,radius=.6),(2.,2.480001),0.,0,100_000_000,rows;eligible=true)["action"]=="walk"
 end
 
 @testset "return then sleep in own house" begin
