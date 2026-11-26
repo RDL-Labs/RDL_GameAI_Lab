@@ -15,13 +15,15 @@ end
     for i in 0:9;mb_daily_result!(s,D("action"=>"walk"),"performed",i*1_000_000,.1,0);end
     visible=D("visible"=>[D("distance"=>5.)])
     mb_daily_request!(s,visible,nothing,false,0,69.,0.,10_000_000,600_000_000)
-    @test a["evidence"]["mode"]=="known_food"
+    # An anonymous visibility toggle is not a new identified source or a reason
+    # to discard the selected parent's frozen forecast.
+    @test a["evidence"]["mode"]=="unknown_food"
     @test a["deadline_us"]==600_000_000
     @test a["started_us"]==0
     @test a["forecast"]==frozen
     @test a["operations"]==10
     @test a["energy"]≈1.
-    @test a["remaining_estimate"]["available_seconds"]==590.
+    @test a["remaining_estimate"]["available_seconds"]==600.
     mb_daily_result!(s,D("action"=>"pickup"),"picked_up",11_000_000,.1,0)
     mb_daily_result!(s,D("action"=>"deposit"),"performed",30_000_000,.1,1;delivered_sources=["op:11000000:test"])
     record=only(st["records"])

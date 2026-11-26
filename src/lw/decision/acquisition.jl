@@ -1,6 +1,7 @@
 # Purpose -> method -> observed site. Only own outcomes enter this ledger.
 # Forecasts freeze per unresolved episode; need pressure is never learned as failure.
 include("../learning/action_trial.jl")
+include("../learning/execution_commitment.jl")
 include("../parameters.jl")
 include("food_goal.jl")
 acquisition_state()=D("sites"=>D(),"methods"=>D(),"choice"=>nothing,"next_us"=>0,"records"=>Any[],"active"=>nothing,"sequence"=>0,"trials"=>Any[])
@@ -37,9 +38,9 @@ function acquisition_publish!(state,trial;achieved=false)
 end
 function acquisition_finish!(map,status,evidence;clear_choice=true)
  state=get(map,"acquisition",nothing);state===nothing && return false
+ if clear_choice;state["choice"]=nothing;state["next_us"]=0;end
  trial=get(state,"active",nothing)
  trial===nothing && return false
- if clear_choice;state["choice"]=nothing;state["next_us"]=0;end
  action_trial_close!(trial,status,evidence) || return false
  (trial["elapsed"]>0 || status=="achieved") && acquisition_publish!(state,trial;achieved=status=="achieved")
  status=="achieved" && trial["method"]=="explore" && (state["handoff_from"]=trial["id"])
@@ -141,17 +142,21 @@ function acquisition_targets!(map,visible,loop,now;home=nothing,anxiety=0.,commi
   held=filter(v->v["ref"]==committed_ref,visible)
   !isempty(held) && return held
  end
- if now<s["next_us"] && choice!==nothing
+ review=nothing
+ if choice!==nothing
+  site=get(get(map,"food_sites",Dict{Int,Any}()),get(choice,"ref",nothing),nothing)
+  contradicted=site!==nothing && site["state"]=="empty" && get(choice,"site_state",nothing)!="empty" && site["observed_us"]>get(choice,"selected_us",now)
+  commitment=get(choice,"execution",nothing)
+  review=commitment===nothing ? (now>=s["next_us"] ? "forecast_elapsed" : nothing) :
+      execution_review_reason(commitment,now;contradiction=contradicted)
+  contradicted && (review="contradicted")
+ end
+ if choice!==nothing && review===nothing
   choice["ref"]===nothing && return Any[]
   i=findfirst(v->v["ref"]==choice["ref"],visible)
   i!==nothing && return Any[visible[i]]
-  # Losing sight is not evidence against an already selected fishing plan.
-  # Return no observation; navigation retains its own last observed estimate.
-  get(choice,"technique",nothing)=="fishing" && return Any[]
-  if get(choice,"source",nothing)=="memory"
-   availability=mb_food_availability(map,D("goal"=>"food","food_ref"=>choice["ref"]))
-   availability==choice["food_availability"] && return Any[]
-  end
+  # All selected methods retain their target without inventing visibility.
+  return Any[]
  end
  if owned===nothing && own_stock!==nothing
   owned=copy(own_stock)
@@ -224,16 +229,19 @@ function acquisition_targets!(map,visible,loop,now;home=nothing,anxiety=0.,commi
    acquisition_finish!(map,"interrupted","different_candidate";clear_choice=false)
   end
  end
- # A fishing decision already priced travel, work and uncertainty. Execute
+ # A decision already priced travel, work and uncertainty. Execute
  # within that frozen forecast before comparing methods again. Safety/body
  # interruptions remain upstream; this is not a successful-catch guarantee.
  s["choice"]=selected
- s["next_us"]=now+(selected["technique"]=="fishing" ? ceil(Int,max(1.,selected["seconds"])*1_000_000) : 64_000_000)
+ selected["selected_us"]=now
+ selected["site_state"]=get(get(get(map,"food_sites",Dict{Int,Any}()),selected["ref"],D()),"state",nothing)
+ selected["execution"]=execution_commitment(selected["method"],now,selected["seconds"])
+ s["next_us"]=selected["execution"]["review_us"]
  arrival=get(get(map,"goal_arrival",D()),"food",nothing)
  if arrival!==nothing && get(arrival,"target",nothing)!=selected["ref"]
   arrival["mode"]="search";arrival["target"]=nothing
  end
- push!(s["records"],D("us"=>now,"anxiety"=>anxiety,"choice"=>rows[index]["method"],"candidates"=>rows,"probabilities"=>probabilities,
+ push!(s["records"],D("us"=>now,"review_reason"=>choice===nothing ? "unselected" : review,"anxiety"=>anxiety,"choice"=>rows[index]["method"],"candidates"=>rows,"probabilities"=>probabilities,
      "relation_keys"=>relation_keys,"distribution_rule"=>"relation_peak_mass"))
  length(s["records"])>64 && popfirst!(s["records"])
  ref=rows[index]["ref"]

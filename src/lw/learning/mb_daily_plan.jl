@@ -3,6 +3,7 @@
 # values are experimental scaffolding, not universal MB rules. Generic extraction
 # is incomplete; see docs/design/LW_Daily_Provision_Plan.md.
 # Uses observed food / remembered routes only; no hidden food coordinates or stocks.
+include("execution_commitment.jl")
 mb_daily_plan_state(actor,seed)=D("active"=>nothing,"models"=>D(),"records"=>Any[],"local_returns"=>Any[],
     "known_sites"=>Set{Int}(),"empty_sites"=>Set{Int}(),"plan_records"=>Any[],
     "decisions"=>Any[],"rng"=>BasicLoop("$actor:daily-provisions";probabilistic=true,seed=seed).rng)
@@ -160,9 +161,11 @@ function mb_daily_evidence(s,move,reserve,strain,now)
 end
 function mb_daily_request!(s,move,home,at_home,inventory,reserve,strain,now,day_us;replenishing=false,return_hint=false)
     state=s["daily_plan"];a=state["active"]
+    discovered_source=false
     for row in get(move,"visible",Any[])
         ref=get(row,"ref",nothing);ref===nothing && continue
         get(row,"acquisition","pickup")=="fishing" && continue # opportunity, not visible fish stock
+        discovered_source |= !(Int(ref) in state["known_sites"]) || Int(ref) in state["empty_sites"]
         push!(state["known_sites"],Int(ref));delete!(state["empty_sites"],Int(ref))
         mb_food_site_observe!(s,ref,1,now,"visible")
     end
@@ -221,10 +224,16 @@ function mb_daily_request!(s,move,home,at_home,inventory,reserve,strain,now,day_
         mb_daily_local_return!(state,now,"empty_return")
     end
     visible=!isempty(get(move,"visible",Any[]))
-    if now<a["next_us"] && visible==a["last_visible"]
+    if now<a["next_us"] && !discovered_source
         return a["choice"]=="home"
     end
     a["next_us"]=now+64_000_000;a["last_visible"]=visible
+    execution_context=(inventory,get(a,"plan_epoch",0),a["strategy"],a["stage"],replenishing)
+    execution_pressure=hunger===nothing ? 0. : hunger["H"]
+    execution_reason=execution_review_reason(get(a,"execution",nothing),now;
+        key=a["choice"],context=execution_context,pressure=execution_pressure,
+        contradiction=discovered_source && a["strategy"]=="explore")
+    execution_reason===nothing && return a["choice"]=="home"
     evidence=mb_daily_evidence(s,move,reserve,strain,now);a["evidence"]=evidence
     ref=get(evidence,"site_ref",nothing)
     if ref!==nothing
@@ -283,9 +292,11 @@ function mb_daily_request!(s,move,home,at_home,inventory,reserve,strain,now,day_
     prior=a["stage"]
     mb_daily_stage!(state,stage,now;completed=prior=="unknown_food" && mode=="known_food",reason="plan_revision")
     a["choice"]=choice
+    a["execution"]=execution_commitment(choice,now,choice=="home" ? back["seconds"] : food["seconds"];
+        context=(inventory,get(a,"plan_epoch",0),a["strategy"],a["stage"],replenishing),pressure=execution_pressure)
     a["remaining_estimate"]=D("food_seconds"=>food["seconds"],"return_seconds"=>back["seconds"],
         "available_seconds"=>remaining,"food_source"=>evidence["source"],"return_known"=>home!==nothing || chain!==nothing)
-    mb_daily_log!(state["decisions"],D("us"=>now,"stage"=>stage,"strategy"=>a["strategy"],"plan_started_us"=>a["plan_started_us"],"plan_epoch"=>a["plan_epoch"],"confidence"=>evidence["confidence"],
+    mb_daily_log!(state["decisions"],D("us"=>now,"review_reason"=>execution_reason,"stage"=>stage,"strategy"=>a["strategy"],"plan_started_us"=>a["plan_started_us"],"plan_epoch"=>a["plan_epoch"],"confidence"=>evidence["confidence"],
         "return_probability"=>probabilities[2],"H"=>loop.H,"forecast_seconds"=>forecast["seconds"],"estimate"=>copy(a["remaining_estimate"])))
     choice=="home"
 end
