@@ -1,5 +1,12 @@
 # 数値設定の配置と意味
 
+## 個人宅の配置（2026-11-26）
+
+`src/lw/world/personal_houses.jl` の `PERSONAL_HOUSE_DEFAULTS` は世界配置用。
+半径0.6・高さ0.4・余白0.4・間隔2・共有領域半径2（world距離）、探索環上限32。
+`scene.personal_house_settings` で調整。新規標準地形はON、既存入力の省略はOFF。
+行動や帰還を固定しない。詳細は [個人宅](LW_Personal_Houses_20261126.md)。
+
 ## 廃止した通常LW設定（2026-11-26）
 
 `home_rest_reward`（60秒で固定+5）と`movement_inertia`（旧観測比較H）は通常LWから撤去。

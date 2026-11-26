@@ -61,6 +61,7 @@ include(joinpath(@__DIR__, "../world/fishing.jl"))
 include(joinpath(@__DIR__, "../world/river_fishing.jl"))
 include(joinpath(@__DIR__, "../world/food_expiry.jl"))
 include(joinpath(@__DIR__, "../world/food_facilities.jl"))
+include(joinpath(@__DIR__, "../world/personal_houses.jl"))
 include(joinpath(@__DIR__, "../world/seasonal_food.jl"))
 include(joinpath(@__DIR__, "../world/food_exchange.jl"))
 include(joinpath(@__DIR__, "../world/portable_items.jl"))
@@ -191,7 +192,8 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest
     # Visual-only markers (e.g. flames) are perceived but do not block movement or home sightlines.
     visual_objects=hasproperty(spec,:visual_landmarks) ? vcat(collect(spec.obstacles),collect(spec.visual_landmarks)) : spec.obstacles
     facilities=food_facilities(spec)
-    visual_objects=vcat(collect(visual_objects),food_facility_visuals(facilities))
+    houses=personal_houses(spec,IDS)
+    visual_objects=vcat(collect(visual_objects),food_facility_visuals(facilities),personal_house_visuals(houses))
     landmark_objects=landmark_routes ? prepare_landmark_objects(visual_objects) : nothing
     skyline_objects=skyline_mode=="off" ? nothing : prepare_skyline_objects(visual_objects)
     history=get(spec,:world_history,nothing)
@@ -382,6 +384,7 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest
     purposes=Dict(a=>return_purpose() for a in IDS)
     pending=Dict{String,Any}();daily=Any[];day_starts=Any[]
     physical()=D(a=>D("position"=>collect(w.positions[a]),"yaw"=>yaw[a],"body"=>bodydict(w.bodies[a]),
+        "personal_house"=>personal_house_presence(houses,a,w.positions[a]),
         "body_purpose"=>body_purpose ? deepcopy(configured_body_states[a]) : nothing,"return_purpose"=>deepcopy(purposes[a]),"inventory"=>w.inventory[a],"personal_stock"=>stores[a],"social_count"=>length(states[a]["records"]),
         "social_model"=>deepcopy(states[a]["model"]),"loops"=>D(f=>loop_snapshot(s) for (f,s) in loops[a]),
         "routes"=>landmark_routes ? deepcopy(routes[a]) : nothing,"max_radius_observer_only"=>max_radius[a],
@@ -1733,7 +1736,7 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest
         cycle=learning[a]["sleep"]["cycle"]
         !collapsed && relations===nothing && (states[a]=consolidate_social(states[a],merge(copy(cycle),D("formation_us"=>Int(days*clock.day_us))),a))
         terminal[a]=D("body_purpose"=>body_purpose ? deepcopy(configured_body_states[a]) : nothing,"return_purpose"=>deepcopy(purposes[a]),"position"=>collect(w.positions[a]),"body"=>bodydict(w.bodies[a]),"inventory"=>w.inventory[a],
-            "personal_stock"=>stores[a],"sleep"=>learning[a],"social"=>states[a],"aid"=>relations===nothing ? pressure_snapshot(live[a]) : social_aid_snapshot(relations[a]["aid"]),"distance"=>distance[a],
+            "personal_stock"=>stores[a],"personal_house"=>personal_house_presence(houses,a,w.positions[a]),"sleep"=>learning[a],"social"=>states[a],"aid"=>relations===nothing ? pressure_snapshot(live[a]) : social_aid_snapshot(relations[a]["aid"]),"distance"=>distance[a],
             "routes"=>landmark_routes ? deepcopy(routes[a]) : nothing,"max_radius_observer_only"=>max_radius[a],
             "harvest"=>harvest_sleep ? deepcopy(harvest[a]) : nothing,"model_field"=>field_stats[a])
     end
@@ -1744,7 +1747,7 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest
         "hazards"=>dynamic_hazard_mode!="off" ? deepcopy(hazard_world) : nothing,
         "wildlife"=>wildlife===nothing ? nothing :
             (!isempty(daily) && haskey(daily[end],"wildlife") ? daily[end]["wildlife"] : LWGrazing.snapshot(wildlife)),
-        "food_resources"=>foods===nothing ? nothing : food_snapshot(foods),"food_facilities"=>facilities,
+        "food_resources"=>foods===nothing ? nothing : food_snapshot(foods),"food_facilities"=>facilities,"personal_houses"=>houses,
         "food_exchange"=>nothing,
         "portable_items"=>items===nothing ? nothing : item_snapshot(items),
         "cargo"=>[D("index"=>i,"source"=>dropped["origins"][i]) for i in sort(collect(keys(dropped["origins"])))])

@@ -16,13 +16,14 @@ summary["food"]["discarded"]=get(r,"discarded_food",0)
 for a in IDS
     s=r["final_agents"][a];h=s["harvest"]
     summary["agents"][a]=D("position"=>s["position"],"body"=>s["body"],"inventory"=>s["inventory"],
-        "stock"=>s["personal_stock"],"distance"=>s["distance"],"operations"=>sum(values(r["counts"][a])),
+        "stock"=>s["personal_stock"],"personal_house"=>s["personal_house"],"distance"=>s["distance"],"operations"=>sum(values(r["counts"][a])),
         "night_statuses"=>[n["sleep"][a]["sleep"]["cycle"]["status"] for n in r["daily"]],
         "model_ref"=>h===nothing || h["model"]===nothing ? nothing : h["model"]["model_ref"],
         "replacement_used"=>h===nothing ? false : get(h,"replacement_used",false),"model_field"=>s["model_field"])
 end
 haskey(r,"digestion") && (summary["digestion"]=r["digestion"])
 summary["home_activity"]=r["home_activity"]
+summary["personal_houses"]=get(r["world_checkpoint"],"personal_houses",Any[])
 summary["retired_action_paths"]=r["retired_action_paths"]
 haskey(r,"food_exchange") && (summary["food_exchange"]=r["food_exchange"])
 haskey(r,"portable_items") && (summary["portable_items"]=r["portable_items"])
