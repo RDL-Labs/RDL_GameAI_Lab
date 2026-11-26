@@ -10,6 +10,34 @@ function trade_request_recall(map)
     end
     sort!(unique!(recalled))
 end
+
+# Owner-local recipe knowledge and reachable facilities, shared with food desire.
+# Output taste must have been experienced/observed; the recipe itself is existing
+# initial knowledge, not a recipe learned by this request adapter.
+function trade_request_processing(map,body,gut,kitchen,input,output;items=nothing)
+    kitchen===nothing && return nothing
+    recalled=trade_request_recall(map)
+    input in recalled && output in recalled && input!=output || return nothing
+    step(body,"process_food",length(kitchen.foods.inventory[kitchen.actor]))[2]=="worked" || return nothing
+    salted=output==RDLBody.SALTED_FISH
+    salt_id=salted ? owned_cooking_salt(items,map,kitchen.actor,true) : nothing
+    salted && salt_id===nothing && return nothing
+    forecast=food_use_forecast(map,kitchen.foods,kitchen.actor,input,true,gut,body_energy(body),kitchen.facilities,kitchen.position;
+        processing=kitchen.processing,salted)
+    forecast===nothing && return nothing
+    forecast.output==output || return nothing
+    D("input"=>input,"output"=>output,"cost"=>forecast.cost,"quality"=>forecast.quality,
+        "ticks"=>RDLBody.FOOD_PROCESS_TICKS[input]+2,"salt_id"=>salt_id)
+end
+function trade_request_processing_inputs(map,body,gut,kitchen,output;items=nothing)
+    inputs=Dict{Int,Any}()
+    for input in trade_request_recall(map)
+        forecast=trade_request_processing(map,body,gut,kitchen,input,output;items)
+        # Publish the claimed transformation, not private salt/item references.
+        forecast===nothing || (inputs[input]=D("input"=>input,"output"=>output))
+    end
+    inputs
+end
 function trade_request_desire(body,gut,stock;map=nothing,kitchen=nothing,relation=nothing)
     stock===nothing && return nothing
     security=map===nothing ? food_security(relation) : get(map,"food_security",food_security(relation))

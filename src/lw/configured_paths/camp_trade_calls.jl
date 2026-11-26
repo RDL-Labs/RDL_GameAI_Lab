@@ -29,7 +29,7 @@ function configured_camp_trade_address!(state,kind,now)
     (peer=plan["method"]=="broadcast" ? nothing : plan["method"],support=support,
         probabilities=D(c["method"]=>probabilities[i] for (i,c) in enumerate(candidates)))
 end
-function configured_camp_trade_call!(state,map,body,gut,stock,now,day_us;kitchen=nothing,relation=nothing,allow_start=true)
+function configured_camp_trade_call!(state,map,body,gut,stock,now,day_us;kitchen=nothing,relation=nothing,allow_start=true,processing_requests=false,items=nothing)
     channel=configured_camp_trade_state!(state)
     allow_start && channel["last_day"]!=div(now,day_us) && channel["outgoing"]===nothing && channel["meeting"]===nothing || return nothing
     desire=trade_request_desire(body,gut,stock;map,kitchen,relation)
@@ -47,14 +47,28 @@ function configured_camp_trade_call!(state,map,body,gut,stock,now,day_us;kitchen
     event=D("id"=>"camp-call:$(state["actor"]):$now","caller"=>state["actor"],"kind"=>desire.kind,
         "offered"=>offered,"created_us"=>now,"expires_us"=>now+CAMP_TRADE_CALL_RULES.lifetime_us,
         "addressee"=>address.peer,"expected_reply"=>address.peer===nothing ? 0. : address.support[address.peer]/(1+address.support[address.peer]),"heard"=>Set{String}(),"replies"=>Any[])
+    # Public conditional request: "I can cook ingredient X myself". No peer read.
+    processing_requests && (event["processing_inputs"]=trade_request_processing_inputs(map,body,gut,kitchen,desire.kind;items))
     channel["last_day"]=div(now,day_us);channel["outgoing"]=event;channel["calls"]+=1
     configured_camp_trade_record!(state,"call",now;kind=desire.kind,offered=copy(offered),addressee=address.peer,
         gradient=desire.gradient,support=address.support,probabilities=address.probabilities)
     event
 end
-function configured_camp_trade_interest(event,state,map,body,gut,stock,now;kitchen=nothing,relation=nothing)
+function configured_camp_trade_interest(event,state,map,body,gut,stock,now;kitchen=nothing,relation=nothing,processing_requests=false,items=nothing)
     kind=event["kind"]
-    kind in trade_request_recall(map) && stock[kind]>0 || return nothing
+    kind in trade_request_recall(map) || return nothing
+    supplies=Any[]
+    stock[kind]>0 && push!(supplies,D("input"=>kind,"output"=>kind,"mode"=>"direct","cost"=>0.))
+    if processing_requests
+        for input in trade_request_recall(map)
+            input!=kind && stock[input]>0 || continue
+            advertised=get(get(event,"processing_inputs",Dict{Int,Any}()),input,nothing)
+            advertised!==nothing && advertised["output"]==kind && push!(supplies,D("input"=>input,"output"=>kind,"mode"=>"recipient_processing","cost"=>0.))
+            forecast=trade_request_processing(map,body,gut,kitchen,input,kind;items)
+            forecast===nothing || push!(supplies,merge(forecast,D("mode"=>"supplier_processing")))
+        end
+    end
+    isempty(supplies) && return nothing
     security=get(map,"food_security",food_security(relation))
     context=social_observed_context(relation,event["caller"],D("need"=>body_demand(body)))
     trace=relation===nothing ? nothing : social_relation_bias(relation,event["caller"],"trade_offer";situation=context,H=0.)
@@ -62,13 +76,16 @@ function configured_camp_trade_interest(event,state,map,body,gut,stock,now;kitch
     weights=food_trade_weights(body,gut;map,kitchen)
     best=nothing
     # The caller disclosed only these possible payments, not their whole stock.
-    for wanted in sort!(collect(keys(event["offered"])))
+    for supply in supplies, wanted in sort!(collect(keys(event["offered"])))
         wanted in trade_request_recall(map) || continue
-        after=copy(stock);after[kind]-=1;after[wanted]+=1
+        after=copy(stock);after[supply["input"]]-=1;after[wanted]+=1
         material=sum(weights[k]*(log1p(after[k])-log1p(stock[k])) for k in eachindex(stock))
         gradient=trade_compound_gradient(stock,after,material,valuation)
+        if supply["cost"]>0
+            gradient["processing_cost"]=-supply["cost"];gradient["total"]-=supply["cost"]
+        end
         gradient["total"]>0 || continue
-        (best===nothing || gradient["total"]>best.gradient["total"]) && (best=(wanted=wanted,gradient=gradient))
+        (best===nothing || gradient["total"]>best.gradient["total"]) && (best=(wanted=wanted,gradient=gradient,supply=supply))
     end
     best
 end
@@ -78,7 +95,7 @@ function configured_camp_trade_working(map)
     focus=get(map,"task_focus",D())
     get(focus,"active",false) && get(get(focus,"plan",D()),"action",nothing) in ("fish","process_food")
 end
-function configured_camp_trade_tick!(states,maps,world,foods,guts,relations,now,in_camp,sleeping,busy;kitchen_for=a->nothing)
+function configured_camp_trade_tick!(states,maps,world,foods,guts,relations,now,in_camp,sleeping,busy;kitchen_for=a->nothing,processing_requests=false,items=nothing)
     # Snapshot delivery before any current-tick actions; callers' newly created
     # announcements are heard on the next tick regardless of actor iteration order.
     for actor in sort!(collect(keys(states)))
@@ -96,6 +113,7 @@ function configured_camp_trade_tick!(states,maps,world,foods,guts,relations,now,
             end
         end
     end
+    processing_requests && configured_camp_processing_ready!(states,foods,now)
     for caller in sort!(collect(keys(states)))
         channel=configured_camp_trade_state!(states[caller]);event=channel["outgoing"]
         event===nothing && continue
@@ -112,14 +130,16 @@ function configured_camp_trade_tick!(states,maps,world,foods,guts,relations,now,
                 listener["ignored"]+=1;continue
             end
             interest=configured_camp_trade_interest(event,states[peer],maps[peer],world.bodies[peer],guts===nothing ? nothing : guts[peer],foods.personal[peer],now;
-                kitchen=kitchen_for(peer),relation=relations===nothing ? nothing : relations[peer])
+                kitchen=kitchen_for(peer),relation=relations===nothing ? nothing : relations[peer],processing_requests,items)
             if interest===nothing
                 listener["ignored"]+=1;continue
             end
             listener["replied"]+=1
-            reply=D("peer"=>peer,"wanted"=>interest.wanted,"offered"=>Dict(event["kind"]=>1),"gradient"=>interest.gradient)
+            supply=interest.supply
+            delivered=supply["mode"]=="recipient_processing" ? supply["input"] : supply["output"]
+            reply=D("peer"=>peer,"wanted"=>interest.wanted,"offered"=>supply["mode"]=="supplier_processing" ? Dict{Int,Int}() : Dict(delivered=>1),"gradient"=>interest.gradient,"supply"=>supply,"delivered"=>delivered)
             push!(event["replies"],reply)
-            configured_camp_trade_record!(states[peer],"reply",now;caller,kind=event["kind"],wanted=interest.wanted,gradient=interest.gradient)
+            configured_camp_trade_record!(states[peer],"reply",now;caller,kind=event["kind"],wanted=interest.wanted,gradient=interest.gradient,supply)
         end
         filter!(reply->begin
             peer=reply["peer"]
@@ -132,6 +152,17 @@ function configured_camp_trade_tick!(states,maps,world,foods,guts,relations,now,
             channel["address_H"]["$(event["kind"]):$peer"]=0.
             channel["meeting"]=D("peer"=>peer,"initiator"=>true,"kind"=>event["kind"],"announced"=>copy(reply["offered"]),"expires_us"=>event["expires_us"],"evaluated"=>false)
             configured_camp_trade_state!(states[peer])["meeting"]=D("peer"=>caller,"initiator"=>false,"kind"=>reply["wanted"],"announced"=>copy(event["offered"]),"expires_us"=>event["expires_us"],"evaluated"=>false)
+            if processing_requests && reply["supply"]["mode"]!="direct"
+                channel["meeting"]["goal_kind"]=event["kind"]
+                channel["meeting"]["kind"]=reply["delivered"]
+                channel["meeting"]["supply"]=copy(reply["supply"])
+                if reply["supply"]["mode"]=="supplier_processing"
+                    supplier_meeting=configured_camp_trade_state!(states[peer])["meeting"]
+                    supplier_meeting["preparation"]=copy(reply["supply"])
+                    deadline=max(event["expires_us"],now+reply["supply"]["ticks"]*1_000_000+CAMP_TRADE_CALL_RULES.lifetime_us)
+                    channel["meeting"]["expires_us"]=deadline;supplier_meeting["expires_us"]=deadline
+                end
+            end
             channel["outgoing"]=nothing
             configured_camp_trade_record!(states[caller],"meeting",now;peer)
         end
@@ -162,13 +193,18 @@ function configured_camp_trade_approach(state,home,position,yaw,rows)
         "configured_rule"=>"camp_trade_calls","configured_observation"=>true,
         "camp_trade_target"=>D("forward"=>forward,"right"=>right,"distance"=>distance))
 end
-function configured_camp_trade_plan!(state,view,body,gut,stock,now;kwargs...)
+function configured_camp_trade_plan!(state,view,body,gut,stock,now;processing_items=nothing,kwargs...)
     channel=configured_camp_trade_state!(state);meeting=channel["meeting"]
     incoming=view!==nothing && !isempty(get(view,"incoming",Any[]))
     if meeting===nothing || incoming
         return item_social_plan!(state,view,body,gut,stock,now;kwargs...)
     end
     meeting["initiator"] && !meeting["evaluated"] && view!==nothing && meeting["peer"] in view["trade_partners"] || return nothing
+    isempty(meeting["announced"]) && return nothing # A promised product is not owned stock.
+    supply=get(meeting,"supply",nothing)
+    if supply!==nothing && supply["mode"]=="recipient_processing"
+        trade_request_processing(get(kwargs,:map,nothing),body,gut,get(kwargs,:kitchen,nothing),meeting["kind"],meeting["goal_kind"];items=processing_items)===nothing && return nothing
+    end
     mind=item_social_state!(state);previous= mind["next_us"]
     plan=item_social_plan!(state,view,body,gut,stock,now;requested_food=meeting["kind"],kwargs...)
     if mind["next_us"]!=previous

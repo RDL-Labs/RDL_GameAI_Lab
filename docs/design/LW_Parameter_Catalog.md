@@ -9,6 +9,11 @@
 初期の配達・集合用の暫定設定で、音響や言語学習モデルの数値ではない。
 [接続・固定・検査](LW_Camp_Trade_Calls_20261126.md)。
 
+加工返答の局所版は `processing_requests=false` が既定。新しい味倍率・成功率は置かず、
+既存 `food_use_forecast` の費用、`FOOD_PROCESS_TICKS` と取り出し・保管の操作数を使用。
+供給側加工の期限は返答時に「加工等の見込み時間＋既存128秒」を確保する。
+[局所手順と限界](LW_Camp_Processing_Reply_20261126.md)。
+
 ## 個人宅の配置（2026-11-26）
 
 `configured_paths/personal_house_idle.jl` の `HOUSE_IDLE_RULES` は暫定帰宅・停止設定。
