@@ -184,6 +184,10 @@
     },
     {
       "args": [],
+      "path": "experiments/rock_gate/retired_rest_inertia_checks.jl"
+    },
+    {
+      "args": [],
       "path": "experiments/julia_migration/lw_integrated/embedded_rest_checks.jl"
     },
     {

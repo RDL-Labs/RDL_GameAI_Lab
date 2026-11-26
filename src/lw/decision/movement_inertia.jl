@@ -1,3 +1,5 @@
+# Historical diagnostics; no initialization/observation/recording in normal LW.
+# Current movement continuation is gradient_roll, not this independent H.
 # Continuation of accepted movement, adapted from continuous_selection inertia.
 inertia_state(actor)=D("actor"=>actor,"H"=>0,"threshold"=>4,"view"=>nothing,"last_us"=>-1,
     "receipt"=>nothing,"continued"=>0,"interrupts"=>D(),"records"=>Any[])

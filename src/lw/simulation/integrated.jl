@@ -23,6 +23,7 @@ for a in IDS
 end
 haskey(r,"digestion") && (summary["digestion"]=r["digestion"])
 summary["home_activity"]=r["home_activity"]
+summary["retired_action_paths"]=r["retired_action_paths"]
 haskey(r,"food_exchange") && (summary["food_exchange"]=r["food_exchange"])
 haskey(r,"portable_items") && (summary["portable_items"]=r["portable_items"])
 haskey(r,"incidental_items") && (summary["incidental_items"]=r["incidental_items"])

@@ -1,5 +1,12 @@
 # 数値設定の配置と意味
 
+## 廃止した通常LW設定（2026-11-26）
+
+`home_rest_reward`（60秒で固定+5）と`movement_inertia`（旧観測比較H）は通常LWから撤去。
+古いON入力も再有効化せず、結果の`retired_action_paths`にrequested/effective=falseを記録する。
+休息の身体回復・embedded_rest・gradient_rollは維持。
+詳細と局所検査は[撤去記録](LW_Retired_Rest_Inertia_20261126.md)。
+
 ## 人間の行動不能と介助（2026-11-24）
 
 MacroParameters.starvation_fatal既定true、人間MacroBridgeはfalse。

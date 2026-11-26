@@ -1,3 +1,5 @@
+# Historical local-test implementation. Retired from normal LW on 2026-11-26.
+# Not called by day.jl, even when an old input requests home_rest_reward=on.
 # Removable experimental value, not learned intrinsic place preference.
 configured_home_rest_state()=D("day"=>-1,"seconds"=>0,"awarded"=>false,
     "last_us"=>nothing,"arrival"=>nothing,"reward_total"=>0.,"records"=>Any[])
