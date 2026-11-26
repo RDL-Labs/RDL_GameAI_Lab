@@ -1,0 +1,1 @@
+[{"label":"before","call_seconds":405.763833,"times":{"save_seconds":3.3188945,"tick_save_seconds":356.6663484},"bytes":74449841237,"gc_seconds":12.7394032,"compile_seconds":59.321148},{"label":"after","call_seconds":340.0773606,"times":{"save_seconds":0.9883857,"tick_save_seconds":339.3181859},"bytes":69726210958,"gc_seconds":11.5707642,"compile_seconds":0.0}]
