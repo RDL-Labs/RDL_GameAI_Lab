@@ -1256,3 +1256,11 @@ scene.trade_use_outlook既定false。src/lw/decision/trade_use_outlook.jl。
 本人の栄養経験を使う。新しい味倍率は加えない。探索は現在の食品種×生食/加工/塩焼きのみ。
 有効時の総見込みは厳密に正を採用対象とし、既存の−0.01許容帯を使わない。
 [範囲・限界・検査](../../experiments/social_relationships/TRADE_USE_INTEGRATION.md)。
+
+### 拠点呼びかけの加工見込み（2026-11-26）
+- `scene.camp_trade_processing=false`：既定OFF。ONには camp_trade_calls が必要。
+- 呼び手が自分で加工できる材料も受け取り候補へ。供給側も加工費用を既存の価値評価へ反映。
+- 暫定固定の準備手順は configured_paths/camp_trade_processing.jl に隔離。
+  安全・研修・本人の空腹対応を優先。通常の物理実行・120tick加工・保管を通す。
+- 期限は既存加工見込み＋呼びかけ待ち時間を一度だけ設定。新しい数値係数は追加しない。
+- 詳細・撤去方針：LW_Camp_Processing_Reply_20261126.md。

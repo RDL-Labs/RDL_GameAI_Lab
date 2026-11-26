@@ -532,6 +532,8 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest
                 receipt!(learning[a],now;phase="night",kind=action=="rest" ? "wait" : action,status=action=="rest" ? "waited" : status,on_complete=callback)
     end
     camp_calls=get(spec,:camp_trade_calls,false)
+    camp_processing=get(spec,:camp_trade_processing,false)
+    check(camp_processing isa Bool && (!camp_processing || camp_calls),"camp_trade_processing_requires_calls")
     camp_calls && (incidental_items===nothing || foods===nothing || shared_stores || !item_exchange_enabled) && error("camp_trade_calls requires private typed food and item exchange")
     camp_radius=maximum([1.25;[hypot(h.x-spec.home[1],h.z-spec.home[2])+h.radius for h in values(house_by_actor)]])
     camp_inside(a)=hypot(w.positions[a][1]-spec.home[1],w.positions[a][2]-spec.home[2])<=camp_radius
@@ -553,7 +555,7 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest
             configured_camp_trade_tick!(incidental_items,mb_maps,w,foods,guts,relations,now,camp_inside,
                 a->configured_sleep_gate_active(learning[a],now,clock.day_us),
                 a->haskey(pending,a) || configured_camp_trade_working(mb_maps[a]) || configured_house_obligation(states[a],incidental_items[a],relations===nothing ? nothing : relations[a],items,a,now;include_camp=false);
-                kitchen_for=food_kitchen)
+                kitchen_for=food_kitchen,processing_requests=camp_processing,items)
         end
         house_paused_ids=Set{String}();house_woken_ids=Set{String}()
         if house_idle_enabled
@@ -956,6 +958,8 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest
                 plan=fish_lesson
             elseif acorn_quest && (training_plan=configured_acorn_quest_training_plan(mb_maps[a]["training_quest"],foods.inventory[a],at_home,guts===nothing || can_ingest(guts[a]),step(w.bodies[a],"process_food",w.inventory[a])[2]=="worked"))!==nothing
                 plan=training_plan
+            elseif camp_processing && !observing && !food_hungry && (camp_preparation=configured_camp_processing_plan(incidental_items[a],mb_maps[a],w.bodies[a],guts===nothing ? nothing : guts[a],food_kitchen(a),now;items,at_home))!==nothing
+                plan=camp_preparation
             elseif food_desire && (desire_plan=food_desire_plan!(mb_maps[a],loops[a]["food"],foods,a,guts===nothing ? nothing : guts[a],w.bodies[a],at_home,shared_stores ? foods.shared : foods.personal[a],facilities,w.positions[a],now;requested=food_hungry || (post_return_meal && at_home && configured_return_meal_due(mb_maps[a],now,clock.day_us)),processing=food_processing_enabled,items=items))!==nothing
                 plan=desire_plan
             elseif !food_desire && post_return_meal && (meal_plan=configured_return_meal_plan(mb_maps[a],foods,a,now,clock.day_us,at_home,guts===nothing || can_ingest(guts[a]),shared_stores ? shared : stores[a];processing_enabled=food_processing_enabled && any(k->food_facility_for(facilities,w.positions[a],k)!==nothing,foods.inventory[a]),workable=step(w.bodies[a],"process_food",w.inventory[a])[2]=="worked"))!==nothing
@@ -1062,17 +1066,18 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest
                 end
                 if plan===nothing
                     planner=camp_calls ? configured_camp_trade_plan! : item_social_plan!
+                    camp_plan_options=camp_calls ? (;processing_items=items) : (;)
                     camp_calls && (item_view=configured_camp_trade_view(incidental_items[a],item_view,now))
                     plan=planner(incidental_items[a],item_view,w.bodies[a],
                         guts===nothing ? nothing : guts[a],shared_stores || foods===nothing ? nothing : foods.personal[a],now;
-                        map=mb_simulation ? mb_maps[a] : nothing,kitchen=food_kitchen(a),allow_start=trade_start_available(states[a],now,clock.day_us),
+                        camp_plan_options...,map=mb_simulation ? mb_maps[a] : nothing,kitchen=food_kitchen(a),allow_start=trade_start_available(states[a],now,clock.day_us),
                         relation=relations===nothing ? nothing : relations[a])
                     trade_work_wait && (plan=configured_trade_wait_intercept!(incidental_items[a],plan,trade_workers,now,clock.day_us;relation=relations===nothing ? nothing : relations[a]))
                 end
                 (trade_idle || house_idle_enabled) && configured_trade_idle_considered!(mb_maps[a],incidental_items[a],item_view,plan,now,clock.day_us;allow_start=trade_start_available(states[a],now,clock.day_us))
                 if plan===nothing && camp_calls
                     configured_camp_trade_call!(incidental_items[a],mb_maps[a],w.bodies[a],guts===nothing ? nothing : guts[a],foods.personal[a],now,clock.day_us;
-                        kitchen=food_kitchen(a),relation=relations===nothing ? nothing : relations[a],allow_start=trade_start_available(states[a],now,clock.day_us))
+                        kitchen=food_kitchen(a),relation=relations===nothing ? nothing : relations[a],allow_start=trade_start_available(states[a],now,clock.day_us),processing_requests=camp_processing,items)
                     configured_camp_trade_busy(incidental_items[a]) && (plan=D("action"=>"scan","direction"=>0,"method"=>"camp_trade_wait","configured_observation"=>true))
                 end
             end

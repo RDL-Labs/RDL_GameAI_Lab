@@ -1,5 +1,5 @@
-# 暫定固定: local processing_requests=true only (default false); normal LW does
-# not enable this adapter. Known recipe, retrieve -> work -> deposit sequence
+# 暫定固定: scene.camp_trade_processing=false (default). Known recipe,
+# retrieve -> work -> deposit sequence, below safety and own hunger priorities,
 # implements a reply's tentative supply plan, not general-purpose planning.
 # Physical executors still check possession, facilities, effort and completion.
 # Future: a learned child preparation MB. Trace: camp_trade records/preparation.
@@ -14,7 +14,7 @@ function configured_camp_processing_plan(state,map,body,gut,kitchen,now;items=no
     input=preparation["input"];output=preparation["output"]
     foods.personal[actor][output]>0 && return nothing
     action=if output in foods.inventory[actor]
-        at_home ? "unload" : nothing
+        at_home ? "deposit" : nothing
     else
         current=trade_request_processing(map,body,gut,kitchen,input,output;items)
         if current===nothing

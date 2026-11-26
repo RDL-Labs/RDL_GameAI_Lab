@@ -37,7 +37,7 @@ function prepare_supplier!(f,actor,now)
             f.w.bodies[actor],status,_,_=LW.step(f.w.bodies[actor],action,f.w.inventory[actor])
             status=="worked" || error("body could not process")
             LW.food_process!(f.foods,actor;kind=plan["food_kind"],salt_id=plan["salt_id"],items=f.items,now)
-        elseif action=="unload"
+        elseif action=="deposit"
             f.stores[actor]+=f.w.inventory[actor];f.w.inventory[actor]=0
             LW.food_deposit!(f.foods,actor,false)
         end
