@@ -487,6 +487,7 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest
         for a in IDS;relations[a]["trade_relationship_investment"]=get(spec,:trade_relationship_investment,false);end
     end
     home_activity_attach!(storage_stats,w.positions,spec.home,start_sec*1_000_000)
+    for a in IDS;mb_maps[a]["trade_use_outlook"]=get(spec,:trade_use_outlook,false);end
     for a in IDS;mb_maps[a]["food_search_resistance_enabled"]=get(spec,:mb_food_search_resistance,true);end
     function process_sleep!(a,now,day,action,status)
                 cycle=learning[a]["sleep"]["cycle"]

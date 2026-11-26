@@ -1216,3 +1216,11 @@ FOOD_AROMA_FEATURES。抽象3特徴、距離尺度4世界単位、一致尺度0.
 加工/出来上がり/摂食強度1/0.7/0.6、残香60秒、想起加点係数0.35、履歴64件。
 暫定の知覚近似で、行動の強制規則ではない。
 [接続範囲と検査](../../experiments/social_relationships/FOOD_AROMA_INTEGRATION.md)。
+
+## 使い道からの取引評価（2026-11-26）
+
+scene.trade_use_outlook既定false。src/lw/decision/trade_use_outlook.jl。
+食事価値は既存food_trade_evaluationと同じ基礎0.2・身体要求係数0.6、味・費用・
+本人の栄養経験を使う。新しい味倍率は加えない。探索は現在の食品種×生食/加工/塩焼きのみ。
+有効時の総見込みは厳密に正を採用対象とし、既存の−0.01許容帯を使わない。
+[範囲・限界・検査](../../experiments/social_relationships/TRADE_USE_INTEGRATION.md)。

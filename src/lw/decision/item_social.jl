@@ -2,6 +2,7 @@
 # common BasicLoop selection, and owner-local social MB predictions. Unobserved
 # peer stock, hidden kind, preference and valuation are not read by this policy.
 include("trade_communication.jl")
+include("trade_use_outlook.jl")
 function item_social_state!(state)
     get!(state,"social") do
         a=state["actor"]
@@ -56,7 +57,10 @@ function item_social_actual(plan,result)
     before=result["own_before"];after=result["own_after"]
     material=item_social_utility(after["items"],after["food"],plan["values"],plan["weights"])-
         item_social_utility(before["items"],before["food"],plan["values"],plan["weights"])
-    if haskey(plan,"salt_unit")
+    if haskey(plan,"use_model")
+        model=plan["use_model"]
+        material+=trade_use_delta(before["food"],after["food"],trade_use_salts(before["items"],model),trade_use_salts(after["items"],model),plan["weights"],model).correction
+    elseif haskey(plan,"salt_unit")
         pairs(x)=min(x["food"][5],count(r->r["ref"] in plan["salt_refs"],Iterators.flatten((x["items"]["held"],x["items"]["stored"]))))
         material+=plan["salt_unit"]*(pairs(after)-pairs(before))
     end
@@ -91,6 +95,7 @@ function item_social_resolve!(mind,plan,result;relation=nothing,state=nothing)
         "exchange_evidence"=>get(plan,"exchange_evidence",nothing),
         "necessity"=>get(plan,"necessity",nothing),
         "terms"=>get(plan,"terms",nothing),"us"=>result["us"]),64)
+    haskey(plan,"use_transition") && (last(mind["records"])["use_transition"]=plan["use_transition"])
     true
 end
 
@@ -137,6 +142,12 @@ function item_social_plan!(state,view,body,gut,stock,now;map=nothing,kitchen=not
     unit=salted===nothing ? 0. : max(0.,.2+.6body_demand(body)+food_taste_value(salted.liking,body_energy(body),gut)-salted.cost-weights[RDLBody.FISH_FOOD])
     salts=Set(Int(row["ref"]) for row in Iterators.flatten((prepared.rows,view["visible"])) if recognized_salt(map,row))
     values=prepared.values
+    use_model=map!==nothing && get(map,"trade_use_outlook",false) ? trade_use_model(map,kitchen,body,gut,salts) : nothing
+    if use_model!==nothing
+        # Recognized cooking material is valued through its use, not added twice.
+        for ref in salts;values[ref]=0.;end
+        prepared=merge(prepared,(before=item_social_utility(view["own"],available,values,weights;prepared),))
+    end
     context=D("need"=>body_demand(body))
     candidates=Any[]
     peer_valuations=D()
@@ -158,9 +169,16 @@ function item_social_plan!(state,view,body,gut,stock,now;map=nothing,kitchen=not
         (!isempty(give) || !isempty(want) || any(!iszero,gf) || any(!iszero,wf)) && sum(gf)<=4 && sum(wf)<=4 || return
         gain=item_social_gain(view["own"],available,values,weights,give,want,gf,wf;visible=view["visible"],prepared)
         gain===nothing && return
+        use_model!==nothing && trade_use_equivalent(prepared,give,want,gf,wf) && return
         before_salt=length(intersect(prepared.refs,salts))
         after_salt=before_salt-count(in(salts),give)+count(in(salts),want)
-        gain+=unit*(min(after_salt,available[5]-gf[5]+wf[5])-min(before_salt,available[5]))
+        use_transition=nothing
+        if use_model===nothing
+            gain+=unit*(min(after_salt,available[5]-gf[5]+wf[5])-min(before_salt,available[5]))
+        else
+            use_transition=trade_use_delta(available,available.-gf.+wf,before_salt,after_salt,weights,use_model)
+            gain+=use_transition.correction
+        end
         observed,trace,valuation=get!(peer_valuations,other) do
             observed=social_observed_context(relation,other,context)
             trace=relation===nothing ? nothing : social_relation_bias(relation,other,
@@ -178,7 +196,7 @@ function item_social_plan!(state,view,body,gut,stock,now;map=nothing,kitchen=not
         subjective=gradient["total"]
         # A valuation admissibility band, not a probability of accepting a loss.
         # Need/taste, possessions and social MB evidence remain owner-relative.
-        if subjective<-.01
+        if use_model===nothing ? subjective<-.01 : subjective<=0.
             supply_audit===nothing || (supply_audit["unfavorable"]+=1)
             return
         end
@@ -213,6 +231,7 @@ function item_social_plan!(state,view,body,gut,stock,now;map=nothing,kitchen=not
             "observed_context"=>observed,"terms"=>D("give_items"=>copy(give),"want_items"=>copy(want),"give_food"=>copy(gf),"want_food"=>copy(wf)),
             "give_items"=>give,"want_items"=>want,"give_food"=>gf,"want_food"=>wf,"offer_id"=>offer_id))
         communication_prediction===nothing || (candidates[end]["communication_prediction"]=communication_prediction)
+        use_transition===nothing || (candidates[end]["use_transition"]=use_transition)
     end
     if response
         # Opt-in concurrent proposals: evaluate each using the same subjective
@@ -366,6 +385,7 @@ function item_social_plan!(state,view,body,gut,stock,now;map=nothing,kitchen=not
     end
     merge!(plan,D("item_social_role"=>role,"source"=>source,"values"=>values,
         "salt_refs"=>salts,"salt_unit"=>unit,"weights"=>weights,"context"=>get(plan,"observed_context",context),"portable_item_action"=>true))
+    use_model===nothing || (plan["use_model"]=use_model)
     if plan["action"] in ("item_offer","item_counter")
         plan["target"]=plan["partner"]
         plan["action"]=="item_offer" && delete!(plan,"offer_id")
