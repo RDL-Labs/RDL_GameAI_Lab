@@ -437,7 +437,9 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest
     check(!exchange_enabled || (foods!==nothing && !shared_stores),"food_exchange_requires_personal_typed_food")
     relationship_enabled=get(spec,:social_relationships,false)
     check(relationship_enabled isa Bool,"social_relationships_flag")
-    trades=exchange_enabled ? food_trade_state(choice_seed;relational=relationship_enabled) : nothing
+    # The historical checkpoint slot remains reserved; no food-only controller runs.
+    check(!exchange_enabled || item_exchange_enabled,"food_exchange_requires_mixed_item_exchange")
+    trades=nothing
     relations=relationship_enabled ? D(a=>social_relations_state(a;relational=true) for a in IDS) : nothing
     if relations!==nothing
         for a in IDS
@@ -481,6 +483,7 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest
     if resume_from!==nothing
         saved=checkpoint_load(resume_from,checkpoint_identity,checkpoint_code,days)
         @lw_restore saved.state
+        check(trades===nothing,"legacy_food_trade_checkpoint_requires_frozen_source")
         start_sec=saved.day*div(clock.day_us,1_000_000)
     end
     if relations!==nothing
@@ -674,7 +677,7 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest
         if relations!==nothing && get(spec,:peer_identity_roster,nothing)!==nothing
             foreach(a->peer_identity_observe!(relations[a],social_views[a],w,a,yaw,spec.peer_identity_roster,now),thinking_ids)
         end
-        trade_views=trades===nothing ? nothing : food_trade_views!(trades,foods,w,spec.home,now;relations=relations,open_stores,actors=Tuple(a for a in IDS if !(a in collapsed_ids)))
+        # Trade observation is owned by the mixed item/food channel.
 
         homes=Dict{String,Any}(a=>home_observation(w,a,yaw,spec.home;visual_obstacles=high,range=skyline_mode=="off" ? 60 : 6,illumination=visual_illumination) for a in thinking_ids)
         sections=harvest_sleep ? Dict(a=>harvest_section(moves[a],"ob:$now:$a",now) for a in thinking_ids) : nothing
@@ -1022,10 +1025,6 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest
             end
             if plan===nothing && trade_work_wait && !observing && !(phase in ("night","orientation")) && at_home
                 plan=configured_trade_reply_wait(incidental_items[a],items,w,spec.home,a,now)
-            end
-            if plan===nothing && trades!==nothing && !observing && phase!="night" && at_home && w.inventory[a]==0
-                plan=food_trade_plan!(trades,a,get(trade_views,a,nothing),w.bodies[a],guts===nothing ? nothing : guts[a],now;
-                    map=mb_simulation ? mb_maps[a] : nothing,kitchen=food_kitchen(a),allow_start=trade_start_available(states[a],now,clock.day_us),relation=relations===nothing ? nothing : relations[a])
             end
             if plan===nothing && get(spec,:configured_trade_living,false)
                 get(spec,:configured_identity_calls,false) && relations!==nothing && (plan=configured_identity_call_plan!(relations[a],yaw[a],now,clock.day_us))
@@ -1444,16 +1443,7 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest
                     relation=relations===nothing ? nothing : relations[a])
                 w.bodies[a],_,_,_=step(w.bodies[a],"rest",w.inventory[a])
             elseif action in ("trade_offer","trade_accept","trade_decline")
-                receipt=if action=="trade_offer"
-                    food_exchange_execute!(trades["world"],foods,w,stores,spec.home,a,op,action,now;
-                        target=plan["target"],give_kind=plan["give_kind"],give_count=plan["give_count"],
-                        want_kind=plan["want_kind"],want_count=plan["want_count"])
-                else
-                    food_exchange_execute!(trades["world"],foods,w,stores,spec.home,a,op,action,now;offer_id=plan["offer_id"])
-                end
-                status=receipt["status"];food_trade_executed!(trades,a,plan,receipt;relation=relations===nothing ? nothing : relations[a])
-                trade_start_record!(states[a],action,receipt["status"],now,clock.day_us,op)
-                w.bodies[a],_,_,_=step(w.bodies[a],"rest",w.inventory[a])
+                error("legacy food-only trade action is not supported in normal LW")
             elseif action=="fish"
                 w.bodies[a],work_status,_,_=step(w.bodies[a],"fish",w.inventory[a])
                 if work_status=="worked"
@@ -1739,7 +1729,6 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest
             wildlife!==nothing && (daily[end]["wildlife"]=LWGrazing.snapshot(wildlife;
                 previous=length(daily)>1 ? get(daily[end-1],"wildlife",nothing) : nothing))
             foods!==nothing && (daily[end]["food_resources"]=food_snapshot(foods))
-            trades!==nothing && (daily[end]["food_exchange"]=food_trade_snapshot(trades))
             items!==nothing && (daily[end]["portable_items"]=item_snapshot(items))
             incidental_items!==nothing && (daily[end]["incidental_items"]=incidental_snapshot())
             relations!==nothing && (daily[end]["social_relationships"]=relation_snapshot())
@@ -1766,10 +1755,10 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest
         "wildlife"=>wildlife===nothing ? nothing :
             (!isempty(daily) && haskey(daily[end],"wildlife") ? daily[end]["wildlife"] : LWGrazing.snapshot(wildlife)),
         "food_resources"=>foods===nothing ? nothing : food_snapshot(foods),"food_facilities"=>facilities,
-        "food_exchange"=>trades===nothing ? nothing : food_trade_snapshot(trades),
+        "food_exchange"=>nothing,
         "portable_items"=>items===nothing ? nothing : item_snapshot(items),
         "cargo"=>[D("index"=>i,"source"=>dropped["origins"][i]) for i in sort(collect(keys(dropped["origins"])))])
-    merge(incidental_items===nothing ? D() : D("incidental_items"=>incidental_snapshot()),items===nothing ? D() : D("portable_items"=>item_snapshot(items)),relations===nothing ? D() : D("social_relationships"=>relation_snapshot()),trades===nothing ? D() : D("food_exchange"=>food_trade_snapshot(trades)),guts===nothing ? D() : D("digestion"=>D(a=>digestion_snapshot(guts[a]) for a in IDS)),lateral_side=="off" ? D() : D("lateral"=>lateral_stats),D("ambient_vision"=>AmbientVision.RULE,"food_resources"=>environment["food_resources"],"wildlife"=>environment["wildlife"],"home_observation"=>configured_observation_enabled ? observation_states : nothing,"mb_map"=>mb_simulation ? mb_maps : nothing,"body_purpose"=>body_purpose ? configured_body_states : nothing,"observed_cues"=>general_landmarks ? cue_states : nothing,"shared_stock"=>shared,"shared_storage"=>shared_stores ? storage_stats : nothing,"skyline"=>skyline_mode=="off" ? nothing : skyline_states,"reposition"=>reposition ? reposition_states : nothing,"world_checkpoint"=>environment,"selection_trails"=>selection_trails ? trails : nothing,"experience_bundles"=>experience_bundles ? D(a=>bundle_snapshot(bundles[a]) for a in IDS) : nothing,"exploration_horizon"=>exploration_horizon ? horizons : nothing,"movement_inertia"=>movement_inertia ? inertia : nothing,"body_field"=>body_field ? body_fields : nothing,"relation_field"=>relation_field ? relation_fields : nothing,"orientation"=>orientation ? sky : nothing,"safety_methods"=>continuous_safety ? D(a=>loop_snapshot(safety_loops[a]) for a in IDS) : nothing,"world_hazards"=>dynamic_hazard_mode!="off" ? hazard_world : nothing,"food_body"=>food_body ? D("hunger"=>hunger,"metabolic_loss"=>metabolism) : nothing,"ground_continuity"=>ground_continuity ? ground_models : nothing,"ground_perception"=>ground_perception ? ground_views : nothing,"ground_wear"=>ground_wear ? wear_snapshot(wear) : nothing,"sleep_action_models"=>sleep_actions ? action_models : nothing,"general_sleep"=>general_sleep ? general : nothing,"social_response"=>(social_response || food_body || relations!==nothing) ? response_stats : nothing,"ended_us"=>days*clock.day_us,"expired_fish"=>(foods===nothing ? 0 : foods.game.expired_fish),"initial_food"=>initial,"ground"=>sum(stock),"consumed"=>w.consumed,
+    merge(incidental_items===nothing ? D() : D("incidental_items"=>incidental_snapshot()),items===nothing ? D() : D("portable_items"=>item_snapshot(items)),relations===nothing ? D() : D("social_relationships"=>relation_snapshot()),guts===nothing ? D() : D("digestion"=>D(a=>digestion_snapshot(guts[a]) for a in IDS)),lateral_side=="off" ? D() : D("lateral"=>lateral_stats),D("ambient_vision"=>AmbientVision.RULE,"food_resources"=>environment["food_resources"],"wildlife"=>environment["wildlife"],"home_observation"=>configured_observation_enabled ? observation_states : nothing,"mb_map"=>mb_simulation ? mb_maps : nothing,"body_purpose"=>body_purpose ? configured_body_states : nothing,"observed_cues"=>general_landmarks ? cue_states : nothing,"shared_stock"=>shared,"shared_storage"=>shared_stores ? storage_stats : nothing,"skyline"=>skyline_mode=="off" ? nothing : skyline_states,"reposition"=>reposition ? reposition_states : nothing,"world_checkpoint"=>environment,"selection_trails"=>selection_trails ? trails : nothing,"experience_bundles"=>experience_bundles ? D(a=>bundle_snapshot(bundles[a]) for a in IDS) : nothing,"exploration_horizon"=>exploration_horizon ? horizons : nothing,"movement_inertia"=>movement_inertia ? inertia : nothing,"body_field"=>body_field ? body_fields : nothing,"relation_field"=>relation_field ? relation_fields : nothing,"orientation"=>orientation ? sky : nothing,"safety_methods"=>continuous_safety ? D(a=>loop_snapshot(safety_loops[a]) for a in IDS) : nothing,"world_hazards"=>dynamic_hazard_mode!="off" ? hazard_world : nothing,"food_body"=>food_body ? D("hunger"=>hunger,"metabolic_loss"=>metabolism) : nothing,"ground_continuity"=>ground_continuity ? ground_models : nothing,"ground_perception"=>ground_perception ? ground_views : nothing,"ground_wear"=>ground_wear ? wear_snapshot(wear) : nothing,"sleep_action_models"=>sleep_actions ? action_models : nothing,"general_sleep"=>general_sleep ? general : nothing,"social_response"=>(social_response || food_body || relations!==nothing) ? response_stats : nothing,"ended_us"=>days*clock.day_us,"expired_fish"=>(foods===nothing ? 0 : foods.game.expired_fish),"initial_food"=>initial,"ground"=>sum(stock),"consumed"=>w.consumed,
         "home_activity"=>home_activity_snapshot(storage_stats["home_activity"]),
         "discarded_food"=>food_waste_total(foods),"replenished_food"=>replenished,"replenishments"=>replenishments,
         "dropped_cargo"=>dropping ? D("dropped"=>dropped["dropped"],"recovered"=>dropped["recovered"],"cross_actor"=>dropped["cross_actor"],"records"=>dropped["records"],"sites"=>[D("index"=>i,"x"=>food[i].x,"z"=>food[i].z,"stock"=>stock[i],"source"=>dropped["origins"][i]) for i in sort(collect(keys(dropped["origins"])))]) : nothing,"climbing"=>climbing ? climb_stats : nothing,"running"=>running ? run_stats : nothing,"ground_effects"=>ground_mode=="flat" ? nothing : ground_stats,"safety"=>hazard_mode ? deepcopy(safety) : nothing,"repetition_pressure"=>repetition_pressure ? repetitions : nothing,"parent_breadth"=>parent_breadth ? breadth_stats : nothing,"counts"=>counts,"events"=>events,"final_agents"=>terminal,"daily"=>daily,"day_starts"=>day_starts))

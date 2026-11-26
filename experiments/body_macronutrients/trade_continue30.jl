@@ -10,7 +10,7 @@ ispath(continuation_output) && error("fresh output required")
 # The shared continuation runner overlays these files. Refuse silent code changes.
 for relative in ("lw/decision/item_social.jl","lw/decision/item_exchange_memory.jl",
     "lw/decision/gradient_trace.jl","lw/decision/trade_communication.jl",
-    "lw/decision/food_exchange.jl","lw/configured_paths/voice_request.jl",
+    "lw/decision/food_exchange.jl","lw/configured_paths/legacy_food_trade.jl","lw/configured_paths/voice_request.jl",
     "perception/sound_level.jl","lw/decision/task_focus.jl")
     sha256(read(joinpath(continuation_repo,"src",relative)))==sha256(read(joinpath(continuation_base,"source/src",relative))) || error("changed overlay: $relative")
 end

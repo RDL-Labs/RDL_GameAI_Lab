@@ -163,6 +163,10 @@
     {
       "args": [],
       "path": "experiments/portable_items/social_integration_checks.jl"
+    },
+    {
+      "args": [],
+      "path": "experiments/social_relationships/mixed_trade_route_checks.jl"
     }
   ],
   "navigation": [

@@ -13,6 +13,7 @@ if LEARNED_CONTROL
  for file in ("item_social.jl","item_exchange_memory.jl","gradient_trace.jl","trade_communication.jl","food_exchange.jl")
   cp(joinpath(HERE,"../../src/lw/decision",file),joinpath(OUTPUT,"source/src/lw/decision",file);force=true)
  end
+ cp(joinpath(HERE,"../../src/lw/configured_paths/legacy_food_trade.jl"),joinpath(OUTPUT,"source/src/lw/configured_paths/legacy_food_trade.jl");force=true)
  daypath=joinpath(OUTPUT,"source/src/lw/simulation/day.jl")
  daytext=read(daypath,String)
  daytext=replace(daytext,"plan=item_social_plan!("=>"plan=learned_channel_plan!(")
@@ -28,7 +29,7 @@ if WANT_VOICE
  daypath=joinpath(OUTPUT,"source/src/lw/simulation/day.jl");daytext=read(daypath,String)
  # A continuation already contains these explicit experiment hooks.
  if !occursin("configured_want_tick!",daytext)
-  needle="        trade_views=trades===nothing"
+  needle=occursin("        # Trade observation is owned by the mixed item/food channel.",daytext) ? "        # Trade observation is owned by the mixed item/food channel." : "        trade_views=trades===nothing"
   @assert length(findall(needle,daytext))==1
   daytext=replace(daytext,needle=>"        configured_want_tick!(WANT_VOICE_STATE,w,yaw,thinking_ids,foods,relations,spec.peer_identity_roster,now)\n"*needle)
   @assert length(findall("plan=learned_channel_plan!(",daytext))==1
