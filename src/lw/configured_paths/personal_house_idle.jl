@@ -28,9 +28,10 @@ function configured_house_wake!(state,now,day_us,demand;inside,notice=false,busy
     end
     false
 end
-function configured_house_obligation(social,incidental,relation,items,actor,now)
+function configured_house_obligation(social,incidental,relation,items,actor,now;include_camp=true)
     get(social,"pending",nothing)!==nothing && return true
     if incidental!==nothing
+        include_camp && configured_camp_trade_busy(incidental) && return true
         get(get(incidental,"social",D()),"pending",nothing)!==nothing && return true
         get(get(incidental,"configured_work_wait",D()),"target",nothing)!==nothing && return true
     end

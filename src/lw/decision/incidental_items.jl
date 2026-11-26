@@ -211,6 +211,7 @@ function incidental_item_snapshot(state)
       "handled_refs"=>copy(state["handled_refs"]),"records"=>deepcopy(state["records"]),
       "social"=>haskey(state,"social") ? item_social_snapshot(state["social"]) : nothing,
       "configured_work_wait"=>deepcopy(get(state,"configured_work_wait",nothing)),
+      "camp_trade"=>deepcopy(get(state,"camp_trade",nothing)),
       "attention"=>deepcopy(get(state,"attention",nothing)),
       "exchange_relations"=>deepcopy(get(state,"exchange_relations",Any[])),
       "exchange_recalled_choices"=>get(state,"exchange_recalled_choices",0),

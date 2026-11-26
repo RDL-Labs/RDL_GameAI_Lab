@@ -18,21 +18,7 @@ function configured_want_vocabulary(;words=CONFIGURED_WANT_WORDS)
  end
  vocabulary
 end
-function configured_want_recall(map)
- map===nothing && return Int[]
- recalled=Int[]
- # Start from the owner's retained relations, never the world's food catalog.
- # Registry lookup only decodes the recalled appearance for the physical API.
- for group in ("food_taste_experiences","observed_food_eating")
-  for (key,record) in get(map,group,D())
-   get(record,"samples",0)>0 || continue
-   appearance=first(split(key,":quality:"))
-   kind=findfirst(==(appearance),LW.RDLBody.FOOD_APPEARANCE)
-   kind===nothing || push!(recalled,kind)
-  end
- end
- sort!(unique!(recalled))
-end
+configured_want_recall(map)=LW.trade_request_recall(map)
 configured_want_known_food(map,kind)=kind in configured_want_recall(map)
 function configured_want_expression(vocabulary,appearance)
  matches=Pair{String,Float64}[]
@@ -61,23 +47,7 @@ function configured_want_observe_meal!(maps,social_views,eater,kind,now)
   record["samples"]+=1;record["last_us"]=now
  end
 end
-function configured_want_desire(body,gut,stock;map=nothing,kitchen=nothing,relation=nothing)
- stock===nothing && return nothing
- security=map===nothing ? food_security(relation) : get(map,"food_security",food_security(relation))
- valuation=LW.trade_valuation_context(body,gut,security,D(),nothing)
- candidates=Any[]
- for kind in configured_want_recall(map)
-  weight=LW.food_trade_weight(body,gut,kind;map,kitchen)
-  weight>0 || continue
-  after=copy(stock);after[kind]+=1
-  material=weight*(log1p(after[kind])-log1p(stock[kind]))
-  gradient=LW.trade_compound_gradient(stock,after,material,valuation)
-  gradient["total"]>0 || continue
-  push!(candidates,(kind=kind,gradient=gradient))
- end
- isempty(candidates) && return nothing
- candidates[argmax([c.gradient["total"] for c in candidates])]
-end
+configured_want_desire(body,gut,stock;kwargs...)=LW.trade_request_desire(body,gut,stock;kwargs...)
 function configured_want_interest(body,stock,known,words;security=nothing)
  words===nothing && return nothing
  any(m->m.prediction.appearance=="request-intent",known) || return nothing

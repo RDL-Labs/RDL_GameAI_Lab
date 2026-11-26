@@ -80,6 +80,8 @@ include(joinpath(@__DIR__, "../decision/prediction_result.jl"))
 include(joinpath(@__DIR__, "../decision/incidental_items.jl"))
 include(joinpath(@__DIR__, "../decision/trade_necessity.jl"))
 include(joinpath(@__DIR__, "../decision/item_social.jl"))
+include(joinpath(@__DIR__, "../decision/trade_request.jl"))
+include(joinpath(@__DIR__, "../configured_paths/camp_trade_calls.jl"))
 include(joinpath(@__DIR__, "../learning/social_aid.jl"))
 include(joinpath(@__DIR__, "../configured_paths/legacy_trade_evaluation.jl"))
 include(joinpath(@__DIR__, "../decision/food_exchange.jl"))
@@ -528,6 +530,10 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest
                 end) : nothing
                 receipt!(learning[a],now;phase="night",kind=action=="rest" ? "wait" : action,status=action=="rest" ? "waited" : status,on_complete=callback)
     end
+    camp_calls=get(spec,:camp_trade_calls,false)
+    camp_calls && (incidental_items===nothing || foods===nothing || shared_stores || !item_exchange_enabled) && error("camp_trade_calls requires private typed food and item exchange")
+    camp_radius=maximum([1.25;[hypot(h.x-spec.home[1],h.z-spec.home[2])+h.radius for h in values(house_by_actor)]])
+    camp_inside(a)=hypot(w.positions[a][1]-spec.home[1],w.positions[a][2]-spec.home[2])<=camp_radius
     focus_enabled=get(spec,:task_focus,true)
     focus_positions=copy(w.positions)
     wildlife_previous_positions=wildlife===nothing ? Tuple{Float64,Float64}[] : collect(zip(wildlife.animals.x,wildlife.animals.z))
@@ -542,6 +548,12 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest
             end
         end
         paused_ids=post_return_idle ? Set(a for a in IDS if !(a in collapsed_ids) && (!trade_idle || configured_trade_idle_ready!(mb_maps[a],incidental_items[a],items,w,a,now,clock.day_us;social_notice=relations!==nothing && (get(relations[a],"aid_delivery",nothing)!==nothing || configured_social_notice(w,a,answered[a])))) && configured_post_return_idle!(mb_maps[a],now,clock.day_us,bounds[3];pending=haskey(pending,a),observing=configured_observation_enabled && now<clock.day_us,require_meal=post_return_meal)) : ()
+        if camp_calls
+            configured_camp_trade_tick!(incidental_items,mb_maps,w,foods,guts,relations,now,camp_inside,
+                a->configured_sleep_gate_active(learning[a],now,clock.day_us),
+                a->haskey(pending,a) || configured_camp_trade_working(mb_maps[a]) || configured_house_obligation(states[a],incidental_items[a],relations===nothing ? nothing : relations[a],items,a,now;include_camp=false);
+                kitchen_for=food_kitchen)
+        end
         house_paused_ids=Set{String}();house_woken_ids=Set{String}()
         if house_idle_enabled
             for a in IDS
@@ -549,7 +561,8 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest
                 house_inside=hypot(w.positions[a][1]-house.x,w.positions[a][2]-house.z)<=house.radius
                 house_notice=configured_social_notice(w,a,answered[a]) ||
                     (relations!==nothing && configured_identity_call_notice!(relations[a],now)!==nothing)
-                house_busy=haskey(pending,a) || configured_house_obligation(states[a],incidental_items===nothing ? nothing : incidental_items[a],relations===nothing ? nothing : relations[a],items,a,now)
+                house_busy=haskey(pending,a) || configured_house_obligation(states[a],incidental_items===nothing ? nothing : incidental_items[a],relations===nothing ? nothing : relations[a],items,a,now;
+                    include_camp=!configured_sleep_gate_active(learning[a],now,clock.day_us))
                 # 暫定固定の近接危険センサー。通行人だけでは起こさない。
                 house_sources=hazard_mode ? (dynamic_hazard_mode=="off" ? spec.hazards : dynamic_hazard_sources(hazard_world,sec+div(world_offset,1_000_000);patrol=dynamic_hazard_mode=="mixed")) : ()
                 house_t=sec+div(world_offset,1_000_000)
@@ -593,7 +606,7 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest
                 shield=get(spec,:task_interrupt_shield,true),
                 need=notice===nothing ? 0. : food_anxiety(get(mb_maps[a],"food_security",nothing)),
                 progress=notice===nothing ? 0. : configured_task_progress(foods,a,fs["plan"]["action"]),
-                enabled=focus_enabled && !(a in paused_ids) && !(a in house_paused_ids) && !(a in house_woken_ids) && !(a in sleeping_ids) && !(a in collapsed_ids)) && push!(focused_ids,a)
+                enabled=focus_enabled && !(camp_calls && configured_camp_trade_busy(incidental_items[a])) && !(a in paused_ids) && !(a in house_paused_ids) && !(a in house_woken_ids) && !(a in sleeping_ids) && !(a in collapsed_ids)) && push!(focused_ids,a)
         end
         focus_positions=copy(w.positions)
         wildlife!==nothing && (wildlife_previous_positions=collect(zip(wildlife.animals.x,wildlife.animals.z)))
@@ -1034,9 +1047,12 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest
             if plan===nothing && items!==nothing
                 plan=configured_item_plan(item_actions,a,now)
             end
+            if plan===nothing && camp_calls && !observing && !(phase in ("night","orientation")) && camp_inside(a)
+                plan=configured_camp_trade_approach(incidental_items[a],spec.home,w.positions[a],yaw[a],moves[a]["energy"]["rows"])
+            end
             if plan===nothing && item_exchange_enabled && incidental_items!==nothing && !observing && !(phase in ("night","orientation")) && at_home && w.inventory[a]==0
                 waiting=trade_work_wait && get(get(incidental_items[a],"configured_work_wait",D()),"target",nothing)!==nothing
-                item_view=waiting && item_attention_enabled ? item_visible(items,w,spec.home,a,yaw[a],now;visual_obstacles=high,open_stores,foods=shared_stores ? nothing : foods,illumination=visual_illumination) : item_attention_enabled ? item_attention_view!(incidental_items[a],items,w,spec.home,a,yaw[a],now;
+                item_view=(waiting || (camp_calls && configured_camp_trade_busy(incidental_items[a]))) && item_attention_enabled ? item_visible(items,w,spec.home,a,yaw[a],now;visual_obstacles=high,open_stores,foods=shared_stores ? nothing : foods,illumination=visual_illumination) : item_attention_enabled ? item_attention_view!(incidental_items[a],items,w,spec.home,a,yaw[a],now;
                     purpose=:trade,allow_start=trade_start_available(states[a],now,clock.day_us),visual_obstacles=high,open_stores,foods=shared_stores ? nothing : foods,illumination=visual_illumination) : get(o,"items",nothing)
                 if trade_work_wait
                     plan=configured_trade_wait_poll!(incidental_items[a],trade_workers,
@@ -1044,13 +1060,20 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest
                         incoming=item_view!==nothing && !isempty(item_view["incoming"]))
                 end
                 if plan===nothing
-                    plan=item_social_plan!(incidental_items[a],item_view,w.bodies[a],
+                    planner=camp_calls ? configured_camp_trade_plan! : item_social_plan!
+                    camp_calls && (item_view=configured_camp_trade_view(incidental_items[a],item_view,now))
+                    plan=planner(incidental_items[a],item_view,w.bodies[a],
                         guts===nothing ? nothing : guts[a],shared_stores || foods===nothing ? nothing : foods.personal[a],now;
                         map=mb_simulation ? mb_maps[a] : nothing,kitchen=food_kitchen(a),allow_start=trade_start_available(states[a],now,clock.day_us),
                         relation=relations===nothing ? nothing : relations[a])
                     trade_work_wait && (plan=configured_trade_wait_intercept!(incidental_items[a],plan,trade_workers,now,clock.day_us;relation=relations===nothing ? nothing : relations[a]))
                 end
                 (trade_idle || house_idle_enabled) && configured_trade_idle_considered!(mb_maps[a],incidental_items[a],item_view,plan,now,clock.day_us;allow_start=trade_start_available(states[a],now,clock.day_us))
+                if plan===nothing && camp_calls
+                    configured_camp_trade_call!(incidental_items[a],mb_maps[a],w.bodies[a],guts===nothing ? nothing : guts[a],foods.personal[a],now,clock.day_us;
+                        kitchen=food_kitchen(a),relation=relations===nothing ? nothing : relations[a],allow_start=trade_start_available(states[a],now,clock.day_us))
+                    configured_camp_trade_busy(incidental_items[a]) && (plan=D("action"=>"scan","direction"=>0,"method"=>"camp_trade_wait","configured_observation"=>true))
+                end
             end
             if plan===nothing && trade_work_wait && !observing && !(phase in ("night","orientation")) && at_home
                 plan=configured_trade_reply_wait(incidental_items[a],items,w,spec.home,a,now)
@@ -1362,6 +1385,14 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest
                 pending[a]=merge(pending[a],(movement_forecast=navigation_forecast(plan,moves[a],navigation_target,navigation_family),))
             end
             plans[a]=plan
+            if haskey(plan,"camp_trade_target")
+                target=plan["camp_trade_target"]
+                steer_structure!(plan,target,lateral_views[a],ground_continuity ? ground_models[a]["structures"] : nothing,w,a,yaw,resistance_at)
+                if target["distance"]<=1.25
+                    plan["approach_angle"]=rad2deg(atan(target["right"],target["forward"]))
+                    plan["approach_span"]=min(.5,max(0.,target["distance"]-1.))
+                end
+            end
             if haskey(plan,"house_target")
                 house_target=plan["house_target"]
                 steer_structure!(plan,house_target,lateral_views[a],ground_continuity ? ground_models[a]["structures"] : nothing,w,a,yaw,resistance_at)
@@ -1490,6 +1521,7 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest
                     give_food=get(plan,"give_food",[0,0,0,0]),want_food=get(plan,"want_food",[0,0,0,0]))
                 # Item acquisition must never count as food acquisition.
                 status="item_"*receipt["status"]
+                camp_calls && configured_camp_trade_result!(incidental_items,a,receipt,now)
                 trade_start_record!(states[a],action,receipt["status"],now,clock.day_us,op)
                 haskey(plan,"item_social_role") && item_social_executed!(incidental_items[a],plan,receipt;
                     relation=relations===nothing ? nothing : relations[a])
