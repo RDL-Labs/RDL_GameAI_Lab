@@ -145,6 +145,9 @@ function acquisition_targets!(map,visible,loop,now;home=nothing,anxiety=0.,commi
   choice["ref"]===nothing && return Any[]
   i=findfirst(v->v["ref"]==choice["ref"],visible)
   i!==nothing && return Any[visible[i]]
+  # Losing sight is not evidence against an already selected fishing plan.
+  # Return no observation; navigation retains its own last observed estimate.
+  get(choice,"technique",nothing)=="fishing" && return Any[]
   if get(choice,"source",nothing)=="memory"
    availability=mb_food_availability(map,D("goal"=>"food","food_ref"=>choice["ref"]))
    availability==choice["food_availability"] && return Any[]
@@ -221,7 +224,15 @@ function acquisition_targets!(map,visible,loop,now;home=nothing,anxiety=0.,commi
    acquisition_finish!(map,"interrupted","different_candidate";clear_choice=false)
   end
  end
- s["choice"]=selected;s["next_us"]=now+64_000_000
+ # A fishing decision already priced travel, work and uncertainty. Execute
+ # within that frozen forecast before comparing methods again. Safety/body
+ # interruptions remain upstream; this is not a successful-catch guarantee.
+ s["choice"]=selected
+ s["next_us"]=now+(selected["technique"]=="fishing" ? ceil(Int,max(1.,selected["seconds"])*1_000_000) : 64_000_000)
+ arrival=get(get(map,"goal_arrival",D()),"food",nothing)
+ if arrival!==nothing && get(arrival,"target",nothing)!=selected["ref"]
+  arrival["mode"]="search";arrival["target"]=nothing
+ end
  push!(s["records"],D("us"=>now,"anxiety"=>anxiety,"choice"=>rows[index]["method"],"candidates"=>rows,"probabilities"=>probabilities,
      "relation_keys"=>relation_keys,"distribution_rule"=>"relation_peak_mass"))
  length(s["records"])>64 && popfirst!(s["records"])

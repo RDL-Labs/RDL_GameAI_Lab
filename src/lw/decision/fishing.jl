@@ -15,11 +15,9 @@ function fishing_plan!(r,a,loop,target,now)
     if active!==nothing && active["site"]==target["ref"]+1 && active["last_us"]+1_000_000==now
         return D("action"=>"fish","method"=>"fish","food_ref"=>target["ref"],"fishing_forecast"=>get(target,"acquisition_seconds",720.))
     end
-    p=get(target,"fishing_probability",.25)
-    field=relational_transition(0.,1.;probability=p,cost=GAME_FISHING_TICKS/1800.)
-    candidates=[D("method"=>"fish","priority"=>log(max(.001,field.expected))),D("method"=>"look_elsewhere","priority"=>-2.)]
-    probabilities=method_distribution(loop,candidates)
-    chosen=rand(loop.rng)<probabilities[1]
-    D("action"=>chosen ? "fish" : "scan","method"=>chosen ? "fish" : "fishing_look_elsewhere",
+    # Acquisition selected this method/site including its uncertain forecast.
+    # Arrival executes that decision, rather than sampling the same choice twice.
+    # The caller still checks parent purpose, safety, body and observed proximity.
+    D("action"=>"fish","method"=>"fish",
       "food_ref"=>target["ref"],"fishing_forecast"=>get(target,"acquisition_seconds",720.))
 end

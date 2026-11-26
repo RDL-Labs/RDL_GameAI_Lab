@@ -1764,6 +1764,11 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest
                 if acquisition!==nothing && get(plan,"purpose_family",nothing)=="food" && (!(action in ("fish","pickup")) || get(plan,"food_ref",nothing)==acquisition["ref"]) && action in ("fish","pickup","walk","run","scan")
                     acquisition_result!(mb_maps[a],acquisition["technique"],acquisition["ref"],get(acquisition,"acquire_seconds",acquisition["seconds"]),1.,status=="picked_up";sensitivity=mb_maps[a]["sensitivity"]["delay"],now,
                         energy=body_energy(repetition_before)-body_energy(w.bodies[a]))
+                    if action=="fish" && status=="fishing_unavailable"
+                        acquisition_finish!(mb_maps[a],"failed","fishing_unavailable")
+                        fishing_arrival_state=mb_maps[a]["goal_arrival"]["food"]
+                        fishing_arrival_state["mode"]="search";fishing_arrival_state["target"]=nothing
+                    end
                 end
             end
             daily_delivery_enabled && mb_daily_result!(mb_maps[a],plan,status,now,
