@@ -1,0 +1,1 @@
+{"day":3,"times":{"tick_through_save_seconds":374.7785425,"save_seconds":3.4992318},"call_seconds":423.5883403,"allocated_bytes":73811707911,"gc_seconds":13.7337425,"compile_seconds":59.9104091,"threads":1,"julia":"1.13.1","parity":"daily and item counts; not full internal state/RNG","warmup_ticks":512,"sample_interval_seconds":0.005}
