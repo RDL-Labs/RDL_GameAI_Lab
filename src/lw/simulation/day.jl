@@ -15,6 +15,7 @@ include("../configured_paths/fishing_training.jl")
 include("../../ecology/lw_grazing/LWGrazing.jl")
 include(joinpath(@__DIR__, "../configured_paths/daily_delivery.jl"))
 include(joinpath(@__DIR__, "../configured_paths/post_return_idle.jl"))
+include(joinpath(@__DIR__, "../configured_paths/personal_house_idle.jl"))
 include(joinpath(@__DIR__, "../configured_paths/trade_idle.jl"))
 include(joinpath(@__DIR__, "../configured_paths/trade_work_wait.jl"))
 include(joinpath(@__DIR__, "../configured_paths/trade_daily_limit.jl"))
@@ -272,6 +273,9 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest
     check(food_processing_enabled isa Bool,"food_processing_must_be_bool")
     post_return_idle=get(spec,:post_return_idle,false)
     post_return_meal=get(spec,:post_return_meal,false)
+    house_idle_enabled=get(spec,:personal_house_idle,false)
+    check(house_idle_enabled isa Bool && (!house_idle_enabled || (!isempty(houses) && !post_return_idle)),"house_idle_requires_houses_without_legacy_idle")
+    house_by_actor=Dict(h.owner=>h for h in houses)
     trade_idle=get(spec,:configured_trade_idle,false)
     check(trade_idle isa Bool && (!trade_idle || (post_return_idle && post_return_meal && get(spec,:incidental_items,false) && get(spec,:item_exchange,true))),"trade_idle_requires_return_meal_and_exchange")
     check(post_return_meal isa Bool && (!post_return_meal || (post_return_idle && get(spec,:typed_food,false))),"post_return_meal_requires_typed_idle")
@@ -385,6 +389,7 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest
     pending=Dict{String,Any}();daily=Any[];day_starts=Any[]
     physical()=D(a=>D("position"=>collect(w.positions[a]),"yaw"=>yaw[a],"body"=>bodydict(w.bodies[a]),
         "personal_house"=>personal_house_presence(houses,a,w.positions[a]),
+        "house_attention"=>house_idle_enabled ? deepcopy(configured_house_state!(mb_maps[a])) : nothing,
         "body_purpose"=>body_purpose ? deepcopy(configured_body_states[a]) : nothing,"return_purpose"=>deepcopy(purposes[a]),"inventory"=>w.inventory[a],"personal_stock"=>stores[a],"social_count"=>length(states[a]["records"]),
         "social_model"=>deepcopy(states[a]["model"]),"loops"=>D(f=>loop_snapshot(s) for (f,s) in loops[a]),
         "routes"=>landmark_routes ? deepcopy(routes[a]) : nothing,"max_radius_observer_only"=>max_radius[a],
@@ -537,6 +542,27 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest
             end
         end
         paused_ids=post_return_idle ? Set(a for a in IDS if !(a in collapsed_ids) && (!trade_idle || configured_trade_idle_ready!(mb_maps[a],incidental_items[a],items,w,a,now,clock.day_us;social_notice=relations!==nothing && (get(relations[a],"aid_delivery",nothing)!==nothing || configured_social_notice(w,a,answered[a])))) && configured_post_return_idle!(mb_maps[a],now,clock.day_us,bounds[3];pending=haskey(pending,a),observing=configured_observation_enabled && now<clock.day_us,require_meal=post_return_meal)) : ()
+        house_paused_ids=Set{String}();house_woken_ids=Set{String}()
+        if house_idle_enabled
+            for a in IDS
+                house_state=configured_house_state!(mb_maps[a]);house=house_by_actor[a]
+                house_inside=hypot(w.positions[a][1]-house.x,w.positions[a][2]-house.z)<=house.radius
+                house_notice=configured_social_notice(w,a,answered[a]) ||
+                    (relations!==nothing && configured_identity_call_notice!(relations[a],now)!==nothing)
+                house_busy=haskey(pending,a) || configured_house_obligation(states[a],incidental_items===nothing ? nothing : incidental_items[a],relations===nothing ? nothing : relations[a],items,a,now)
+                # 暫定固定の近接危険センサー。通行人だけでは起こさない。
+                house_sources=hazard_mode ? (dynamic_hazard_mode=="off" ? spec.hazards : dynamic_hazard_sources(hazard_world,sec+div(world_offset,1_000_000);patrol=dynamic_hazard_mode=="mixed")) : ()
+                house_t=sec+div(world_offset,1_000_000)
+                house_danger=any(h->h.start<=house_t<h.stop && hypot(w.positions[a][1]-(h.x+h.vx*(house_t-h.start)),w.positions[a][2]-(h.z+h.vz*(house_t-h.start)))<=TASK_ATTENTION.motion_range,house_sources)
+                house_sleeping=configured_sleep_gate_active(learning[a],now,clock.day_us)
+                if configured_house_wake!(house_state,now,clock.day_us,body_demand(w.bodies[a]);inside=house_inside,notice=house_notice,busy=house_busy,danger=house_danger,sleeping=house_sleeping)
+                    push!(house_woken_ids,a)
+                    house_sleeping && (learning[a]["sleep"]["external_gate"]["active"]=false)
+                elseif house_state["mode"]=="idle" && house_inside && mod(now,clock.day_us)<bounds[3] && !(a in collapsed_ids)
+                    push!(house_paused_ids,a)
+                end
+            end
+        end
         sleeping_ids=get(spec,:sleep_external_gate,true) ? Tuple(a for a in IDS if !haskey(pending,a) && configured_sleep_gate_active(learning[a],now,clock.day_us)) : ()
         focus_phase=mod(now,clock.day_us)<bounds[1] ? "orientation" : mod(now,clock.day_us)<bounds[2] ? "exploration" : mod(now,clock.day_us)<bounds[3] ? "return" : "night"
         focused_ids=String[]
@@ -567,11 +593,11 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest
                 shield=get(spec,:task_interrupt_shield,true),
                 need=notice===nothing ? 0. : food_anxiety(get(mb_maps[a],"food_security",nothing)),
                 progress=notice===nothing ? 0. : configured_task_progress(foods,a,fs["plan"]["action"]),
-                enabled=focus_enabled && !(a in paused_ids) && !(a in sleeping_ids) && !(a in collapsed_ids)) && push!(focused_ids,a)
+                enabled=focus_enabled && !(a in paused_ids) && !(a in house_paused_ids) && !(a in house_woken_ids) && !(a in sleeping_ids) && !(a in collapsed_ids)) && push!(focused_ids,a)
         end
         focus_positions=copy(w.positions)
         wildlife!==nothing && (wildlife_previous_positions=collect(zip(wildlife.animals.x,wildlife.animals.z)))
-        thinking_ids=Tuple(a for a in IDS if !(a in paused_ids) && !(a in sleeping_ids) && !(a in collapsed_ids) && !(a in focused_ids))
+        thinking_ids=Tuple(a for a in IDS if !(a in paused_ids) && !(a in house_paused_ids) && !(a in sleeping_ids) && !(a in collapsed_ids) && !(a in focused_ids))
         if get(spec,:food_aroma,false) && mb_simulation && foods!==nothing
             # One pre-action snapshot: later actors cannot smell earlier actors'
             # current-tick meals. Existing sleep/focus gates remain intact.
@@ -589,7 +615,7 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest
         # frozen perception after human actions, before the common day boundary.
         wildlife!==nothing && LWGrazing.prepare!(wildlife,[w.positions[a] for a in IDS],sec;illumination=visual_illumination)
         (ground_wear || ground_perception) && advance_wear!(wear,wear_offset+now)
-        lateral_views=lateral_side!="off" || continuous_descent || ground_continuity ? Dict(a=>lateral_obstacles(spec.obstacles,w.positions[a],yaw[a],"ob:$now:$a") for a in thinking_ids) : nothing
+        lateral_views=lateral_side!="off" || continuous_descent || ground_continuity || house_idle_enabled ? Dict(a=>lateral_obstacles(spec.obstacles,w.positions[a],yaw[a],"ob:$now:$a") for a in thinking_ids) : nothing
         rho_baselines=D()
         if ground_perception
             for a in thinking_ids
@@ -1024,7 +1050,7 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest
                         relation=relations===nothing ? nothing : relations[a])
                     trade_work_wait && (plan=configured_trade_wait_intercept!(incidental_items[a],plan,trade_workers,now,clock.day_us;relation=relations===nothing ? nothing : relations[a]))
                 end
-                trade_idle && configured_trade_idle_considered!(mb_maps[a],incidental_items[a],item_view,plan,now,clock.day_us;allow_start=trade_start_available(states[a],now,clock.day_us))
+                (trade_idle || house_idle_enabled) && configured_trade_idle_considered!(mb_maps[a],incidental_items[a],item_view,plan,now,clock.day_us;allow_start=trade_start_available(states[a],now,clock.day_us))
             end
             if plan===nothing && trade_work_wait && !observing && !(phase in ("night","orientation")) && at_home
                 plan=configured_trade_reply_wait(incidental_items[a],items,w,spec.home,a,now)
@@ -1038,6 +1064,16 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest
             if plan===nothing && provision_stay
                 plan=D("action"=>"rest","method"=>"provision_stay","provision_choice"=>true)
                 mb_maps[a]["provision_choice"]["stay_ticks"]+=1
+            end
+            if house_idle_enabled && !observing && (plan===nothing || get(plan,"configured_rule","")=="quiet_night" || get(plan,"method","")=="provision_stay")
+                house_busy=configured_house_obligation(states[a],incidental_items===nothing ? nothing : incidental_items[a],relations===nothing ? nothing : relations[a],items,a,now)
+                house_trade_gate=get(mb_maps[a],"configured_trade_idle",D())
+                house_trade_ready=!item_exchange_enabled || phase=="night" ||
+                    (get(house_trade_gate,"day",-1)==div(now,clock.day_us) && get(house_trade_gate,"ready",false))
+                house_plan=configured_house_plan!(configured_house_state!(mb_maps[a]),house_by_actor[a],w.positions[a],yaw[a],now,clock.day_us,moves[a]["energy"]["rows"];
+                    eligible=at_home && (returning || provision_stay || phase=="night") && w.inventory[a]==0 && house_trade_ready,
+                    blocked=house_busy || a in house_woken_ids || haskey(pending,a),demand=body_demand(w.bodies[a]))
+                house_plan!==nothing && (plan=house_plan)
             end
             if observing && plan===nothing
                 plan=configured_observation_food(moves[a],replenishing,w.inventory[a])
@@ -1326,6 +1362,14 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest
                 pending[a]=merge(pending[a],(movement_forecast=navigation_forecast(plan,moves[a],navigation_target,navigation_family),))
             end
             plans[a]=plan
+            if haskey(plan,"house_target")
+                house_target=plan["house_target"]
+                steer_structure!(plan,house_target,lateral_views[a],ground_continuity ? ground_models[a]["structures"] : nothing,w,a,yaw,resistance_at)
+                if house_target["distance"]<=1.25
+                    plan["approach_angle"]=rad2deg(atan(house_target["right"],house_target["forward"]))
+                    plan["approach_span"]=min(.5,max(0.,house_target["distance"]-house_by_actor[a].radius*HOUSE_IDLE_RULES.arrival_fraction))
+                end
+            end
         end
         # Ordered action resolution: receipts are stamped at the end of this second.
         trade_work_wait && configured_trade_departure_guard!(plans,incidental_items,trade_workers,now,clock.day_us;relations)
@@ -1338,6 +1382,7 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest
                 continue
             end
             if a in sleeping_ids
+                house_idle_enabled && (configured_house_state!(mb_maps[a])["sleep_ticks"]+=1)
                 acquisition_finish!(mb_maps[a],"interrupted","sleep")
                 fishing_enabled && fishing_cancel!(foods,a,now,"sleep")
                 configured_sleep_gate_tick!(learning[a],w,a,counts,events,previous,now)
@@ -1349,6 +1394,11 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest
                 acquisition_finish!(mb_maps[a],"interrupted","cognition_pause")
                 fishing_enabled && fishing_cancel!(foods,a,now,"cognition_pause")
                 configured_post_return_idle_tick!(mb_maps[a],w,a,counts,events,previous,phase,now)
+                continue
+            end
+            if a in house_paused_ids
+                acquisition_finish!(mb_maps[a],"interrupted","house_idle")
+                configured_house_idle_tick!(configured_house_state!(mb_maps[a]),w,a,counts,events,previous,phase,now)
                 continue
             end
             plan=plans[a];action=plan["action"];op="op:$now:$a";p=w.positions[a];before_yaw=yaw[a];status="performed"
@@ -1607,7 +1657,8 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest
             end
             if phase=="night"
                 process_sleep!(a,now,day,action,status)
-                get(spec,:sleep_external_gate,true) && action=="rest" && status=="performed" && configured_sleep_gate_enter!(learning[a],now,clock.day_us;at_home=homes[a]!==nothing && homes[a]["distance"]<=1.25)
+                sleep_location=house_idle_enabled ? hypot(w.positions[a][1]-house_by_actor[a].x,w.positions[a][2]-house_by_actor[a].z)<=house_by_actor[a].radius : homes[a]!==nothing && homes[a]["distance"]<=1.25
+                get(spec,:sleep_external_gate,true) && action=="rest" && status=="performed" && configured_sleep_gate_enter!(learning[a],now,clock.day_us;at_home=sleep_location && !(a in house_woken_ids))
             end
             general_sleep && !(a in focused_ids) && remember_general!(general[a],a,op,action,status,get(plan,"target",nothing),phase,now+1_000_000;context=contexts[a],direction=get(plan,"direction",nothing),retain=sleep_retention)
             if harvest_sleep && action=="pickup"

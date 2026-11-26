@@ -2,6 +2,10 @@
 
 ## 個人宅の配置（2026-11-26）
 
+`configured_paths/personal_house_idle.jl` の `HOUSE_IDLE_RULES` は暫定帰宅・停止設定。
+身体要求上限0.35、増加0.10、睡眠時再開0.80、到着半径倍率0.8、記録64件。
+既定OFF。詳細は [個人宅の待機](LW_Personal_House_Idle_20261126.md)。
+
 `src/lw/world/personal_houses.jl` の `PERSONAL_HOUSE_DEFAULTS` は世界配置用。
 半径0.6・高さ0.4・余白0.4・間隔2・共有領域半径2（world距離）、探索環上限32。
 `scene.personal_house_settings` で調整。新規標準地形はON、既存入力の省略はOFF。
