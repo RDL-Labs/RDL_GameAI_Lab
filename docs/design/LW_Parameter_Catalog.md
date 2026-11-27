@@ -1288,3 +1288,8 @@ trueなら既知・所有済みの要求品について対価未定の会合を�
 `configured_paths/camp_surplus_local.jl` は通常LW未読込。既存の期限予測/交換評価を使い、廃棄軽減あり・合成評価正で候補化。
 提示数量と期限はCAMP_TRADE_CALL_RULESを共用、新規係数なし。候補採用と範囲内の配送は局所実験の固定条件。
 [結果と制限](LW_Camp_Surplus_Local_20261127.md)。
+
+## 買い/売りの通常接続（2026-11-27）
+scene.camp_trade_open_terms=false、camp_trade_surplus=false（camp_trade_callsが必要）。
+売り候補と買い候補を既存合成評価で見送りと比較。数量・128秒期限はCAMP_TRADE_CALL_RULESを継続使用。
+一日一回の暫定枠に見送りを含む。追加係数なし。今後は発話参加費用・学習による選択へ置換。

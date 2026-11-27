@@ -29,10 +29,34 @@ function configured_camp_trade_address!(state,kind,now)
     (peer=plan["method"]=="broadcast" ? nothing : plan["method"],support=support,
         probabilities=D(c["method"]=>probabilities[i] for (i,c) in enumerate(candidates)))
 end
-function configured_camp_trade_call!(state,map,body,gut,stock,now,day_us;kitchen=nothing,relation=nothing,allow_start=true,processing_requests=false,items=nothing)
+function configured_camp_trade_call!(state,map,body,gut,stock,now,day_us;kitchen=nothing,relation=nothing,allow_start=true,processing_requests=false,items=nothing,surplus_calls=false)
     channel=configured_camp_trade_state!(state)
     allow_start && channel["last_day"]!=div(now,day_us) && channel["outgoing"]===nothing && channel["meeting"]===nothing || return nothing
     desire=trade_request_desire(body,gut,stock;map,kitchen,relation)
+    if surplus_calls
+        rows=configured_surplus_candidates(map,body,gut,stock;relation)
+        choices=Any[D("method"=>"hold","priority"=>0.)]
+        desire!==nothing && push!(choices,D("method"=>"buy","priority"=>desire.gradient["total"]))
+        append!(choices,[D("method"=>"sell:$i","priority"=>row["gradient"]["total"]) for (i,row) in enumerate(rows)])
+        for choice in choices;choice["question"]="communication_opportunity";end
+        loop=get!(() -> BasicLoop(state["actor"]*":camp-intent";probabilistic=true,seed=state["loop"].seed),state,"camp_intent_loop")
+        source="camp-intent:$(state["actor"]):$now"
+        selected=choose_method!(loop,choices,source)
+        resolve_method!(loop,source,nothing,nothing;creditable=false,goal_H_increment=0.)
+        channel["last_day"]=div(now,day_us)
+        if selected["method"]=="hold"
+            configured_camp_trade_record!(state,"call_skipped",now)
+            return nothing
+        elseif startswith(selected["method"],"sell:")
+            row=rows[parse(Int,split(selected["method"],":")[2])]
+            event=D("id"=>source,"caller"=>state["actor"],"direction"=>"sell","kind"=>row["kind"],"row"=>row,
+                "offered"=>Dict(row["kind"]=>row["quantity"]),"created_us"=>now,"expires_us"=>now+CAMP_TRADE_CALL_RULES.lifetime_us,
+                "addressee"=>nothing,"expected_reply"=>0.,"heard"=>Set{String}(),"replies"=>Any[])
+            channel["outgoing"]=event;channel["calls"]+=1
+            configured_camp_trade_record!(state,"sell_call",now;kind=row["kind"],quantity=row["quantity"],gradient=row["gradient"])
+            return event
+        end
+    end
     desire===nothing && return nothing
     security=get(map,"food_security",food_security(relation))
     need=trade_food_need(body,gut,stock;security)
@@ -138,6 +162,18 @@ function configured_camp_trade_tick!(states,maps,world,foods,guts,relations,now,
             if (event["addressee"]!==nothing && event["addressee"]!=peer) || busy(peer) || listener["meeting"]!==nothing || !body_alive(world.bodies[peer])
                 listener["ignored"]+=1;continue
             end
+            if get(event,"direction","buy")=="sell"
+                if sleeping(caller) || busy(caller) || !body_alive(world.bodies[caller])
+                    listener["ignored"]+=1;continue
+                end
+                response=configured_surplus_reply!(caller,peer,event["row"],states,maps,world,foods,now;
+                    gut=guts===nothing ? nothing : guts[peer],announced=true)
+                if response===nothing
+                    listener["ignored"]+=1;continue
+                end
+                listener["replied"]+=1;channel["outgoing"]=nothing
+                break
+            end
             interest=configured_camp_trade_interest(event,states[peer],maps[peer],world.bodies[peer],guts===nothing ? nothing : guts[peer],foods.personal[peer],now;
                 kitchen=kitchen_for(peer),relation=relations===nothing ? nothing : relations[peer],processing_requests,items,open_terms)
             if interest===nothing
@@ -150,6 +186,7 @@ function configured_camp_trade_tick!(states,maps,world,foods,guts,relations,now,
             push!(event["replies"],reply)
             configured_camp_trade_record!(states[peer],"reply",now;caller,kind=event["kind"],wanted=interest.wanted,gradient=interest.gradient,supply)
         end
+        get(event,"direction","buy")=="sell" && continue
         filter!(reply->begin
             peer=reply["peer"]
             in_camp(peer) && !sleeping(peer) && !busy(peer) && configured_camp_trade_state!(states[peer])["meeting"]===nothing && body_alive(world.bodies[peer])

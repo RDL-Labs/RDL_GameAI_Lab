@@ -57,3 +57,38 @@ sell_proposals=0;sell_exchanges=0;sell_paid=0;sell_free=0
  println(JSON3.write((sell_proposals=sell_proposals,sell_exchanges=sell_exchanges,paid=sell_paid,free=sell_free,seeds=16)))
 end
 
+
+@testset "normal tick delivers sale after call, then expires unmatched" begin
+ f=camp_fixture();a,b,c=f.ids
+ row=D("kind"=>7,"quantity"=>1,"gradient"=>D("total"=>1.))
+ event=D("direction"=>"sell","caller"=>a,"kind"=>7,"row"=>row,"created_us"=>0,"expires_us"=>128_000_000,"addressee"=>nothing,"heard"=>Set{String}(),"replies"=>Any[])
+ f.states[a]["camp_trade"]=LW.configured_camp_trade_state!(f.states[a]);f.states[a]["camp_trade"]["outgoing"]=event
+ before=deepcopy(f.foods.personal)
+ camp_tick(f,0);@test f.states[b]["camp_trade"]["meeting"]===nothing
+ camp_tick(f,1_000_000)
+ @test f.states[b]["camp_trade"]["meeting"]["initiator"]
+ @test f.states[a]["camp_trade"]["outgoing"]===nothing
+ @test f.foods.personal==before
+ g=camp_fixture();empty!(g.maps[b]);empty!(g.maps[c])
+ LW.configured_camp_trade_state!(g.states[a])["outgoing"]=deepcopy(event)
+ empty!(g.states[a]["camp_trade"]["outgoing"]["heard"])
+ camp_tick(g,1_000_000);@test g.states[a]["camp_trade"]["meeting"]===nothing
+ camp_tick(g,128_000_000);@test g.states[a]["camp_trade"]["outgoing"]===nothing
+ @test g.states[a]["camp_trade"]["expired"]==1
+end
+
+@testset "buy sell hold selection enters call lifecycle" begin
+ modes=Set{String}()
+ for seed in 1:64
+  f=camp_fixture(seed);a=first(f.ids)
+  security=LW.food_security_state();security["required"]=1.
+  security["expiry"]=LW.food_expiry_forecast(f.maps[a],f.w.bodies[a],nothing;now=17_220_000_000)
+  f.maps[a]["food_security"]=security
+  event=LW.configured_camp_trade_call!(f.states[a],f.maps[a],f.w.bodies[a],nothing,f.foods.personal[a],0,17_280_000_000;surplus_calls=true)
+  push!(modes,event===nothing ? "hold" : get(event,"direction","buy"))
+  @test f.states[a]["camp_trade"]["last_day"]==0
+  @test LW.configured_camp_trade_call!(f.states[a],f.maps[a],f.w.bodies[a],nothing,f.foods.personal[a],1,17_280_000_000;surplus_calls=true)===nothing
+ end
+ @test "sell" in modes
+ println(JSON3.write((selected_modes=collect(modes),seeds=64)))
+end
