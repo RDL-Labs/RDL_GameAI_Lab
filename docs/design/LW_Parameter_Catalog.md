@@ -1293,3 +1293,9 @@ trueなら既知・所有済みの要求品について対価未定の会合を�
 scene.camp_trade_open_terms=false、camp_trade_surplus=false（camp_trade_callsが必要）。
 売り候補と買い候補を既存合成評価で見送りと比較。数量・128秒期限はCAMP_TRADE_CALL_RULESを継続使用。
 一日一回の暫定枠に見送りを含む。追加係数なし。今後は発話参加費用・学習による選択へ置換。
+# 2026-11-27 取引機会の局所試験
+
+`TRADE_OPPORTUNITY_RULES` (configured_paths/trade_opportunity.jl):
+initial_probability=0.5（未知の成立見込み）、effort=0.25（勾配単位の呼びかけ費用）。
+どちらも暫定値。stateの明示有効化のみ、通常設定はOFF。
+詳細: [回数上限なし局所試験](LW_Trade_Opportunity_Local_20261127.md)。

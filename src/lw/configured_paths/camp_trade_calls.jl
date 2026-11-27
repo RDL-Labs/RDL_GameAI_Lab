@@ -31,13 +31,26 @@ function configured_camp_trade_address!(state,kind,now)
 end
 function configured_camp_trade_call!(state,map,body,gut,stock,now,day_us;kitchen=nothing,relation=nothing,allow_start=true,processing_requests=false,items=nothing,surplus_calls=false)
     channel=configured_camp_trade_state!(state)
-    allow_start && channel["last_day"]!=div(now,day_us) && channel["outgoing"]===nothing && channel["meeting"]===nothing || return nothing
+    opportunity_enabled=configured_trade_opportunity_enabled(state)
+    allow_start && (opportunity_enabled || channel["last_day"]!=div(now,day_us)) && channel["outgoing"]===nothing && channel["meeting"]===nothing || return nothing
     desire=trade_request_desire(body,gut,stock;map,kitchen,relation)
-    if surplus_calls
-        rows=configured_surplus_candidates(map,body,gut,stock;relation)
+    if surplus_calls || opportunity_enabled
+        rows=surplus_calls ? configured_surplus_candidates(map,body,gut,stock;relation) : Any[]
         choices=Any[D("method"=>"hold","priority"=>0.)]
         desire!==nothing && push!(choices,D("method"=>"buy","priority"=>desire.gradient["total"]))
         append!(choices,[D("method"=>"sell:$i","priority"=>row["gradient"]["total"]) for (i,row) in enumerate(rows)])
+        if opportunity_enabled
+            for choice in choices
+                choice["method"]=="hold" && continue
+                sale=startswith(choice["method"],"sell:")
+                kind=sale ? rows[parse(Int,split(choice["method"],":")[2])]["kind"] : desire.kind
+                choice["opportunity_key"]="$(sale ? "sell" : "buy"):$kind"
+                choice["benefit"]=choice["priority"]
+                choice["priority"]=configured_trade_opportunity_score(state,choice["opportunity_key"],choice["benefit"]).priority
+            end
+            # 成果見込みが手間・未解消差を超えないものは開始動機にならない。
+            filter!(c->c["method"]=="hold" || c["priority"]>0.,choices)
+        end
         for choice in choices;choice["question"]="communication_opportunity";end
         loop=get!(() -> BasicLoop(state["actor"]*":camp-intent";probabilistic=true,seed=state["loop"].seed),state,"camp_intent_loop")
         source="camp-intent:$(state["actor"]):$now"
@@ -45,6 +58,7 @@ function configured_camp_trade_call!(state,map,body,gut,stock,now,day_us;kitchen
         resolve_method!(loop,source,nothing,nothing;creditable=false,goal_H_increment=0.)
         channel["last_day"]=div(now,day_us)
         if selected["method"]=="hold"
+            opportunity_enabled && (state["trade_opportunity"]["ready_home"]=true)
             configured_camp_trade_record!(state,"call_skipped",now)
             return nothing
         elseif startswith(selected["method"],"sell:")
@@ -53,6 +67,7 @@ function configured_camp_trade_call!(state,map,body,gut,stock,now,day_us;kitchen
                 "offered"=>Dict(row["kind"]=>row["quantity"]),"created_us"=>now,"expires_us"=>now+CAMP_TRADE_CALL_RULES.lifetime_us,
                 "addressee"=>nothing,"expected_reply"=>0.,"heard"=>Set{String}(),"replies"=>Any[])
             channel["outgoing"]=event;channel["calls"]+=1
+            opportunity_enabled && configured_trade_opportunity_begin!(state,"sell:$(row["kind"])",row["gradient"]["total"],event)
             configured_camp_trade_record!(state,"sell_call",now;kind=row["kind"],quantity=row["quantity"],gradient=row["gradient"])
             return event
         end
@@ -74,6 +89,7 @@ function configured_camp_trade_call!(state,map,body,gut,stock,now,day_us;kitchen
     # Public conditional request: "I can cook ingredient X myself". No peer read.
     processing_requests && (event["processing_inputs"]=trade_request_processing_inputs(map,body,gut,kitchen,desire.kind;items))
     channel["last_day"]=div(now,day_us);channel["outgoing"]=event;channel["calls"]+=1
+    opportunity_enabled && configured_trade_opportunity_begin!(state,"buy:$(desire.kind)",desire.gradient["total"],event)
     configured_camp_trade_record!(state,"call",now;kind=desire.kind,offered=copy(offered),addressee=address.peer,
         gradient=desire.gradient,support=address.support,probabilities=address.probabilities)
     event
@@ -137,6 +153,7 @@ function configured_camp_trade_tick!(states,maps,world,foods,guts,relations,now,
             pending=channel[key]
             pending===nothing && continue
             if now>=pending["expires_us"]
+                configured_trade_opportunity_finish!(states[actor],false,now;reason="expired_$key")
                 if key=="outgoing" && pending["addressee"]!==nothing
                     address_key="$(pending["kind"]):$(pending["addressee"])"
                     channel["address_H"][address_key]=get(channel["address_H"],address_key,0.)+pending["expected_reply"]
@@ -194,6 +211,7 @@ function configured_camp_trade_tick!(states,maps,world,foods,guts,relations,now,
         if !isempty(event["replies"]) && !sleeping(caller) && !busy(caller) && body_alive(world.bodies[caller])
             # First willing reply is a declared temporary partner-selection rule.
             reply=first(event["replies"]);peer=reply["peer"]
+            configured_trade_opportunity_cancel!(states[peer],now)
             configured_camp_trade_state!(states[peer])["outgoing"]=nothing
             channel["address_H"]["$(event["kind"]):$peer"]=0.
             channel["meeting"]=D("peer"=>peer,"initiator"=>true,"kind"=>event["kind"],"announced"=>copy(reply["offered"]),"expires_us"=>event["expires_us"],"evaluated"=>false)
@@ -264,6 +282,9 @@ function configured_camp_trade_result!(states,actor,receipt,now)
     meeting===nothing && return
     receipt["status"] in ("offered","countered") && return
     peer=meeting["peer"]
+    for participant in (actor,peer)
+        configured_trade_opportunity_finish!(states[participant],receipt["status"]=="exchanged",now;reason=receipt["status"])
+    end
     configured_camp_trade_record!(states[actor],"outcome",now;peer,status=receipt["status"])
     channel["meeting"]=nothing
     other=configured_camp_trade_state!(states[peer])

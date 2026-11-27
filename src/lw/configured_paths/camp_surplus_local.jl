@@ -38,6 +38,7 @@ function configured_surplus_reply!(seller,buyer,row,states,maps,world,foods,now;
     valuation=trade_valuation_context(body,gut,get(maps[buyer],"food_security",nothing),D(),nothing)
     gradient=trade_compound_gradient(stock,after,weight*(log1p(after[kind])-log1p(stock[kind])),valuation)
     gradient["total"]>0 || return nothing
+    configured_trade_opportunity_cancel!(states[buyer],now)
     configured_camp_trade_state!(states[buyer])["outgoing"]=nothing
     # Buyer proposes terms through the existing private-stock negotiation.
     expiry=now+CAMP_TRADE_CALL_RULES.lifetime_us
