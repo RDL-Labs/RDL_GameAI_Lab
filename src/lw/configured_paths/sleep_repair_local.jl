@@ -3,7 +3,8 @@
 # 将来は行程MBの時間・成果・場所の安全見込みへ置換する。
 const SLEEP_REPAIR_LOCAL=(work_hours=1.,work_value=4.,field_sleep_hours=1.,horizon_hours=6.,step_hours=.05)
 const SLEEP_REPAIR_WEAR=merge(ActivityWear.RULES,(rest_per_hour=0.,))
-function configured_sleep_repair_forecast(body,return_hours,method;rules=SLEEP_REPAIR_LOCAL,effort=1.)
+function configured_sleep_repair_forecast(body,return_hours,method;rules=SLEEP_REPAIR_LOCAL,effort=1.,
+        pressure=configured_return_pressure,burden=b->b.fatigue+b.physical.wear)
     isfinite(return_hours) && return_hours>=0 || throw(ArgumentError("return hours"))
     predicted=deepcopy(body);cost=0.;elapsed=0.;benefit=0.
     steps=method=="continue" ? ((:walk,rules.work_hours),(:walk,return_hours)) :
@@ -17,10 +18,10 @@ function configured_sleep_repair_forecast(body,return_hours,method;rules=SLEEP_R
             dt=min(remaining,rules.step_hours)
             if action==:walk
                 ActivityCapacity.capacity(predicted)>0 || return (feasible=false,priority=nothing,body=predicted)
-                before=configured_return_pressure(predicted)
+                before=pressure(predicted)
                 ActivityCapacity.step!(predicted,action,dt;wear_rules=SLEEP_REPAIR_WEAR,effort)
                 ActivityCapacity.capacity(predicted)>0 || return (feasible=false,priority=nothing,body=predicted)
-                cost+=dt*(before+configured_return_pressure(predicted))/2
+                cost+=dt*(before+pressure(predicted))/2
             else
                 ActivityCapacity.step!(predicted,action,dt;wear_rules=SLEEP_REPAIR_WEAR)
             end
@@ -29,7 +30,7 @@ function configured_sleep_repair_forecast(body,return_hours,method;rules=SLEEP_R
     end
     home_hours=method=="sleep_here" ? 0. : max(0.,rules.horizon_hours-elapsed)
     ActivityCapacity.step!(predicted,:sleep,max(0.,rules.horizon_hours-elapsed);wear_rules=SLEEP_REPAIR_WEAR)
-    recovery=max(0.,body.fatigue+body.physical.wear-predicted.fatigue-predicted.physical.wear)
+    recovery=max(0.,burden(body)-burden(predicted))
     benefit=method=="continue" ? rules.work_value : 0.
     priority=benefit+RETURN_REST_RULES.home_value*home_hours+recovery-cost-RETURN_REST_RULES.delay_cost*elapsed
     (feasible=true,priority=priority,body=predicted)
