@@ -1,5 +1,13 @@
 # 数値設定の配置と意味
 
+## 容量超過時の直帰／先行休息（局所、2026-11-27）
+
+`RETURN_REST_RULES`（configured_paths/return_rest_local.jl）:
+step_hours=.05、overload_gain=4、home_value=.8、field_cost=.2、delay_cost=.25、
+recovery_gain=1、pause_hours=.5、horizon_hours=4。
+価値は仮の共通勾配単位、時間はシミュレーション時。通常LW未接続。
+[比較条件・制限・結果](LW_Return_Rest_Local_20261127.md)。
+
 ## 身体依存の疲労容量（局所、2026-11-27）
 
 `ActivityCapacity.RULES`: 毎シミュレーション時の疲労増加
