@@ -14,9 +14,9 @@ State(;wear=0.,fatigue=0.,damage=0.)=begin
 end
 capacity(s::State)=ActivityWear.ability(s.physical)*(1-s.damage)
 ratio(s::State)=capacity(s)>0 ? s.fatigue/capacity(s) : Inf
-function step!(s::State,action,hours;effort=1.,repair_supply=1.)
+function step!(s::State,action,hours;effort=1.,repair_supply=1.,wear_rules=ActivityWear.RULES)
     # Validate/update slow wear before applying short fatigue. No cap clamps fatigue.
-    ActivityWear.step!(s.physical,action,hours;effort,repair_supply)
+    ActivityWear.step!(s.physical,action,hours;effort,repair_supply,rules=wear_rules)
     load=action in (:walk,:run,:work,:fish) ? getproperty(RULES,action)*effort*hours : 0.
     recovery=action in (:rest,:sleep) ? getproperty(RULES,action)*hours : 0.
     s.fatigue=max(0.,s.fatigue+load-recovery)

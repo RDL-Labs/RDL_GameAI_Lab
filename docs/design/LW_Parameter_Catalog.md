@@ -1328,6 +1328,8 @@ ONにはcamp_trade_callsとpersonal_house_idleが必要。
 
 ## 活動容量の通常LW接続（2026-11-27）
 
+睡眠修復の局所比較は `SLEEP_REPAIR_LOCAL` のwork_hours=1、work_value=4、field_sleep_hours=1、horizon_hours=6、step_hours=.05（時間は生活時間）。`SLEEP_REPAIR_WEAR` は既存身体設定のrest_per_hourのみ0へ上書き。通常未接続。詳細：[局所比較](LW_Sleep_Repair_Local_20261127.md)。
+
 `scene.activity_capacity=false`。`CAPACITY_LW_RULES`: work_hours=1生活時間、review_seconds=64シミュレーション秒、records=128件。
 帰還・現地休息の係数はRETURN_REST_RULES、早期再判定を省く疲労比はFATIGUE_FORECAST_RULES.onsetを共用。
 継続効用の基準1と身体要求値の加算は暫定固定。詳細：[接続と制限](LW_Activity_Capacity_Integration_20261127.md)。
