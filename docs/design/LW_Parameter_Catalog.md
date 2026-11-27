@@ -1,5 +1,14 @@
 # 数値設定の配置と意味
 
+## 活動消耗の局所試験（2026-11-27）
+
+`body/activity_wear.jl` の `ActivityWear.RULES`: 毎シミュレーション時の増加
+walk=.06/run=.15/work=.04/fish=.015、修復rest=.025/sleep=.10。
+通常LWへ未接続。身体能力の消耗率の暫定値で、栄養エネルギーではない。
+`configured_paths/activity_wear_local.jl` の `ACTIVITY_WEAR_CHOICE`:
+cost_gain=4、repair_gain=2。局所候補の費用・修復価値の暫定係数。
+[試験条件と結果](LW_Activity_Wear_Local_20261127.md)。
+
 ## 拠点内の取引呼びかけ（2026-11-26）
 
 `scene.camp_trade_calls` 既定false。`CAMP_TRADE_CALL_RULES` は
