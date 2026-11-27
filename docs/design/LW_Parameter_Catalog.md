@@ -1,5 +1,13 @@
 # 数値設定の配置と意味
 
+## 身体依存の疲労容量（局所、2026-11-27）
+
+`ActivityCapacity.RULES`: 毎シミュレーション時の疲労増加
+walk=.12/run=.25/work=.08/fish=.03、回復rest=.25/sleep=.35。
+容量は(1−wear)×(1−damage)、容量低下でも疲労を切り捨てない。
+`ACTIVITY_CAPACITY_CHOICE.fatigue_cost_gain=2` は予測疲労比率²の費用係数。
+通常LW未接続、値は暫定。[条件・結果](LW_Activity_Capacity_Local_20261127.md)。
+
 ## 活動消耗の局所試験（2026-11-27）
 
 `body/activity_wear.jl` の `ActivityWear.RULES`: 毎シミュレーション時の増加

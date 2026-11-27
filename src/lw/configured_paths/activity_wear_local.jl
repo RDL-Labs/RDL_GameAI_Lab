@@ -19,3 +19,22 @@ function configured_activity_wear_candidates(wear,work_hours,return_hours;
     after_work_return>=1 && filter!(c->c["method"]!="continue",choices)
     choices
 end
+
+# 暫定固定・局所専用: 将来の作業/帰路見積もりを入力する。
+# 比率1以上は身体限界として候補を制限する。容量低下で疲労量は切り捨てない。
+# 帰宅不能ならその場の休息。地形安全性・緊急性の比較はまだ含まない。
+const ACTIVITY_CAPACITY_CHOICE=(fatigue_cost_gain=2.,)
+function configured_activity_capacity_candidates(body,work_hours,return_hours;
+        effort=1.,benefit=1.,repair_hours=8.)
+    prediction=ActivityCapacity.forecast(body,work_hours,return_hours;effort)
+    if ActivityCapacity.ratio(prediction.home)>=1
+        return Any[D("method"=>"rest_here","priority"=>0.,"question"=>"activity_recovery")]
+    end
+    choices=configured_activity_wear_candidates(body.physical.wear,work_hours,return_hours;effort,benefit,repair_hours)
+    filter!(c->c["method"]!="continue" || ActivityCapacity.ratio(prediction.work_home)<1,choices)
+    for choice in choices
+        predicted=choice["method"]=="home" ? prediction.home : prediction.work_home
+        choice["priority"]-=ACTIVITY_CAPACITY_CHOICE.fatigue_cost_gain*ActivityCapacity.ratio(predicted)^2
+    end
+    choices
+end
