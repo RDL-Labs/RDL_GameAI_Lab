@@ -1283,3 +1283,8 @@ scene.trade_use_outlook既定false。src/lw/decision/trade_use_outlook.jl。
 trueなら既知・所有済みの要求品について対価未定の会合を許す暫定固定。通常LWはOFF。
 返答は移転同意ではない。加工準備は対象外。既存の数量・期限・交渉評価係数は変更なし。
 詳細：[局所実験](LW_Camp_Trade_Open_Terms_20261127.md)。
+
+## 腐敗見込みの売却候補（2026-11-27、局所専用）
+`configured_paths/camp_surplus_local.jl` は通常LW未読込。既存の期限予測/交換評価を使い、廃棄軽減あり・合成評価正で候補化。
+提示数量と期限はCAMP_TRADE_CALL_RULESを共用、新規係数なし。候補採用と範囲内の配送は局所実験の固定条件。
+[結果と制限](LW_Camp_Surplus_Local_20261127.md)。
