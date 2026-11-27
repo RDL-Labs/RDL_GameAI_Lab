@@ -9,6 +9,7 @@ const ActivityWear=RDLBody.ActivityWear
 const ActivityCapacity=RDLBody.ActivityCapacity
 include("../configured_paths/return_rest_local.jl")
 include("../configured_paths/sleep_repair_local.jl")
+include("../configured_paths/body_appraisal_local.jl")
 include("../configured_paths/activity_capacity_lw.jl")
 include("checkpoint.jl")
 include("../observation/home_activity.jl")

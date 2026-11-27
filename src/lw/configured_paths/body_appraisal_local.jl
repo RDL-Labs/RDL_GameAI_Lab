@@ -1,4 +1,4 @@
-# 暫定固定・局所専用。通常LW未接続。35%は早期負担評価の試験基準であり停止閾値ではない。
+# 暫定固定。scene.activity_capacity=trueで接続。35%は評価基準であり停止閾値ではない。
 # 栄養条件は同一として身体消耗のみ比較。将来は栄養・身体・行程MBの共通予測に統合。
 const BODY_APPRAISAL_LOCAL=(reference_wear=.35,late_reference=1.)
 function configured_body_appraisal(body;reference=BODY_APPRAISAL_LOCAL.reference_wear)

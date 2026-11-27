@@ -1328,6 +1328,8 @@ ONにはcamp_trade_callsとpersonal_house_idleが必要。
 
 ## 活動容量の通常LW接続（2026-11-27）
 
+2026-11-28身体評価接続: activity_capacity=trueでBODY_APPRAISAL_LOCAL.reference_wear=.35を使用。予測評価1を再検討の基準とし、停止基準にはしない。独立fatigueによる再検討を置換。[接続条件](LW_Body_Appraisal_Integration_20261128.md)。
+
 2026-11-28局所: BODY_APPRAISAL_LOCAL.reference_wear=.35、late_reference=1。消耗から二乗で負担を算出する比較尺度で、停止閾値ではない。通常未接続。[身体評価局所](LW_Body_Appraisal_Local_20261128.md)。
 
 睡眠修復接続でCAPACITY_LW_RULESはreview_seconds=64、records=128に整理。作業と睡眠の値はSLEEP_REPAIR_LOCALを使用し、活動中の消耗修復率0。activity_capacityの既定falseは維持。[接続時の暫定条件](LW_Sleep_Repair_Integration_20261127.md)。以下の旧接続記録は履歴。

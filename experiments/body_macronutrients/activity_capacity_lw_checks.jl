@@ -56,4 +56,11 @@ const B=LW.RDLBody
     @test !LW.configured_capacity_sleep_active!(sleepmap,worn,stop)
     @test sleepmap["activity_capacity_plan"]["mode"]=="active"
     @test LW.step(worn,"walk",0)[4]["strain"]==0.
+    low=LW.configured_capacity_attach(raw)
+    low.activity_capacity.physical.wear=.5
+    high=deepcopy(low);high.activity_capacity.fatigue=99.
+    m1=LW.D();m2=LW.D()
+    @test LW.configured_capacity_request!(m1,low,LW.D("distance"=>2.),false,0,1,loop)==LW.configured_capacity_request!(m2,high,LW.D("distance"=>2.),false,0,1,loop)
+    @test m1["activity_capacity_plan"]["decisions"]==m2["activity_capacity_plan"]["decisions"]
+    @test m1["activity_capacity_plan"]["records"][1]["body_appraisal"]==m2["activity_capacity_plan"]["records"][1]["body_appraisal"]
 end

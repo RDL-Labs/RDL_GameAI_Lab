@@ -46,14 +46,15 @@ function configured_capacity_request!(map,body,home,at_home,load,now,loop)
     effort=1+RDLBody.BODY_ACTION.load_effort*load
     projected=ActivityCapacity.forecast(capacity,SLEEP_REPAIR_LOCAL.work_hours,return_hours;effort)
     state["next_us"]=now+round(Int,CAPACITY_LW_RULES.review_seconds*1e6)
-    if state["mode"]=="active" && ActivityCapacity.ratio(projected.work_home)<FATIGUE_FORECAST_RULES.onset
+    if state["mode"]=="active" && configured_body_appraisal(projected.work_home)<1.
         return "active"
     end
     rules=merge(SLEEP_REPAIR_LOCAL,(horizon_hours=max(SLEEP_REPAIR_LOCAL.horizon_hours,return_hours+SLEEP_REPAIR_LOCAL.work_hours+SLEEP_REPAIR_LOCAL.field_sleep_hours),))
     choices=Any[]
     for method in ("continue","home","sleep_then_home","sleep_here")
         state["mode"]=="home" && method=="continue" && continue
-        f=configured_sleep_repair_forecast(capacity,return_hours,method;rules,effort)
+        f=configured_sleep_repair_forecast(capacity,return_hours,method;rules,effort,
+            pressure=configured_body_appraisal,burden=b->1-ActivityCapacity.capacity(b))
         f.feasible && push!(choices,D("method"=>method,"priority"=>f.priority,"question"=>"activity_recovery"))
     end
     choice_loop=get!(() -> BasicLoop("activity-capacity";probabilistic=true,seed=loop.seed),state,"loop")
@@ -62,7 +63,8 @@ function configured_capacity_request!(map,body,home,at_home,load,now,loop)
     mode=selection["method"]
     state["decisions"][mode]=get(state["decisions"],mode,0)+1
     push!(state["records"],D("us"=>now,"choice"=>mode,"return_hours"=>return_hours,"source"=>source,
-        "fatigue"=>capacity.fatigue,"capacity"=>ActivityCapacity.capacity(capacity),"wear"=>capacity.physical.wear))
+        "fatigue"=>capacity.fatigue,"capacity"=>ActivityCapacity.capacity(capacity),"wear"=>capacity.physical.wear,
+        "body_appraisal"=>configured_body_appraisal(capacity),"projected_appraisal"=>configured_body_appraisal(projected.work_home)))
     length(state["records"])>CAPACITY_LW_RULES.records && popfirst!(state["records"])
     state["mode"]=mode=="continue" ? "active" : mode
     if mode in ("sleep_here","sleep_then_home") || (mode=="home" && at_home)

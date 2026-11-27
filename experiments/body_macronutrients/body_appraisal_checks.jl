@@ -1,6 +1,6 @@
 using Test,JSON3
 include("../../src/lw/LW.jl")
-Base.include(LW,joinpath(@__DIR__,"../../src/lw/configured_paths/body_appraisal_local.jl"))
+isdefined(LW,:configured_body_appraisal) || Base.include(LW,joinpath(@__DIR__,"../../src/lw/configured_paths/body_appraisal_local.jl"))
 const C=LW.ActivityCapacity
 distribution(choices)=Dict(c["method"]=>p for (c,p) in zip(choices,LW.method_distribution(LW.BasicLoop("appraisal";probabilistic=true,seed=1),choices)))
 rows=Any[]
