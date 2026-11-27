@@ -1,6 +1,6 @@
 # Temporary configured rule, shared across food and object trade initiation.
 function trade_start_available(state,now,day_us)
-    configured_trade_opportunity_enabled(state) && return true
+    (get(state,"configured_trade_uncapped",false) || configured_trade_opportunity_enabled(state)) && return true
     q=get(state,"trade_daily_start",nothing)
     q===nothing || q["day"]!=div(now,day_us) || q["used"]==0
 end

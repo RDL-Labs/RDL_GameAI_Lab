@@ -1,11 +1,23 @@
-# 暫定固定・局所実験: incidental.trade_opportunity の明示有効化のみ (既定OFF)。
+# 暫定固定: scene.camp_trade_opportunity=false (既定OFF)。通常LWでも明示ONのみ。
 # 日次上限を外し、本人の取引勾配と結果残差で再試行を評価する。
 # 初期成功見込みと呼びかけ費用は暫定。将来は実際の所要時間・経験から見積もる。
 # 他者の非公開在庫は読まない。無返答は在庫不存在の証明ではない。
 const TRADE_OPPORTUNITY_RULES=(initial_probability=.5,effort=.25)
-configured_trade_opportunity_enabled(state)=haskey(state,"trade_opportunity")
+configured_trade_opportunity_enabled(state)=haskey(state,"trade_opportunity") && get(state,"configured_trade_opportunity_active",true)
 function configured_trade_opportunity_enable!(state)
+    state["configured_trade_opportunity_active"]=true
     get!(() -> D("evidence"=>D(),"pending"=>nothing,"ready_home"=>false),state,"trade_opportunity")
+end
+# 通常LWでは日次開始制限の状態と呼びかけ状態が別の辞書にある。
+# 両方へ設定を渡す。学習状態の辞書共有・コピーは行わない。
+function configured_trade_opportunity_setup!(states,incidental,enabled)
+    enabled && incidental===nothing && error("trade opportunity requires incidental items")
+    for actor in keys(states)
+        states[actor]["configured_trade_uncapped"]=enabled
+        incidental===nothing && continue
+        incidental[actor]["configured_trade_opportunity_active"]=enabled
+        enabled && configured_trade_opportunity_enable!(incidental[actor])
+    end
 end
 function configured_trade_opportunity_score(state,key,benefit)
     evidence=get(state["trade_opportunity"]["evidence"],key,nothing)

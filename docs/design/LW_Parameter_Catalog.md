@@ -1297,5 +1297,6 @@ scene.camp_trade_open_terms=false、camp_trade_surplus=false（camp_trade_calls�
 
 `TRADE_OPPORTUNITY_RULES` (configured_paths/trade_opportunity.jl):
 initial_probability=0.5（未知の成立見込み）、effort=0.25（勾配単位の呼びかけ費用）。
-どちらも暫定値。stateの明示有効化のみ、通常設定はOFF。
+どちらも暫定値。通常LWは `scene.camp_trade_opportunity=false` が既定。
+ONにはcamp_trade_callsとpersonal_house_idleが必要。
 詳細: [回数上限なし局所試験](LW_Trade_Opportunity_Local_20261127.md)。

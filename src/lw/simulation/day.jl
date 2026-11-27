@@ -537,6 +537,9 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest
     camp_processing=get(spec,:camp_trade_processing,false)
     camp_open_terms=get(spec,:camp_trade_open_terms,false)
     camp_surplus=get(spec,:camp_trade_surplus,false)
+    camp_opportunity=get(spec,:camp_trade_opportunity,false)
+    check(camp_opportunity isa Bool && (!camp_opportunity || (camp_calls && house_idle_enabled)),"camp_trade_opportunity_requires_calls_and_house")
+    configured_trade_opportunity_setup!(states,incidental_items,camp_opportunity)
     check(camp_open_terms isa Bool && camp_surplus isa Bool && (!(camp_open_terms || camp_surplus) || camp_calls),"camp_trade_extensions_require_calls")
     check(camp_processing isa Bool && (!camp_processing || camp_calls),"camp_trade_processing_requires_calls")
     camp_calls && (incidental_items===nothing || foods===nothing || shared_stores || !item_exchange_enabled) && error("camp_trade_calls requires private typed food and item exchange")
@@ -1084,6 +1087,11 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest
                     configured_camp_trade_call!(incidental_items[a],mb_maps[a],w.bodies[a],guts===nothing ? nothing : guts[a],foods.personal[a],now,clock.day_us;
                         kitchen=food_kitchen(a),relation=relations===nothing ? nothing : relations[a],allow_start=trade_start_available(states[a],now,clock.day_us),processing_requests=camp_processing,items,surplus_calls=camp_surplus)
                     configured_camp_trade_busy(incidental_items[a]) && (plan=D("action"=>"scan","direction"=>0,"method"=>"camp_trade_wait","configured_observation"=>true))
+                    if camp_opportunity
+                        gate=get!(mb_maps[a],"configured_trade_idle",D())
+                        gate["day"]=div(now,clock.day_us)
+                        gate["ready"]=incidental_items[a]["trade_opportunity"]["ready_home"] && !configured_camp_trade_busy(incidental_items[a])
+                    end
                 end
             end
             if plan===nothing && trade_work_wait && !observing && !(phase in ("night","orientation")) && at_home
@@ -1104,8 +1112,9 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest
                 house_trade_gate=get(mb_maps[a],"configured_trade_idle",D())
                 house_trade_ready=!item_exchange_enabled || phase=="night" ||
                     (get(house_trade_gate,"day",-1)==div(now,clock.day_us) && get(house_trade_gate,"ready",false))
+                opportunity_home=camp_opportunity && incidental_items[a]["trade_opportunity"]["ready_home"]
                 house_plan=configured_house_plan!(configured_house_state!(mb_maps[a]),house_by_actor[a],w.positions[a],yaw[a],now,clock.day_us,moves[a]["energy"]["rows"];
-                    eligible=at_home && (returning || provision_stay || phase=="night") && w.inventory[a]==0 && house_trade_ready,
+                    eligible=at_home && (returning || provision_stay || phase=="night" || opportunity_home) && w.inventory[a]==0 && house_trade_ready,
                     blocked=house_busy || a in house_woken_ids || haskey(pending,a),demand=body_demand(w.bodies[a]))
                 house_plan!==nothing && (plan=house_plan)
             end

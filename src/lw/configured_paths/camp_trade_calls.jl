@@ -10,6 +10,8 @@ function configured_camp_trade_state!(state)
         "expired"=>0,"negotiated"=>0,"address_H"=>D(),"records"=>Any[]),state,"camp_trade")
 end
 function configured_camp_trade_record!(state,event,now;kwargs...)
+    totals=get!(()->D(),configured_camp_trade_state!(state),"event_counts")
+    totals[event]=get(totals,event,0)+1
     records=configured_camp_trade_state!(state)["records"]
     push!(records,D("event"=>event,"us"=>now,(string(k)=>v for (k,v) in kwargs)...))
     length(records)>CAMP_TRADE_CALL_RULES.records && popfirst!(records)

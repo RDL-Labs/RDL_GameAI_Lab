@@ -1,4 +1,15 @@
 include("camp_trade_calls_checks.jl")
+@testset "LW separate daily gate wiring" begin
+    f=camp_fixture();a=first(f.ids)
+    main_states=Dict(actor=>D("trade_daily_start"=>D("day"=>0,"used"=>1)) for actor in f.ids)
+    LW.configured_trade_opportunity_setup!(main_states,f.states,true)
+    @test LW.trade_start_available(main_states[a],1,1_000_000_000)
+    @test LW.configured_trade_opportunity_enabled(f.states[a])
+    @test !haskey(main_states[a],"trade_opportunity")
+    LW.configured_trade_opportunity_setup!(main_states,f.states,false)
+    @test !LW.trade_start_available(main_states[a],1,1_000_000_000)
+    @test !LW.configured_trade_opportunity_enabled(f.states[a])
+end
 @testset "uncapped opportunity and residual" begin
     f=camp_fixture();a,b,c=f.ids;state=f.states[a];day=17_280_000_000
     opportunity=LW.configured_trade_opportunity_enable!(state)

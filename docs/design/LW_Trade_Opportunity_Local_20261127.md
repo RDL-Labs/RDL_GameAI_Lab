@@ -43,3 +43,22 @@ holdでready_homeを立て、局所のhouseアダプターから既存の自宅�
 
 結果: 専用24項目＋既存110項目PASS。通常の売買・見送り・交渉接続検査452項目PASS
 （こちらにも既存110項目を含むため合算時は重複に注意）。Julia 1.13.1、1スレッド。
+
+## 通常LWへの接続（同日追加）
+
+`scene.camp_trade_opportunity=true` で通常LWにも接続。既定false。
+camp_trade_callsとpersonal_house_idleが必要。通常LWの日次開始制限はstates、
+呼びかけはincidental_itemsと保存先が違うため、setupで両方に設定を渡す。
+OFFに戻した場合は開始制限も戻し、学習したevidenceは保持する。
+新たな辞書の別名共有は作らない。別状態の接続・解除5項目を追加、専用計29項目PASS。
+
+見送り時のready_homeを既存の帰宅条件へ追加する。他の作業や未決の取引があれば
+既存のobligationが優先し、身体要求が大きければ帰宅休息しない。
+呼びかけevent_countsは記録列の上限128件と別に累積し、長期でも開始・見送りを集計する。
+
+10日試験条件: 人間4体、A/B感度0.5・C/D感度1、seed=20261007、動物OFF、
+再生食料、私有倉庫非公開、既存研修・加工・未提示対価の返答・余剰売却ON。
+初期入力はhuman-trade-buysell10-20261127と同一で、上記フラグのみ追加。
+出力: `C:/Users/ken_m/Documents/Codex/human-trade-opportunity10-20261127`。
+ソースと入力を凍結し、チェックポイントを毎日保存する。
+暫定の成立事前値0.5、呼びかけ費用0.25、自宅到着後の認知停止を使用する。
