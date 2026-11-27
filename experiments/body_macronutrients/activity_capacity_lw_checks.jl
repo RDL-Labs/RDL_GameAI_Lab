@@ -63,4 +63,9 @@ const B=LW.RDLBody
     @test LW.configured_capacity_request!(m1,low,LW.D("distance"=>2.),false,0,1,loop)==LW.configured_capacity_request!(m2,high,LW.D("distance"=>2.),false,0,1,loop)
     @test m1["activity_capacity_plan"]["decisions"]==m2["activity_capacity_plan"]["decisions"]
     @test m1["activity_capacity_plan"]["records"][1]["body_appraisal"]==m2["activity_capacity_plan"]["records"][1]["body_appraisal"]
+    calibration=LW.ActivityCapacity.State()
+    LW.ActivityCapacity.step!(calibration,:walk,10.;wear_rules=LW.SLEEP_REPAIR_WEAR)
+    @test calibration.physical.wear≈.10
+    @test LW.configured_body_appraisal(calibration)≈1.
+    @test LW.ActivityCapacity.capacity(calibration)≈.90
 end

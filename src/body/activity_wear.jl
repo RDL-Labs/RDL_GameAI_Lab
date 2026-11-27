@@ -1,12 +1,13 @@
 """Local prototype: cumulative physical wear, separate from fuel and short strain.
 
-Not included by the production body module yet; no checkpoint layout changes.
+Enabled in LW through scene.activity_capacity; not a body-mass fraction.
 Rates are game calibration per simulated hour, not measured human physiology.
 Repair supply is a caller-provided fraction, not a hidden read of food stocks.
 This prototype does not yet debit nutrients for repair.
 """
 module ActivityWear
-const RULES=(walk_per_hour=.06,run_per_hour=.15,work_per_hour=.04,
+# Walking wear is 1% per simulated hour before load adjustment (game calibration).
+const RULES=(walk_per_hour=.01,run_per_hour=.15,work_per_hour=.04,
     fish_per_hour=.015,rest_per_hour=.025,sleep_per_hour=.10)
 mutable struct State
     wear::Float64
