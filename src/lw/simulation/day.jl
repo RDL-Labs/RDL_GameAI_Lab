@@ -4,6 +4,11 @@ include("../perception/home_distance.jl")
 include("../decision/goal_arrival.jl")
 include("../decision/gradient_roll.jl")
 include("../decision/fatigue_forecast.jl")
+include("../../body/load.jl")
+const ActivityWear=RDLBody.ActivityWear
+const ActivityCapacity=RDLBody.ActivityCapacity
+include("../configured_paths/return_rest_local.jl")
+include("../configured_paths/activity_capacity_lw.jl")
 include("checkpoint.jl")
 include("../observation/home_activity.jl")
 include("physiology.jl")
@@ -393,6 +398,7 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest
     purposes=Dict(a=>return_purpose() for a in IDS)
     pending=Dict{String,Any}();daily=Any[];day_starts=Any[]
     physical()=D(a=>D("position"=>collect(w.positions[a]),"yaw"=>yaw[a],"body"=>bodydict(w.bodies[a]),
+        "activity_capacity_plan"=>haskey(mb_maps[a],"activity_capacity_plan") ? deepcopy(D(k=>v for (k,v) in mb_maps[a]["activity_capacity_plan"] if k!="loop")) : nothing,
         "personal_house"=>personal_house_presence(houses,a,w.positions[a]),
         "house_attention"=>house_idle_enabled ? deepcopy(configured_house_state!(mb_maps[a])) : nothing,
         "body_purpose"=>body_purpose ? deepcopy(configured_body_states[a]) : nothing,"return_purpose"=>deepcopy(purposes[a]),"inventory"=>w.inventory[a],"personal_stock"=>stores[a],"social_count"=>length(states[a]["records"]),
@@ -534,6 +540,11 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest
                 receipt!(learning[a],now;phase="night",kind=action=="rest" ? "wait" : action,status=action=="rest" ? "waited" : status,on_complete=callback)
     end
     camp_calls=get(spec,:camp_trade_calls,false)
+    capacity_enabled=get(spec,:activity_capacity,false)
+    check(capacity_enabled isa Bool && (!capacity_enabled || (house_idle_enabled && all(w.bodies[a] isa HumanBody for a in IDS))),"activity_capacity_requires_human_houses")
+    if capacity_enabled
+        for a in IDS;w.bodies[a]=configured_capacity_attach(w.bodies[a]);end
+    end
     camp_processing=get(spec,:camp_trade_processing,false)
     camp_open_terms=get(spec,:camp_trade_open_terms,false)
     camp_surplus=get(spec,:camp_trade_surplus,false)
@@ -847,7 +858,7 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest
                 returning=parent_choice.returning;replenishing=parent_choice.replenishing
             end
             configured_overrides=configured_body_overrides(replenishing,states[a]["pending"]!==nothing)
-            if embedded_rest_enabled && !observing
+            if embedded_rest_enabled && !observing && !capacity_enabled
                 returning=embedded_rest_request!(mb_maps[a]["embedded_rest"],w.bodies[a].strain,body_energy(w.bodies[a]),
                     hunger[a]["intensity"],replenishing,returning,now,clock.day_us,loops[a]["home"].rng)
             end
@@ -889,6 +900,11 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest
             end
             # Recipe constraints govern processing, not the current parent purpose.
             post_return_meal && configured_return_meal_hold(mb_maps[a],now,clock.day_us) && (returning=true)
+            capacity_mode="active"
+            if capacity_enabled && !observing && !(fishing_training && configured_fishing_training_active(mb_maps[a]["fishing_training"]))
+                capacity_mode=configured_capacity_request!(mb_maps[a],w.bodies[a],home,at_home,w.inventory[a],now,loops[a]["home"])
+                capacity_mode in ("home","rest_home") && (returning=true)
+            end
             # Carrying raw food must not override energy-maintenance selection.
             if experience_bundles && !(a in focused_ids)
                 form_bundle!(bundles[a],hunger[a],now)
@@ -1007,6 +1023,10 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest
                     visual_pending=get(get(relations[a],"visual_aid",D()),"pending",nothing)
                     visual_pending!==nothing && visual_pending["target"]==t && (plan=merge(visual_pending,plan))
                 end
+            elseif capacity_mode in ("rest_then_home","rest_here")
+                plan=D("action"=>"rest","method"=>"capacity_local_rest","configured_rule"=>"activity_capacity","configured_observation"=>true)
+            elseif capacity_mode=="rest_home" && at_home && w.inventory[a]==0 && !configured_house_obligation(states[a],incidental_items===nothing ? nothing : incidental_items[a],relations===nothing ? nothing : relations[a],items,a,now)
+                plan=configured_house_plan!(configured_house_state!(mb_maps[a]),house_by_actor[a],w.positions[a],yaw[a],now,clock.day_us,moves[a]["energy"]["rows"];eligible=true,demand=0.)
             elseif (routine=configured_routine_priority(!food_desire && (food_body ? hunger_select(hunger[a]) : body_demand(w.bodies[a])>0),
                     edible_on_hand,guts===nothing || can_ingest(guts[a]),at_home,shared_stores ? shared : stores[a],
                     phase,local_us,clock.quiet_night_us,states[a]["pending"]!==nothing,configured_overrides;
@@ -1126,7 +1146,7 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest
                 plan===nothing && (plan=configured_observation_plan(observation_states[a],w.positions[a],yaw[a],sec,local_us,clock,body_energy(w.bodies[a]),w.bodies[a].strain))
             end
             fatigue_continue=configured_legacy_fatigue_continue(w.bodies[a])
-            if get(spec,:fatigue_forecast,true) && plan===nothing && basic_loop && mb_simulation && !observing && !at_home
+            if !capacity_enabled && get(spec,:fatigue_forecast,true) && plan===nothing && basic_loop && mb_simulation && !observing && !at_home
                 fatigue_target=returning ? home : isempty(food_targets) ? nothing : first(food_targets)
                 fatigue_continue=fatigue_navigation_continue!(mb_maps[a],w.bodies[a],w.inventory[a],
                     fatigue_target,returning,loops[a][returning ? "home" : "food"],now)

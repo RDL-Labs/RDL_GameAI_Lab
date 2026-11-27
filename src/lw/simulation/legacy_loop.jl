@@ -85,9 +85,17 @@ function main()
     end
 end
 
-bodydict(b::HumanBody)=Dict{String,Any}("rule"=>"three-nutrient-human-v2",
+function bodydict(b::HumanBody)
+    result=Dict{String,Any}("rule"=>"three-nutrient-human-v2",
     "burst"=>b.burst,"strain"=>b.strain,"damage"=>b.damage,
     "energy"=>body_energy(b),"alive"=>body_alive(b),"mobility"=>body_mobility(b),
     "incapacitated"=>body_alive(b) && body_mobility(b)<=0,
     "body_demand"=>body_demand(b),"sugar"=>b.nutrients.sugar,"fat"=>b.nutrients.fat,
     "tissue"=>b.nutrients.tissue,"amino"=>b.nutrients.amino)
+    if b.activity_capacity!==nothing
+        c=b.activity_capacity
+        result["activity_capacity"]=D("wear"=>c.physical.wear,"fatigue"=>c.fatigue,
+            "capacity"=>RDLBody.ActivityCapacity.capacity(c),"accumulated"=>c.physical.accumulated,"repaired"=>c.physical.repaired)
+    end
+    result
+end

@@ -30,5 +30,14 @@ function macro_digest!(g,b,seconds;action="rest",sleeping=false)
     g.nutrient_stores=ntuple(i->NUTRIENT_TARGET[i]*(1-(signals.sugar_need,
         signals.protein_need,signals.fat_need)[i]),3)
     g.recent .*= exp(-seconds/7200)
-    HumanBody(b.burst,b.strain,b.damage,physical,bridge.hours_per_second,0.)
+    capacity=b.activity_capacity
+    if capacity!==nothing
+        capacity.damage=b.damage
+        capacity_action=sleeping ? :sleep : action=="rest" && b.capacity_action==:observe ? :rest : b.capacity_action
+        capacity_effort=capacity_action in (:walk,:run) ? max(1.,b.activity/MACRO_WALK_INTENSITY/(capacity_action==:run ? 2 : 1)) : 1.
+        # Repair supply remains the declared ample-material prototype. No extra
+        # nutrient debit is invented here; existing nutrient metabolism remains authoritative.
+        ActivityCapacity.step!(capacity,capacity_action,seconds*bridge.hours_per_second;effort=capacity_effort)
+    end
+    HumanBody(b.burst,b.strain,b.damage,physical,bridge.hours_per_second,0.,capacity,:observe)
 end

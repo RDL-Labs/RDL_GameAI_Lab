@@ -1,6 +1,6 @@
 using Test,JSON3,Statistics,Serialization
 include("../../src/lw/LW.jl")
-Base.include(LW,joinpath(@__DIR__,"../../src/body/activity_wear.jl"))
+isdefined(LW,:ActivityWear) || Base.include(LW,joinpath(@__DIR__,"../../src/body/activity_wear.jl"))
 Base.include(LW,joinpath(@__DIR__,"../../src/lw/configured_paths/activity_wear_local.jl"))
 const Wear=LW.ActivityWear
 function home_probability(s,effort;return_hours=.5)

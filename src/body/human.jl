@@ -6,7 +6,10 @@ struct HumanBody <: AbstractBody
     nutrients::Macronutrients.MacroBody
     hours_per_second::Float64
     activity::Float64
+    activity_capacity::Union{Nothing,ActivityCapacity.State}
+    capacity_action::Symbol
 end
+HumanBody(burst,strain,damage,nutrients,hours_per_second,activity)=HumanBody(burst,strain,damage,nutrients,hours_per_second,activity,nothing,:observe)
 HumanBody(nutrients,hours_per_second)=HumanBody(10.,0.,0.,nutrients,hours_per_second,0.)
 body_alive(b::Body)=b.reserve>0
 body_alive(b::HumanBody)=b.nutrients.alive
@@ -17,7 +20,7 @@ function body_energy(b::HumanBody)
         MACRO_PARAMETERS.activity_rate*b.activity*b.hours_per_second)
 end
 body_mobility(b::Body)=body_alive(b) ? 1. : 0.
-body_mobility(b::HumanBody)=Macronutrients.body_signals(b.nutrients,MACRO_PARAMETERS).ability
+body_mobility(b::HumanBody)=Macronutrients.body_signals(b.nutrients,MACRO_PARAMETERS).ability*(b.activity_capacity===nothing ? 1. : ActivityWear.ability(b.activity_capacity.physical))
 body_demand(b::Body)=clamp((80-b.reserve)/80,0.,1.)
 body_demand(b::HumanBody)=Macronutrients.body_signals(b.nutrients,MACRO_PARAMETERS).body_demand
 body_food_gap(b::Body)=max(0.,80-b.reserve)
@@ -68,7 +71,9 @@ function step(b::HumanBody,action,load,resistance=1.,clear=true)
     else
         error("action")
     end
-    out=HumanBody(burst,strain,b.damage,b.nutrients,b.hours_per_second,activity)
+    # Enabled cumulative-capacity mode replaces the legacy short strain accumulator.
+    capacity_action=status in ("performed","worked","rested","ate","blocked") ? Symbol(action=="process_food" ? "work" : action=="climb" ? "run" : action) : :observe
+    out=HumanBody(burst,b.activity_capacity===nothing ? strain : 0.,b.damage,b.nutrients,b.hours_per_second,activity,b.activity_capacity,capacity_action)
     delta=Dict("burst"=>burst-b.burst,"strain"=>strain-b.strain,
         "energy"=>body_energy(out)-body_energy(b),"damage"=>0.)
     out,status,distance,delta
@@ -78,5 +83,5 @@ end
 function metabolize(b::HumanBody,seconds)
     physical=deepcopy(b.nutrients)
     Macronutrients.advance!(physical,MACRO_PARAMETERS,seconds*b.hours_per_second;intensity=b.activity)
-    HumanBody(b.burst,b.strain,b.damage,physical,b.hours_per_second,0.)
+    HumanBody(b.burst,b.strain,b.damage,physical,b.hours_per_second,0.,b.activity_capacity===nothing ? nothing : deepcopy(b.activity_capacity),:observe)
 end

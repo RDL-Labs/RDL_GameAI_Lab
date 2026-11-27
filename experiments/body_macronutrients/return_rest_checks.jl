@@ -1,6 +1,9 @@
 using Test,JSON3
 include("../../src/lw/LW.jl")
 for file in ("src/body/activity_wear.jl","src/body/activity_capacity.jl","src/lw/configured_paths/return_rest_local.jl")
+    endswith(file,"activity_wear.jl") && isdefined(LW,:ActivityWear) && continue
+    endswith(file,"activity_capacity.jl") && isdefined(LW,:ActivityCapacity) && continue
+    endswith(file,"return_rest_local.jl") && isdefined(LW,:configured_return_rest_candidates) && continue
     Base.include(LW,joinpath(@__DIR__,"../..",file))
 end
 const Capacity=LW.ActivityCapacity
