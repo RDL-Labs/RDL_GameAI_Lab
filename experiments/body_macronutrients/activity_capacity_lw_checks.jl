@@ -41,4 +41,19 @@ const B=LW.RDLBody
     @test loop.trial===trial
     @test length(map["activity_capacity_plan"]["records"])==1
     @test !isempty(JSON3.write(map))
+    worn=LW.configured_capacity_attach(raw)
+    worn.activity_capacity.physical.wear=1.
+    sleepmap=LW.D()
+    @test LW.configured_capacity_sleep_active!(sleepmap,worn,0)
+    stop=sleepmap["activity_capacity_plan"]["until_us"]
+    @test LW.configured_capacity_sleep_active!(sleepmap,worn,stop-1)
+    worn=LW.step(worn,"rest",0)[1]
+    worn=LW.digest!(gut,worn,1.;action="rest")
+    @test worn.activity_capacity.physical.wear==1.
+    worn=LW.step(worn,"rest",0)[1]
+    worn=LW.digest!(gut,worn,1.;action="rest",sleeping=true)
+    @test worn.activity_capacity.physical.wear<1.
+    @test !LW.configured_capacity_sleep_active!(sleepmap,worn,stop)
+    @test sleepmap["activity_capacity_plan"]["mode"]=="active"
+    @test LW.step(worn,"walk",0)[4]["strain"]==0.
 end

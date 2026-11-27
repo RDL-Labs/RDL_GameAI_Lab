@@ -37,7 +37,8 @@ function macro_digest!(g,b,seconds;action="rest",sleeping=false)
         capacity_effort=capacity_action in (:walk,:run) ? max(1.,b.activity/MACRO_WALK_INTENSITY/(capacity_action==:run ? 2 : 1)) : 1.
         # Repair supply remains the declared ample-material prototype. No extra
         # nutrient debit is invented here; existing nutrient metabolism remains authoritative.
-        ActivityCapacity.step!(capacity,capacity_action,seconds*bridge.hours_per_second;effort=capacity_effort)
+        ActivityCapacity.step!(capacity,capacity_action,seconds*bridge.hours_per_second;effort=capacity_effort,
+            wear_rules=merge(ActivityWear.RULES,(rest_per_hour=0.,)))
     end
     HumanBody(b.burst,b.strain,b.damage,physical,bridge.hours_per_second,0.,capacity,:observe)
 end

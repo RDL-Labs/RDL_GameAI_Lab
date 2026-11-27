@@ -8,6 +8,7 @@ include("../../body/load.jl")
 const ActivityWear=RDLBody.ActivityWear
 const ActivityCapacity=RDLBody.ActivityCapacity
 include("../configured_paths/return_rest_local.jl")
+include("../configured_paths/sleep_repair_local.jl")
 include("../configured_paths/activity_capacity_lw.jl")
 include("checkpoint.jl")
 include("../observation/home_activity.jl")
@@ -563,7 +564,8 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest
         now=sec*1_000_000;w.seconds=sec
         visual_illumination=AmbientVision.illumination(sec;day_seconds=clock.day_us/1e6,night_start=clock.phase_boundaries_us[3]/1e6)
         foods!==nothing && (shared=food_expire_fish!(foods,w,cargo,food,stock,stores,shared,div(now,clock.day_us)))
-        collapsed_ids=Tuple(a for a in IDS if configured_collapse_active(w.bodies[a];enabled=get(spec,:collapse_cognition_gate,true)))
+        capacity_sleep_ids=capacity_enabled ? Set(a for a in IDS if configured_capacity_sleep_active!(mb_maps[a],w.bodies[a],now)) : Set{String}()
+        collapsed_ids=Tuple(a for a in IDS if !(a in capacity_sleep_ids) && configured_collapse_active(w.bodies[a];enabled=get(spec,:collapse_cognition_gate,true)))
         for a in IDS
             if !(a in collapsed_ids) && haskey(mb_maps[a],"collapse_gate")
                 mb_maps[a]["collapse_gate"]["active"]=false
@@ -599,6 +601,7 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest
             end
         end
         sleeping_ids=get(spec,:sleep_external_gate,true) ? Tuple(a for a in IDS if !haskey(pending,a) && configured_sleep_gate_active(learning[a],now,clock.day_us)) : ()
+        sleeping_ids=Tuple(a for a in IDS if a in sleeping_ids || a in capacity_sleep_ids)
         focus_phase=mod(now,clock.day_us)<bounds[1] ? "orientation" : mod(now,clock.day_us)<bounds[2] ? "exploration" : mod(now,clock.day_us)<bounds[3] ? "return" : "night"
         focused_ids=String[]
         motion_objects=Any[]
@@ -1023,10 +1026,8 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest
                     visual_pending=get(get(relations[a],"visual_aid",D()),"pending",nothing)
                     visual_pending!==nothing && visual_pending["target"]==t && (plan=merge(visual_pending,plan))
                 end
-            elseif capacity_mode in ("rest_then_home","rest_here")
-                plan=D("action"=>"rest","method"=>"capacity_local_rest","configured_rule"=>"activity_capacity","configured_observation"=>true)
-            elseif capacity_mode=="rest_home" && at_home && w.inventory[a]==0 && !configured_house_obligation(states[a],incidental_items===nothing ? nothing : incidental_items[a],relations===nothing ? nothing : relations[a],items,a,now)
-                plan=configured_house_plan!(configured_house_state!(mb_maps[a]),house_by_actor[a],w.positions[a],yaw[a],now,clock.day_us,moves[a]["energy"]["rows"];eligible=true,demand=0.)
+            elseif capacity_mode in ("sleep_then_home","sleep_here")
+                plan=D("action"=>"rest","method"=>"capacity_sleep_start","configured_rule"=>"activity_capacity","configured_observation"=>true)
             elseif (routine=configured_routine_priority(!food_desire && (food_body ? hunger_select(hunger[a]) : body_demand(w.bodies[a])>0),
                     edible_on_hand,guts===nothing || can_ingest(guts[a]),at_home,shared_stores ? shared : stores[a],
                     phase,local_us,clock.quiet_night_us,states[a]["pending"]!==nothing,configured_overrides;
@@ -1453,6 +1454,13 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest
                 continue
             end
             if a in sleeping_ids
+                if a in capacity_sleep_ids
+                    acquisition_finish!(mb_maps[a],"interrupted","sleep")
+                    fishing_enabled && fishing_cancel!(foods,a,now,"sleep")
+                    configured_capacity_sleep_tick!(mb_maps[a],w,a,counts,events,previous,now)
+                    process_sleep!(a,now,day,"rest","performed")
+                    continue
+                end
                 house_idle_enabled && (configured_house_state!(mb_maps[a])["sleep_ticks"]+=1)
                 acquisition_finish!(mb_maps[a],"interrupted","sleep")
                 fishing_enabled && fishing_cancel!(foods,a,now,"sleep")

@@ -3,7 +3,7 @@
 # 将来は行程MBの時間・成果・場所の安全見込みへ置換する。
 const SLEEP_REPAIR_LOCAL=(work_hours=1.,work_value=4.,field_sleep_hours=1.,horizon_hours=6.,step_hours=.05)
 const SLEEP_REPAIR_WEAR=merge(ActivityWear.RULES,(rest_per_hour=0.,))
-function configured_sleep_repair_forecast(body,return_hours,method;rules=SLEEP_REPAIR_LOCAL)
+function configured_sleep_repair_forecast(body,return_hours,method;rules=SLEEP_REPAIR_LOCAL,effort=1.)
     isfinite(return_hours) && return_hours>=0 || throw(ArgumentError("return hours"))
     predicted=deepcopy(body);cost=0.;elapsed=0.;benefit=0.
     steps=method=="continue" ? ((:walk,rules.work_hours),(:walk,return_hours)) :
@@ -18,7 +18,7 @@ function configured_sleep_repair_forecast(body,return_hours,method;rules=SLEEP_R
             if action==:walk
                 ActivityCapacity.capacity(predicted)>0 || return (feasible=false,priority=nothing,body=predicted)
                 before=configured_return_pressure(predicted)
-                ActivityCapacity.step!(predicted,action,dt;wear_rules=SLEEP_REPAIR_WEAR)
+                ActivityCapacity.step!(predicted,action,dt;wear_rules=SLEEP_REPAIR_WEAR,effort)
                 ActivityCapacity.capacity(predicted)>0 || return (feasible=false,priority=nothing,body=predicted)
                 cost+=dt*(before+configured_return_pressure(predicted))/2
             else

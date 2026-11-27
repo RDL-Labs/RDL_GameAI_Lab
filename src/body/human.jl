@@ -74,7 +74,7 @@ function step(b::HumanBody,action,load,resistance=1.,clear=true)
     # Enabled cumulative-capacity mode replaces the legacy short strain accumulator.
     capacity_action=status in ("performed","worked","rested","ate","blocked") ? Symbol(action=="process_food" ? "work" : action=="climb" ? "run" : action) : :observe
     out=HumanBody(burst,b.activity_capacity===nothing ? strain : 0.,b.damage,b.nutrients,b.hours_per_second,activity,b.activity_capacity,capacity_action)
-    delta=Dict("burst"=>burst-b.burst,"strain"=>strain-b.strain,
+    delta=Dict("burst"=>burst-b.burst,"strain"=>out.strain-b.strain,
         "energy"=>body_energy(out)-body_energy(b),"damage"=>0.)
     out,status,distance,delta
 end
