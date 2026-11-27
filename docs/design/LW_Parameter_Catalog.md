@@ -1277,3 +1277,9 @@ scene.trade_use_outlook既定false。src/lw/decision/trade_use_outlook.jl。
 - execution_commitment は新たな報酬係数やH更新式を導入しない。既存の見込み・要求Hを使う。
 - 見込みは1秒以上、μsへ切り上げ。過去保存の選択は既存next_usを使って互換復元する。
 - 詳細：LW_Execution_Commitment_Audit_20261127.md。
+
+## 対価未定の返答（2026-11-27、局所のみ）
+`configured_camp_trade_interest` / `configured_camp_trade_tick!` の `open_terms=false`。
+trueなら既知・所有済みの要求品について対価未定の会合を許す暫定固定。通常LWはOFF。
+返答は移転同意ではない。加工準備は対象外。既存の数量・期限・交渉評価係数は変更なし。
+詳細：[局所実験](LW_Camp_Trade_Open_Terms_20261127.md)。

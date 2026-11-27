@@ -54,7 +54,7 @@ function configured_camp_trade_call!(state,map,body,gut,stock,now,day_us;kitchen
         gradient=desire.gradient,support=address.support,probabilities=address.probabilities)
     event
 end
-function configured_camp_trade_interest(event,state,map,body,gut,stock,now;kitchen=nothing,relation=nothing,processing_requests=false,items=nothing)
+function configured_camp_trade_interest(event,state,map,body,gut,stock,now;kitchen=nothing,relation=nothing,processing_requests=false,items=nothing,open_terms=false)
     kind=event["kind"]
     kind in trade_request_recall(map) || return nothing
     supplies=Any[]
@@ -69,6 +69,15 @@ function configured_camp_trade_interest(event,state,map,body,gut,stock,now;kitch
         end
     end
     isempty(supplies) && return nothing
+    # 暫定固定・局所実験のみ(open_terms=false): direct owned supply permits
+    # discussion without payment. This is not consent or a transfer; ordinary
+    # negotiation must still evaluate both sides. Future: learned willingness.
+    # Unpaid preparation is excluded until its own consent is modelled.
+    if open_terms && isempty(event["offered"])
+        direct=findfirst(s->s["mode"]=="direct",supplies)
+        direct===nothing && return nothing
+        return (wanted=nothing,gradient=D("total"=>0.,"stage"=>"terms_pending"),supply=supplies[direct])
+    end
     security=get(map,"food_security",food_security(relation))
     context=social_observed_context(relation,event["caller"],D("need"=>body_demand(body)))
     trace=relation===nothing ? nothing : social_relation_bias(relation,event["caller"],"trade_offer";situation=context,H=0.)
@@ -95,7 +104,7 @@ function configured_camp_trade_working(map)
     focus=get(map,"task_focus",D())
     get(focus,"active",false) && get(get(focus,"plan",D()),"action",nothing) in ("fish","process_food")
 end
-function configured_camp_trade_tick!(states,maps,world,foods,guts,relations,now,in_camp,sleeping,busy;kitchen_for=a->nothing,processing_requests=false,items=nothing)
+function configured_camp_trade_tick!(states,maps,world,foods,guts,relations,now,in_camp,sleeping,busy;kitchen_for=a->nothing,processing_requests=false,items=nothing,open_terms=false)
     # Snapshot delivery before any current-tick actions; callers' newly created
     # announcements are heard on the next tick regardless of actor iteration order.
     for actor in sort!(collect(keys(states)))
@@ -130,7 +139,7 @@ function configured_camp_trade_tick!(states,maps,world,foods,guts,relations,now,
                 listener["ignored"]+=1;continue
             end
             interest=configured_camp_trade_interest(event,states[peer],maps[peer],world.bodies[peer],guts===nothing ? nothing : guts[peer],foods.personal[peer],now;
-                kitchen=kitchen_for(peer),relation=relations===nothing ? nothing : relations[peer],processing_requests,items)
+                kitchen=kitchen_for(peer),relation=relations===nothing ? nothing : relations[peer],processing_requests,items,open_terms)
             if interest===nothing
                 listener["ignored"]+=1;continue
             end
