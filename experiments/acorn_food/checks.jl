@@ -61,10 +61,10 @@ end
     @test g.recent==[0.,0.,0.,.6]
     @test B.taste(g,B.ACORN_MEAL,50.)<liking
     body=B.digest!(g,body,900.)
-    @test body.reserve≈60. && g.gut≈.5
+    @test body.reserve≈50.0 + B.MEAL_ENERGY/2 && g.gut≈.5
     body=B.digest!(g,body,900.)
-    @test body.reserve≈70. && g.gut≈0.
-    @test B.digestion_snapshot(g)["absorbed"]≈20.
+    @test body.reserve≈50.0 + B.MEAL_ENERGY && g.gut≈0.
+    @test B.digestion_snapshot(g)["absorbed"]≈B.MEAL_ENERGY
     legacy=B.Digestion();B.ingest!(legacy,B.MEAT_FOOD,50.,0)
     @test legacy.recent==[0.,.6] # legacy representation stays two entries
     @test B.FOOD_STORAGE[B.RAW_ACORN]=="long" && B.FOOD_STORAGE[B.ACORN_MEAL]=="long"
