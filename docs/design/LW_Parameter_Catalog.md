@@ -1354,3 +1354,7 @@ ONにはcamp_trade_callsとpersonal_house_idleが必要。
 comfortable_distance=2、width=1.5、hot_distance=1.2、heat_penalty=2。
 暫定の場所効用でありHや報酬の更新ではない。局所ハーネスの数値と限界も
 [焚火休息の局所検査](LW_Fire_Rest_Local_20261128.md)に記載。
+
+通常接続はscene.fire_rest=false既定。FIRE_REST_RULES: review_us=128000000、
+travel_cost=.12、home_value=.2、arrival=.48。安全な中央火の初期知識を暫定設定とする。
+[10日接続条件](LW_Fire_Rest_10d_20261128.md)。

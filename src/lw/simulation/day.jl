@@ -23,6 +23,7 @@ include("../../ecology/lw_grazing/LWGrazing.jl")
 include(joinpath(@__DIR__, "../configured_paths/daily_delivery.jl"))
 include(joinpath(@__DIR__, "../configured_paths/post_return_idle.jl"))
 include(joinpath(@__DIR__, "../configured_paths/personal_house_idle.jl"))
+include(joinpath(@__DIR__, "../configured_paths/fire_rest.jl"))
 include(joinpath(@__DIR__, "../configured_paths/trade_idle.jl"))
 include(joinpath(@__DIR__, "../configured_paths/trade_work_wait.jl"))
 include(joinpath(@__DIR__, "../configured_paths/trade_daily_limit.jl"))
@@ -403,6 +404,7 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest
         "activity_capacity_plan"=>haskey(mb_maps[a],"activity_capacity_plan") ? deepcopy(D(k=>v for (k,v) in mb_maps[a]["activity_capacity_plan"] if k!="loop")) : nothing,
         "personal_house"=>personal_house_presence(houses,a,w.positions[a]),
         "house_attention"=>house_idle_enabled ? deepcopy(configured_house_state!(mb_maps[a])) : nothing,
+        "fire_rest"=>haskey(mb_maps[a],"configured_fire_rest") ? D(k=>v for (k,v) in mb_maps[a]["configured_fire_rest"] if k!="rng") : nothing,
         "body_purpose"=>body_purpose ? deepcopy(configured_body_states[a]) : nothing,"return_purpose"=>deepcopy(purposes[a]),"inventory"=>w.inventory[a],"personal_stock"=>stores[a],"social_count"=>length(states[a]["records"]),
         "social_model"=>deepcopy(states[a]["model"]),"loops"=>D(f=>loop_snapshot(s) for (f,s) in loops[a]),
         "routes"=>landmark_routes ? deepcopy(routes[a]) : nothing,"max_radius_observer_only"=>max_radius[a],
@@ -1135,9 +1137,12 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest
                 house_trade_ready=!item_exchange_enabled || phase=="night" ||
                     (get(house_trade_gate,"day",-1)==div(now,clock.day_us) && get(house_trade_gate,"ready",false))
                 opportunity_home=camp_opportunity && incidental_items[a]["trade_opportunity"]["ready_home"]
-                house_plan=configured_house_plan!(configured_house_state!(mb_maps[a]),house_by_actor[a],w.positions[a],yaw[a],now,clock.day_us,moves[a]["energy"]["rows"];
+                fire_plan=get(spec,:fire_rest,false) ? configured_fire_rest!(mb_maps[a],house_by_actor[a],spec.home,w.positions[a],yaw[a],moves[a]["energy"]["rows"],now;
+                    eligible=at_home && (returning || provision_stay || opportunity_home) && w.inventory[a]==0 && house_trade_ready,
+                    blocked=house_busy || a in house_woken_ids || haskey(pending,a),night=phase=="night",demand=body_demand(w.bodies[a]),seed=choice_seed+findfirst(==(a),IDS)) : nothing
+                house_plan=fire_plan===nothing ? configured_house_plan!(configured_house_state!(mb_maps[a]),house_by_actor[a],w.positions[a],yaw[a],now,clock.day_us,moves[a]["energy"]["rows"];
                     eligible=at_home && (returning || provision_stay || phase=="night" || opportunity_home) && w.inventory[a]==0 && house_trade_ready,
-                    blocked=house_busy || a in house_woken_ids || haskey(pending,a),demand=body_demand(w.bodies[a]))
+                    blocked=house_busy || a in house_woken_ids || haskey(pending,a),demand=body_demand(w.bodies[a])) : fire_plan
                 house_plan!==nothing && (plan=house_plan)
             end
             if observing && plan===nothing
