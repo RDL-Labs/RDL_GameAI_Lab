@@ -1349,3 +1349,8 @@ ONにはcamp_trade_callsとpersonal_house_idleが必要。
 既知の広場へ集合する暫定固定の到着半径（世界距離、以下で到着）。通常系未接続・既定OFF。
 中心座標は実験側入力。既存の相互接触判定は変更しない。
 詳細： [局所検査](LW_Trade_Plaza_Local_20261128.md)。
+
+焚火休息吸引（通常未接続・既定OFF）：`FIRE_REST_LOCAL_RULES` のgain=.4、
+comfortable_distance=2、width=1.5、hot_distance=1.2、heat_penalty=2。
+暫定の場所効用でありHや報酬の更新ではない。局所ハーネスの数値と限界も
+[焚火休息の局所検査](LW_Fire_Rest_Local_20261128.md)に記載。
