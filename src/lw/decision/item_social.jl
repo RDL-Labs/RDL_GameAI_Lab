@@ -264,6 +264,28 @@ function item_social_plan!(state,view,body,gut,stock,now;map=nothing,kitchen=not
                 less=copy(gf);less[k]-=1
                 candidate(o["proposer"],give,want,less,wf;offer_id=o["id"],counter=true)
             end
+            # Private stock is an owner's source of alternatives, never a peer
+            # observation. Only a selected counteroffer publishes its quantities.
+            # Reuse the same need/taste/security/relation admission as other terms.
+            if stock!==nothing && any(!iszero,gf)
+                for kind in eachindex(available), quantity in 1:min(4,available[kind])
+                    gf[kind]>0 && continue # quantity changes already considered above
+                    alternative=zeros(Int,length(available));alternative[kind]=quantity
+                    candidate(o["proposer"],give,want,alternative,wf;offer_id=o["id"],counter=true)
+                    # The alternative may need compensation. Use visible objects
+                    # and announced food only; do not inspect the peer's warehouse.
+                    for row in Iterators.take(view["visible"],8)
+                        get(row,"holder",nothing)==o["proposer"] || continue
+                        ref=Int(row["ref"]);ref in want && continue
+                        length(want)<4 && candidate(o["proposer"],give,vcat(want,ref),alternative,wf;offer_id=o["id"],counter=true)
+                    end
+                    for requested_kind in eachindex(available), requested_quantity in 1:(4-sum(wf))
+                        wf[requested_kind]+requested_quantity<=observed_food_candidate_count(view,o["proposer"],requested_kind) || continue
+                        compensation=copy(wf);compensation[requested_kind]+=requested_quantity
+                        candidate(o["proposer"],give,want,alternative,compensation;offer_id=o["id"],counter=true)
+                    end
+                end
+            end
             if !isempty(candidates)
                 candidates=item_exchange_refine(candidates)
                 sort!(candidates;by=c->(-(trade_investment_enabled(relation) ? c["relational_field"].expected : c["expected"]),c["method"]))

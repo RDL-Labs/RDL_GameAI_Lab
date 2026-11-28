@@ -1,5 +1,5 @@
 using JSON3, Serialization, SHA
-length(ARGS)==3 || error("BASE OUTPUT DAY")
+length(ARGS) in (3,4) || error("BASE OUTPUT DAY [PATCHED_ITEM_SOCIAL]")
 base=abspath(ARGS[1]); out=abspath(ARGS[2]); audit_day=parse(Int,ARGS[3])
 ispath(out) && error("fresh output required")
 mkpath(out); cp(joinpath(base,"source"),joinpath(out,"source"))
@@ -10,6 +10,7 @@ audit_identity=deepcopy(input);delete!(audit_identity["config"],"days")
 root=joinpath(out,"source/src")
 files=sort([joinpath(d,f) for (d,_,fs) in walkdir(root) for f in fs if endswith(f,".jl")])
 oldcode=bytes2hex(sha256(join([relpath(f,root)*":"*bytes2hex(sha256(read(f))) for f in files],"\n")))
+length(ARGS)==4 && cp(abspath(ARGS[4]),joinpath(root,"lw/decision/item_social.jl");force=true)
 path=joinpath(root,"lw/decision/item_social.jl");code=read(path,String)
 tracepath=repr(joinpath(out,"trace.jsonl"))
 anchor="    function candidate(other,give,want,gf,wf;offer_id=nothing,counter=false)"
