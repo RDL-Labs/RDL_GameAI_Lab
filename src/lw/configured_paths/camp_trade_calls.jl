@@ -246,16 +246,27 @@ function configured_camp_trade_view(state,view,now)
 end
 
 # Temporary known communal meeting point, using the ordinary movement executor.
-function configured_camp_trade_approach(state,home,position,yaw,rows)
+function configured_camp_trade_approach(state,home,position,yaw,rows;sight=nothing)
     meeting=configured_camp_trade_state!(state)["meeting"]
     meeting===nothing && return nothing
     dx,dz=home[1]-position[1],home[2]-position[2];distance=hypot(dx,dz)
-    distance<=1.25 && return nothing
     sn,cs=sincosd(yaw);forward=dx*sn+dz*cs;right=dx*cs-dz*sn
+    # 既存camp_trade_callsの暫定集合経路。初期既知の中心への接近を残し、
+    # 中心付近では実観測の相手へ接近する。未観測相手の真の座標は参照しない。
+    # 将来は共通の人物目標MBへ置換。距離/接触の世界条件は変更しない。
+    peer_seen=sight===nothing ? nothing : findfirst(p->p["ref"]==meeting["peer"],sight["peers"])
+    method="camp_trade_meeting"
+    if distance<=1.25
+        peer_seen===nothing && return nothing
+        peer=sight["peers"][peer_seen]
+        peer["contact"] && return nothing
+        distance=peer["distance"];forward=distance*cosd(peer["angle"]);right=distance*sind(peer["angle"])
+        method="camp_trade_peer_approach"
+    end
     viable=filter(r->r["cost"]!==nothing && r["clear"],rows)
     isempty(viable) && return D("action"=>"scan","direction"=>0,"method"=>"camp_trade_wait","configured_observation"=>true)
     row=viable[argmin([hypot(forward-cosd(ANGLES[parse(Int,r["ref"])+1]),right-sind(ANGLES[parse(Int,r["ref"])+1])) for r in viable])]
-    D("action"=>"walk","direction"=>parse(Int,row["ref"]),"method"=>"camp_trade_meeting",
+    D("action"=>"walk","direction"=>parse(Int,row["ref"]),"method"=>method,
         "configured_rule"=>"camp_trade_calls","configured_observation"=>true,
         "camp_trade_target"=>D("forward"=>forward,"right"=>right,"distance"=>distance))
 end

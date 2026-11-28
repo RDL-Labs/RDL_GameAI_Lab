@@ -1085,7 +1085,7 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest
                 plan=configured_item_plan(item_actions,a,now)
             end
             if plan===nothing && camp_calls && !observing && !(phase in ("night","orientation")) && camp_inside(a)
-                plan=configured_camp_trade_approach(incidental_items[a],spec.home,w.positions[a],yaw[a],moves[a]["energy"]["rows"])
+                plan=configured_camp_trade_approach(incidental_items[a],spec.home,w.positions[a],yaw[a],moves[a]["energy"]["rows"];sight=social_views===nothing ? nothing : get(social_views,a,nothing))
             end
             if plan===nothing && item_exchange_enabled && incidental_items!==nothing && !observing && !(phase in ("night","orientation")) && at_home && w.inventory[a]==0
                 waiting=trade_work_wait && get(get(incidental_items[a],"configured_work_wait",D()),"target",nothing)!==nothing
