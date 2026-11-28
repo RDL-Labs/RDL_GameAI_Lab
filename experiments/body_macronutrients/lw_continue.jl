@@ -21,7 +21,7 @@ const result=JSON3.read(read(joinpath(out,"run/result.json"),String))
  for actor in input["scene"]["experimental_actor_ids"]
   physiology=result.digestion[Symbol(actor)]
   @test abs(physiology.energy_residual)<1e-6
-  @test physiology.macronutrients.ingested≈20physiology.eaten
+  @test physiology.macronutrients.ingested≈RDLBody.MEAL_ENERGY*physiology.eaten
  end
 end
 write(joinpath(out,"completed.json"),JSON3.write((days,start_day=previous,seconds=timing.time,bytes=timing.bytes,gctime=timing.gctime)))
