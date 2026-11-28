@@ -20,6 +20,10 @@ hook="""
             open($tracepath,"a") do io
                 println(io,JSON3.write(D("us"=>now,"actors"=>D(a=>D(
                     "position"=>w.positions[a],"meeting"=>configured_camp_trade_state!(incidental_items[a])["meeting"],
+                    "yaw"=>yaw[a],"social_sight"=>social_views===nothing ? nothing : get(social_views,a,nothing),
+                    "geometry"=>D(b=>D("distance"=>hypot(w.positions[b][1]-w.positions[a][1],w.positions[b][2]-w.positions[a][2]),
+                        "bearing"=>mod(atand(w.positions[b][1]-w.positions[a][1],w.positions[b][2]-w.positions[a][2])-yaw[a]+180,360)-180,
+                        "occluded"=>any(o->segment_hit(w.positions[a],w.positions[b],o,0.),high)) for b in IDS if b!=a),
                     "partners"=>[b for b in IDS if item_trade_contact(w,spec.home,a,b)],
                     "action"=>get(get(plans,a,D()),"action",nothing),"method"=>get(get(plans,a,D()),"method",nothing)) for a in IDS))))
             end
