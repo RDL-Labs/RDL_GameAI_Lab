@@ -32,7 +32,7 @@ const result=JSON3.read(read(joinpath(out,"run/result.json"),String))
         physiology=result.digestion[Symbol(actor)]
         @test haskey(physiology,:macronutrients)
         @test abs(physiology.energy_residual)<1e-6
-        @test physiology.macronutrients.ingested≈20physiology.eaten
+        @test physiology.macronutrients.ingested≈RDLBody.MEAL_ENERGY*physiology.eaten
         @test physiology.macronutrients.spent>0
         physical=physiology.macronutrients
         actor_index=findfirst(==(actor),roster)

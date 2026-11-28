@@ -1328,6 +1328,8 @@ ONにはcamp_trade_callsとpersonal_house_idleが必要。
 
 ## 活動容量の通常LW接続（2026-11-27）
 
+2026-11-28食材調整: digestion.jl MEAL_ENERGY=40 E/個（旧20）。食品の栄養比率・消化容量と速度は維持。[2倍比較条件](LW_Food_Double_10Days_20261128.md)。
+
 2026-11-28更新: ActivityWear.RULES.walk_per_hour=.01（生活1時間、荷重補正前）、BODY_APPRAISAL_LOCAL.reference_wear=.10。睡眠回復と他行動の率は据え置き。[10日試験条件](LW_Wear_One_Percent_10Days_20261128.md)。以下の.35記録は旧条件。
 
 2026-11-28身体評価接続: activity_capacity=trueでBODY_APPRAISAL_LOCAL.reference_wear=.35を使用。予測評価1を再検討の基準とし、停止基準にはしない。独立fatigueによる再検討を置換。[接続条件](LW_Body_Appraisal_Integration_20261128.md)。

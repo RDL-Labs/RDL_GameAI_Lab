@@ -62,7 +62,8 @@ function taste_state_factor(g,reserve)
 end
 const GUT_CAPACITY=2.
 const DIGEST_SECONDS=1800.
-const MEAL_ENERGY=20.
+# Game calibration: twice the former 20 E per item; nutrient proportions unchanged.
+const MEAL_ENERGY=40.
 # Energy-equivalent quantities C/P/F per item. Existing proportions and total
 # energy retained; cooking changes taste, not energy creation. Salt adds no E.
 const FOOD_NUTRIENT_ENERGY=map(c->ntuple(i->MEAL_ENERGY*c[i],3),FOOD_COMPOSITION)
