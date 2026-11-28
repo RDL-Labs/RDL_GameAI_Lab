@@ -20,3 +20,11 @@ Julia1.13.1/1thread、凍結ソース・日末保存。
 出力予定：C:/Users/ken_m/Documents/Codex/human-fire-name-calls-10-20261128。
 名前呼び/振り向きはevents.methodとsocial_relationships.identity_observation.callsへ記録。
 焚火休息、接触、提示、成立、身体、実時間を終了後に確認する。効果は未判定。
+
+## 初回起動失敗と再実行
+
+初回はday.jlの設定検査で未初期化camp_callsを参照し、初日開始前に終了コード1。
+日末checkpoint・completed.jsonなし。接続テスト後に追加した検査行を再検証しないまま
+長期起動したことが見逃しの原因。設定検査はspecを直接参照する形へ修正。
+修正後の完全なソースでmeeting_call_lw_checks.jlを再実行してから再起動する。
+初回出力は失敗証拠として保持。再実行先human-fire-name-calls-10-retry-20261128。

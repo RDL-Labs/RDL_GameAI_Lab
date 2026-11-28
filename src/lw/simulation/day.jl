@@ -465,7 +465,7 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest
     relationship_enabled=get(spec,:social_relationships,false)
     check(relationship_enabled isa Bool,"social_relationships_flag")
     check(get(spec,:meeting_name_calls,false) isa Bool,"meeting_name_calls_flag")
-    check(!get(spec,:meeting_name_calls,false) || (relationship_enabled && camp_calls && get(spec,:peer_identity_roster,nothing)!==nothing),"meeting_name_calls_requires_relations_calls_roster")
+    check(!get(spec,:meeting_name_calls,false) || (relationship_enabled && get(spec,:camp_trade_calls,false) && get(spec,:peer_identity_roster,nothing)!==nothing),"meeting_name_calls_requires_relations_calls_roster")
     # The historical checkpoint slot remains reserved; no food-only controller runs.
     check(!exchange_enabled || item_exchange_enabled,"food_exchange_requires_mixed_item_exchange")
     trades=nothing
