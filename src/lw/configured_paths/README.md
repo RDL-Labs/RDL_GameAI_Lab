@@ -177,8 +177,8 @@ interrupted を累積保存。root_idで交渉を追跡し、調整に伴う旧�
 設定値は同ディレクトリの `parameters.jl`。診断は本人MBの `task_focus` に保存。
 将来は作業期待・観測矛盾に基づく注意配分へ置換する。
 詳細と検証は [集中観測報告](../../../experiments/fishing/task_focus_report.md) を参照。
-# 待ち合わせの名前呼び（局所のみ）
+# 待ち合わせの名前呼び
 
-`meeting_call_local.jl` は通常未include・既定OFF。既知名の呼びかけをidentity_callへ渡し、
+`meeting_call_local.jl` はscene.meeting_name_calls=false既定。通常接続には人間関係・拠点呼びかけ・名前外見rosterが必要。既知名の呼びかけをidentity_callへ渡し、
 未視認/忙しい場合は候補なし。待機中の音cueは既存期限まで保持する。
 将来は共通MB確認行動へ置換。[局所結果](../../../docs/design/LW_Meeting_Call_Local_20261128.md)。

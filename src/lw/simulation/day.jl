@@ -47,6 +47,7 @@ include(joinpath(@__DIR__, "../configured_paths/trade_living.jl"))
 include(joinpath(@__DIR__, "../configured_paths/peer_identity_memory.jl"))
 include(joinpath(@__DIR__, "../perception/peer_identity.jl"))
 include(joinpath(@__DIR__, "../configured_paths/identity_call.jl"))
+include(joinpath(@__DIR__, "../configured_paths/meeting_call_local.jl"))
 include(joinpath(@__DIR__, "../configured_paths/personal_food_supply.jl"))
 include(joinpath(@__DIR__, "../configured_paths/tasting_training.jl"))
 include(joinpath(@__DIR__, "../learning/social_relations.jl"))
@@ -463,6 +464,8 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest
     check(!exchange_enabled || (foods!==nothing && !shared_stores),"food_exchange_requires_personal_typed_food")
     relationship_enabled=get(spec,:social_relationships,false)
     check(relationship_enabled isa Bool,"social_relationships_flag")
+    check(get(spec,:meeting_name_calls,false) isa Bool,"meeting_name_calls_flag")
+    check(!get(spec,:meeting_name_calls,false) || (relationship_enabled && camp_calls && get(spec,:peer_identity_roster,nothing)!==nothing),"meeting_name_calls_requires_relations_calls_roster")
     # The historical checkpoint slot remains reserved; no food-only controller runs.
     check(!exchange_enabled || item_exchange_enabled,"food_exchange_requires_mixed_item_exchange")
     trades=nothing
@@ -624,7 +627,7 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest
         end
         for a in IDS
             fs=get!(task_focus_state,mb_maps[a],"task_focus")
-            identity_call_notice=get(spec,:configured_identity_calls,false) && relations!==nothing ? configured_identity_call_notice!(relations[a],now) : nothing
+            identity_call_notice=(get(spec,:configured_identity_calls,false) || get(spec,:meeting_name_calls,false)) && relations!==nothing ? configured_identity_call_notice!(relations[a],now) : nothing
             item_pending=incidental_items===nothing ? nothing : get(get(incidental_items[a],"social",D()),"pending",nothing)
             trade_notice=item_exchange_enabled ? task_trade_notice!(fs,items,w,a,now;pending_offer=item_pending===nothing ? nothing : item_pending["offer_id"]) : nothing
             notice=get(fs,"active",false) && focus_enabled ? task_motion_notice(w.positions[a],yaw[a],(o for o in motion_objects if o.actor!=a);occluders=w.obstacles,illumination=visual_illumination) : nothing
@@ -1085,7 +1088,11 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest
                 plan=configured_item_plan(item_actions,a,now)
             end
             if plan===nothing && camp_calls && !observing && !(phase in ("night","orientation")) && camp_inside(a)
-                plan=configured_camp_trade_approach(incidental_items[a],spec.home,w.positions[a],yaw[a],moves[a]["energy"]["rows"];sight=social_views===nothing ? nothing : get(social_views,a,nothing))
+                if get(spec,:meeting_name_calls,false) && relations!==nothing && social_views!==nothing
+                    plan=configured_meeting_call_local(incidental_items[a],relations[a],social_views[a],yaw[a],now,clock.day_us;
+                        busy=haskey(pending,a) || configured_camp_trade_working(mb_maps[a]))
+                end
+                plan===nothing && (plan=configured_camp_trade_approach(incidental_items[a],spec.home,w.positions[a],yaw[a],moves[a]["energy"]["rows"];sight=social_views===nothing ? nothing : get(social_views,a,nothing)))
             end
             if plan===nothing && item_exchange_enabled && incidental_items!==nothing && !observing && !(phase in ("night","orientation")) && at_home && w.inventory[a]==0
                 waiting=trade_work_wait && get(get(incidental_items[a],"configured_work_wait",D()),"target",nothing)!==nothing
@@ -1669,7 +1676,7 @@ function lw_day(spec,clock;days=1,basic_loop=false,landmark_routes=false,harvest
                     foods!==nothing && food_track_cargo!(foods,dropped,food,a,op,action,status,action=="recover" ? plan["food_ref"]+1 : 0)
                 elseif action=="scan"
                     yaw[a]=mod(yaw[a]+get(plan,"scan_angle",60)+180,360)-180
-                    if get(spec,:configured_identity_calls,false) && (get(plan,"identity_answer",false) || haskey(plan,"identity_call_name"))
+                    if (get(spec,:configured_identity_calls,false) || get(spec,:meeting_name_calls,false)) && (get(plan,"identity_answer",false) || haskey(plan,"identity_call_name"))
                         configured_identity_call_execute!(relations,w,a,plan,spec.peer_identity_roster,now)
                     end
                     get(plan,"home_distance_confirm",false) && (mb_maps[a]["home_distance"]["scan_selected"]+=1)
