@@ -1343,3 +1343,9 @@ ONにはcamp_trade_callsとpersonal_house_idleが必要。
 `scene.activity_capacity=false`。`CAPACITY_LW_RULES`: work_hours=1生活時間、review_seconds=64シミュレーション秒、records=128件。
 帰還・現地休息の係数はRETURN_REST_RULES、早期再判定を省く疲労比はFATIGUE_FORECAST_RULES.onsetを共用。
 継続効用の基準1と身体要求値の加算は暫定固定。詳細：[接続と制限](LW_Activity_Capacity_Integration_20261127.md)。
+# 取引広場・局所実験（2026-11-28）
+
+`configured_paths/trade_plaza_local.jl` の `TRADE_PLAZA_LOCAL_RULES.arrival_radius=0.5` は
+既知の広場へ集合する暫定固定の到着半径（世界距離、以下で到着）。通常系未接続・既定OFF。
+中心座標は実験側入力。既存の相互接触判定は変更しない。
+詳細： [局所検査](LW_Trade_Plaza_Local_20261128.md)。
